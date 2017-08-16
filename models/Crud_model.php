@@ -252,4 +252,17 @@ class Crud_model {
 	{
 		return $this->result->fetch_assoc();
 	}
+
+	// メンバの添字・連想配列を削除する
+	public function remove($key, $element)
+	{
+		if (array_values($this->$key) === $this->$key)
+		{
+			$this->$key = array_merge(array_diff($this->$key, [$element]));
+		}
+		else
+		{
+			unset($this->$key[$element]);
+		}
+	}
 }

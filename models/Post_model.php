@@ -38,33 +38,34 @@ class Post_model extends Crud_model {
 		switch ($this->actor)
 		{
 		case 'a':
-			$this->action_list = ['index', 'view', 'edit', 'delete'];
+			$this->remove('action_list', 'add');
 			break;
 		case 'm':
-			$this->action_list = ['index', 'view', 'add', 'edit', 'delete'];
-			unset($this->select_hash['post_member_id']);
+			$this->remove('select_hash', 'post_member_id');
 			$this->where_list[] = "`post_member_id` = {$this->auth['id']}";
 			$this->fixed_hash['post_member_id'] = $this->auth['id'];
 			break;
 		case 'g':
-			$this->action_list = ['index', 'view'];
+			$this->remove('action_list', 'add');
+			$this->remove('action_list', 'edit');
+			$this->remove('action_list', 'delete');
 			break;
 		}
 		switch ($this->action)
 		{
 		case 'index':
-			unset($this->select_hash['post_text']);
+			$this->remove('select_hash', 'post_text');
+			break;
+		case 'delete':
+			$this->remove('select_hash', 'post_image');
 			break;
 		}
 		switch ($this->alias)
 		{
 		case 'member_post':
-			unset($this->select_hash['post_member_id']);
-			unset($this->select_hash['member_name']);
+			$this->remove('select_hash', 'post_member_id');
+			$this->remove('select_hash', 'member_name');
 			$this->where_list = ["`post_member_id` = {$this->parent_id}"];
-			break;
-		case 'post_delete':
-			unset($this->select_hash['post_image']);
 			break;
 		}
 	}
