@@ -1,0 +1,51 @@
+    <div class="container">
+      <form method="post" action="<?php href('auth/join/'.uri('param_arr')[0], TRUE, FALSE); ?>" class="form-signin">
+        <h2 class="form-signin-heading"><?php l('join_'.uri('param_arr')[0]); ?></h2>
+        <input type="text" name="name" class="form-control" placeholder="<?php l('auth_name'); ?>" required autofocus>
+        <input type="text" name="email" class="form-control" placeholder="<?php l('auth_email'); ?>" required>
+        <input type="password" name="password" class="form-control" placeholder="<?php l('auth_password'); ?>" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><?php l('auth_join'); ?></button>
+      </form>
+    </div> <!-- /container -->
+<style>
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
