@@ -4,7 +4,7 @@ class Member_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
-		$this->overwrite('has_hash', 'member_post', 'post');
+		$this->append('has_hash', 'member_post', 'post');
 		$this->overwrite('select_hash', [
 			'member_id' => NULL,
 			'member_name' => NULL,
