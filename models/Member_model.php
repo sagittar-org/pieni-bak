@@ -4,7 +4,14 @@ class Member_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+		$this->overwrite('use_card', TRUE);
 		$this->append('has_hash', 'member_post', 'post');
+		$this->append('action_list', 'index');
+		$this->append('action_list', 'view');
+		$this->append('action_list', 'add');
+		$this->append('action_list', 'edit');
+		$this->append('action_list', 'delete');
+
 		$this->overwrite('select_hash', [
 			'member_id' => NULL,
 			'member_name' => NULL,
@@ -15,7 +22,6 @@ class Member_model extends Crud_model {
 			'member_email',
 			'member_password',
 		]);
-		$this->overwrite('use_card', TRUE);
 		$this->append('row_action_hash', 'proxy', 'view');
 		$this->append('where_hash', 'simple', 'CONCAT(`member_name`, `member_email`) LIKE "%$1%"');
 		$this->append('order_by_hash', 'member_id_desc', "`member_id` DESC");

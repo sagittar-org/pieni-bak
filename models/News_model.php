@@ -4,6 +4,13 @@ class News_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+		$this->overwrite('use_card', TRUE);
+		$this->append('action_list', 'index');
+		$this->append('action_list', 'view');
+		$this->append('action_list', 'add');
+		$this->append('action_list', 'edit');
+		$this->append('action_list', 'delete');
+
 		$this->overwrite('select_hash', [
 			'news_id' => NULL,
 			'news_admin_id' => NULL,
@@ -24,7 +31,6 @@ class News_model extends Crud_model {
 				'cond' => '`admin_id` = `news_admin_id`',
 			],
 		]);
-		$this->overwrite('use_card', TRUE);
 		$this->append('fixed_hash', 'news_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash', 'simple', 'CONCAT(`news_name`, `news_text`) LIKE "%$1%"');
 		$this->append('order_by_hash', 'news_id_desc', "`news_id` DESC");

@@ -4,6 +4,11 @@ class File_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+		$this->append('action_list', 'index');
+		$this->append('action_list', 'add');
+		$this->append('action_list', 'edit');
+		$this->append('action_list', 'delete');
+
 		$this->overwrite('select_hash', [
 			'file_id' => NULL,
 			'file_name' => NULL,
@@ -18,7 +23,6 @@ class File_model extends Crud_model {
 		$this->append('row_action_hash', 'download', 'view');
 		$this->append('fixed_hash', 'file_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash', 'simple', '`file_name` LIKE "%$1%"');
-		$this->remove('action_list', 'view');
 		switch ($this->actor)
 		{
 		case 'm':

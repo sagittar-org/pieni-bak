@@ -4,6 +4,13 @@ class Comment_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+		$this->overwrite('display', 'comment_writer');
+		$this->overwrite('use_card', TRUE);
+		$this->append('action_list', 'index');
+		$this->append('action_list', 'add');
+		$this->append('action_list', 'edit');
+		$this->append('action_list', 'delete');
+
 		$this->overwrite('select_hash', [
 			'comment_id' => NULL,
 			'comment_post_id' => NULL,
@@ -23,26 +30,21 @@ class Comment_model extends Crud_model {
 			],
 		]);
 		$this->overwrite('order_by_hash', ['comment_id_desc' => '`comment_id` DESC']);
-		$this->overwrite('display', 'comment_writer');
-		$this->overwrite('use_card', TRUE);
 		$this->append('fixed_hash', 'comment_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash', 'simple', 'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE "%$1%"');
 		$this->append('hidden_list', 'comment_post_id');
 		switch ($this->actor)
 		{
 		case 'a':
-			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			break;
 		case 'm':
-			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
 			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 			break;
 		case 'g':
-			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
 			switch ($this->alias)

@@ -17,22 +17,24 @@ class Crud_model {
 		$this->action          = isset($params['method']) ? $params['method'] : 'index';
 		$this->parent_id       = isset($params['parent_id']) ? $params['parent_id'] : NULL;
 		$this->session         = isset($params['session']) ? $params['session'] : [];
+
 		$this->primary_key     = "{$this->table}_id";
+		$this->display         = "{$this->table}_name";
+		$this->use_card        = FALSE;
+
 		$this->has_hash        = [];
-		$this->action_list     = ['index', 'view', 'add', 'edit', 'delete'];
+		$this->action_list     = [];
 		$this->row_action_hash = [];
 		$this->select_hash     = ["{$this->table}_id" => NULL, "{$this->table}_name" => NULL];
-		$this->join_hash       = [];
+		$this->hidden_list     = [$this->primary_key];
 		$this->set_list        = ["{$this->table}_name"];
 		$this->fixed_hash      = [];
+		$this->success_hash    = [];
+		$this->join_hash       = [];
 		$this->where_list      = [];
 		$this->where_hash      = [];
 		$this->order_by_hash   = ["{$this->primary_key}_desc" => "`{$this->primary_key}` DESC"];
 		$this->limit_list      = [10];
-		$this->display         = "{$this->table}_name";
-		$this->hidden_list     = [$this->primary_key];
-		$this->use_card        = FALSE;
-		$this->success_hash    = [];
 	}
 
 	// 行数と結果を取得
