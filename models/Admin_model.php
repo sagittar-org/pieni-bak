@@ -4,6 +4,7 @@ class Admin_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+
 		$this->overwrite('use_card', TRUE);
 		$this->append('action_list', 'index');
 		$this->append('action_list', 'view');
@@ -21,22 +22,20 @@ class Admin_model extends Crud_model {
 		$this->append('order_by_hash', 'admin_id_asc', '`admin_id` DESC');
 		$this->append('limit_list', 10);
 
-		switch ($this->actor)
-		{
-		case 'm':
+		$this->actor('m');
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		case 'g':
+		$this->actor();
+
+		$this->actor('g');
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		}
+		$this->actor();
 	}
 }

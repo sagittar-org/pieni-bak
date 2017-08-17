@@ -1,12 +1,15 @@
 <?php
 class Crud_model {
 
+	private $spec_actor;
 	private $db;
 	private $post;
 	private $get;
 
 	public function __construct($params)
 	{
+		$this->spec_actor      = NULL;
+
 		$this->db              = load_library('db');
 		$this->post            = isset($params['post']) ? $params['post'] : [];
 		$this->get             = isset($params['get']) ? $params['get'] : [];
@@ -255,9 +258,19 @@ class Crud_model {
 		return $this->result->fetch_assoc();
 	}
 
+	// アクターを設定する
+	public function actor($actor = NULL)
+	{
+		$this->spec_actor = $actor;
+	}
+
 	// メンバの添字・連想配列から要素を削除する
 	public function remove($key1, $value)
 	{
+		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor)
+		{
+			return;
+		}
 		if (array_values($this->$key1) === $this->$key1)
 		{
 			$this->$key1 = array_merge(array_diff($this->$key1, [$value]));
@@ -271,12 +284,20 @@ class Crud_model {
 	// メンバの値を上書きする
 	public function overwrite($key1, $value)
 	{
+		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor)
+		{
+			return;
+		}
 		$this->$key1 = $value;
 	}
 
 	// メンバの添字・添字配列へ要素を追加する
 	public function append($key1, $key2, $value = '-')
 	{
+		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor)
+		{
+			return;
+		}
 		if ($value === '-')
 		{
 			$this->$key1[] = $key2;

@@ -25,14 +25,31 @@ class Spec extends Controller {
 		$result = library('db')->query('SELECT * FROM `spec`');
 		while (($row = $result->fetch_assoc()))
 		{
-			// テーブル
+			// アクター終了
+			if ((isset($last_row) && $row['spec_actor'] !== $last_row['spec_actor']) && $last_row['spec_actor'] !== NULL)
+			{
+				$indent = substr($indent, 0, strlen($indent) - 1);
+				echo "{$indent}\$this->actor();\n";
+			}
+
+			// テーブル終了
 			if (isset($last_row) && $row['spec_table'] !== $last_row['spec_table'])
 			{
 				echo "\t}\n}\n";
 			}
+
+			// テーブル開始
 			if ( ! isset($last_row) OR $row['spec_table'] !== $last_row['spec_table'])
 			{
-				echo "?php\nclass ".ucfirst($row['spec_table'])."_model extends Crud_model {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n";
+				$indent = "\t\t";
+				echo "<?php\nclass ".ucfirst($row['spec_table'])."_model extends Crud_model {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
+			}
+
+			// アクター開始
+			if (( ! isset($last_row) OR $row['spec_actor'] !== $last_row['spec_actor']) && $row['spec_actor'] !== NULL)
+			{
+				echo "\n{$indent}\$this->actor('{$row['spec_actor']}');\n";
+				$indent .= "\t";
 			}
 
 			switch ($row['spec_method'])
@@ -49,7 +66,7 @@ class Spec extends Controller {
 					show_500("Illigal key for method '{$row['spec_method']}' ('{$row['spec_key1']}')");
 					break;
 				}
-				echo "\t\t\$this->{$row['spec_method']}('{$row['spec_key1']}', {$value});\n";
+				echo "{$indent}\$this->{$row['spec_method']}('{$row['spec_key1']}', {$value});\n";
 				break;
 			case 'append':
 			case 'remove':
@@ -76,7 +93,7 @@ class Spec extends Controller {
 					show_500("Illigal key for method '{$row['spec_method']}' ('{$row['spec_key1']}')");
 					break;
 				}
-				echo "\t\t\$this->{$row['spec_method']}('{$row['spec_key1']}', {$value});\n";
+				echo "{$indent}\$this->{$row['spec_method']}('{$row['spec_key1']}', {$value});\n";
 				break;
 			default:
 				show_500("Unknown Method ('{$row['spec_method']}')");
@@ -84,6 +101,15 @@ class Spec extends Controller {
 			}
 			$last_row = $row;
 		}
+
+		// アクター終了
+		if ($last_row['spec_actor'] !== NULL)
+		{
+			$indent = substr($indent, 0, strlen($indent) - 1);
+			echo "{$indent}\$this->actor();\n";
+		}
+
+		// テーブル終了
 		echo "\t}\n}\n";
 	}
 }
