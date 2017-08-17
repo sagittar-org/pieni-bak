@@ -253,16 +253,35 @@ class Crud_model {
 		return $this->result->fetch_assoc();
 	}
 
-	// メンバの添字・連想配列を削除する
-	public function remove($key, $element)
+	// メンバの添字・連想配列から要素を削除する
+	public function remove($array, $element)
 	{
-		if (array_values($this->$key) === $this->$key)
+		if (array_values($this->$array) === $this->$array)
 		{
-			$this->$key = array_merge(array_diff($this->$key, [$element]));
+			$this->$array = array_merge(array_diff($this->$array, [$element]));
 		}
 		else
 		{
-			unset($this->$key[$element]);
+			unset($this->$array[$element]);
 		}
+	}
+
+	// メンバの添字・添字配列へ要素を追加する
+	public function append($array, $element, $value = NULL)
+	{
+		if ($value === NULL)
+		{
+			$this->$array[] = $element;
+		}
+		else
+		{
+			$this->$array[$element] = $value;
+		}
+	}
+
+	// メンバの値を上書きする
+	public function overwrite($key, $value)
+	{
+		$this->$key = $value;
 	}
 }
