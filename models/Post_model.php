@@ -37,22 +37,22 @@ class Post_model extends Crud_model {
 		$this->append('order_by_hash', 'post_id_desc', '`post_id` DESC');
 		$this->append('limit_list', 10);
 
-		switch ($this->actor)
-		{
-		case 'a':
+		$this->actor('a');
 			$this->remove('action_list', 'add');
-			break;
-		case 'm':
+		$this->actor();
+
+		$this->actor('m');
 			$this->remove('select_hash', 'post_member_id');
 			$this->append('where_list' , "`post_member_id` = {$this->auth['id']}");
 			$this->append('fixed_hash' , 'post_member_id', $this->auth['id']);
-			break;
-		case 'g':
+		$this->actor();
+
+		$this->actor('g');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		}
+		$this->actor();
+
 		switch ($this->action)
 		{
 		case 'index':

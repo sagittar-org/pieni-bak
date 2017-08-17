@@ -31,24 +31,24 @@ class News_model extends Crud_model {
 		$this->append('order_by_hash', 'news_id_desc', '`news_id` DESC');
 		$this->append('limit_list', 10);
 
-		switch ($this->actor)
-		{
-		case 'a':
+		$this->actor('a');
 			$this->append('fixed_hash', 'news_admin_id', $this->auth['id']);
-			break;
-		case 'm':
+		$this->actor();
+
+		$this->actor('m');
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		case 'g':
+		$this->actor();
+
+		$this->actor('g');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		}
+		$this->actor();
+
 		switch ($this->action)
 		{
 		case 'index':

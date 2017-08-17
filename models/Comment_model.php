@@ -4,6 +4,7 @@ class Comment_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+
 		$this->overwrite('display', 'comment_writer');
 		$this->overwrite('use_card', TRUE);
 		$this->append('action_list', 'index');
@@ -29,18 +30,18 @@ class Comment_model extends Crud_model {
 		$this->append('order_by_hash', 'comment_id_desc', '`comment_id` DESC');
 		$this->append('limit_list', 10);
 
-		switch ($this->actor)
-		{
-		case 'a':
+		$this->actor('a');
 			$this->remove('action_list', 'add');
-			break;
-		case 'm':
+		$this->actor();
+
+		$this->actor('m');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
 			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
-			break;
-		case 'g':
+		$this->actor();
+
+		$this->actor('g');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
 			switch ($this->alias)
@@ -53,8 +54,8 @@ class Comment_model extends Crud_model {
 				$this->append('fixed_hash', 'comment_post_id', $this->parent_id);
 				break;
 			}
-			break;
-		}
+		$this->actor();
+
 		switch ($this->alias)
 		{
 		case 'post_comment':

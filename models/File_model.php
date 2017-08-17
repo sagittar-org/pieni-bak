@@ -4,6 +4,7 @@ class File_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+
 		$this->append('action_list', 'index');
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
@@ -21,21 +22,20 @@ class File_model extends Crud_model {
 		$this->append('order_by_hash', 'file_id_desc', '`file_id` DESC');
 		$this->append('limit_list', 10);
 
-		switch ($this->actor)
-		{
-		case 'm':
+		$this->actor('m');
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		case 'g':
+		$this->actor();
+
+		$this->actor('g');
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			break;
-		}
+		$this->actor();
+
 		switch ($this->action)
 		{
 		case 'index':
