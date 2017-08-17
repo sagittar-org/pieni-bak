@@ -231,7 +231,7 @@ CREATE TABLE `spec` (
   `spec_key3` varchar(255) DEFAULT NULL,
   `spec_value` varchar(255) NOT NULL,
   PRIMARY KEY (`spec_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,6 +240,32 @@ CREATE TABLE `spec` (
 
 LOCK TABLES `spec` WRITE;
 /*!40000 ALTER TABLE `spec` DISABLE KEYS */;
+INSERT INTO `spec` VALUES (1,'admin',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
+INSERT INTO `spec` VALUES (2,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'index');
+INSERT INTO `spec` VALUES (3,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'view');
+INSERT INTO `spec` VALUES (4,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'add');
+INSERT INTO `spec` VALUES (5,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'edit');
+INSERT INTO `spec` VALUES (6,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'delete');
+INSERT INTO `spec` VALUES (7,'admin',NULL,NULL,NULL,'append','select_hash','admin_id',NULL,'NULL');
+INSERT INTO `spec` VALUES (8,'admin',NULL,NULL,NULL,'append','select_hash','admin_name',NULL,'NULL');
+INSERT INTO `spec` VALUES (9,'admin',NULL,NULL,NULL,'append','select_hash','admin_email',NULL,'NULL');
+INSERT INTO `spec` VALUES (10,'admin',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'admin_id');
+INSERT INTO `spec` VALUES (11,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'admin_name');
+INSERT INTO `spec` VALUES (12,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'admin_email');
+INSERT INTO `spec` VALUES (13,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'admin_password');
+INSERT INTO `spec` VALUES (14,'admin',NULL,NULL,NULL,'append','where_hash','simple',NULL,'CONCAT(`admin_name`, `admin_email`) LIKE \"%$1%\"');
+INSERT INTO `spec` VALUES (15,'admin',NULL,NULL,NULL,'append','order_by_hash','admin_id_asc',NULL,'`admin_id` DESC');
+INSERT INTO `spec` VALUES (16,'admin',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
+INSERT INTO `spec` VALUES (17,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'index');
+INSERT INTO `spec` VALUES (18,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'view');
+INSERT INTO `spec` VALUES (19,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'add');
+INSERT INTO `spec` VALUES (20,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'edit');
+INSERT INTO `spec` VALUES (21,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'delete');
+INSERT INTO `spec` VALUES (22,'admin','a',NULL,NULL,'remove','action_list',NULL,NULL,'index');
+INSERT INTO `spec` VALUES (23,'admin','a',NULL,NULL,'remove','action_list',NULL,NULL,'view');
+INSERT INTO `spec` VALUES (24,'admin','a',NULL,NULL,'remove','action_list',NULL,NULL,'add');
+INSERT INTO `spec` VALUES (25,'admin','a',NULL,NULL,'remove','action_list',NULL,NULL,'edit');
+INSERT INTO `spec` VALUES (26,'admin','a',NULL,NULL,'remove','action_list',NULL,NULL,'delete');
 /*!40000 ALTER TABLE `spec` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -252,4 +278,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-17 15:06:29
+-- Dump completed on 2017-08-17 15:20:03
