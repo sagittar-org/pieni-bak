@@ -10,31 +10,26 @@ class News_model extends Crud_model {
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
 		$this->append('action_list', 'delete');
-
-		$this->overwrite('select_hash', [
-			'news_id' => NULL,
-			'news_admin_id' => NULL,
-			'admin_name' => NULL,
-			'news_name' => NULL,
-			'news_created' => NULL,
-			'news_text' => NULL,
-			'news_image' => NULL,
-		]);
-		$this->overwrite('set_list', [
-			'news_name',
-			'news_text',
-			'news_image',
-		]);
-		$this->overwrite('join_hash', [
-			'news_admin' => [
-				'table' => '`admin`',
-				'cond' => '`admin_id` = `news_admin_id`',
-			],
-		]);
-		$this->append('fixed_hash', 'news_created', 'CURRENT_TIMESTAMP');
-		$this->append('where_hash', 'simple', 'CONCAT(`news_name`, `news_text`) LIKE "%$1%"');
-		$this->append('order_by_hash', 'news_id_desc', "`news_id` DESC");
+		$this->append('select_hash', 'news_id', NULL);
+		$this->append('select_hash', 'news_admin_id', NULL);
+		$this->append('select_hash', 'admin_name', NULL);
+		$this->append('select_hash', 'news_name', NULL);
+		$this->append('select_hash', 'news_created', NULL);
+		$this->append('select_hash', 'news_text', NULL);
+		$this->append('select_hash', 'news_image', NULL);
+		$this->append('hidden_list', 'news_id');
 		$this->append('hidden_list', 'news_admin_id');
+		$this->append('set_list', 'news_name');
+		$this->append('set_list', 'news_text');
+		$this->append('set_list', 'news_image');
+		$this->append('fixed_hash', 'news_created', 'CURRENT_TIMESTAMP');
+		$this->append('join_hash', 'news_admin', [
+			'table' => '`admin`',
+			'cond' => '`admin_id` = `news_admin_id`',
+		]);
+		$this->append('where_hash', 'simple', 'CONCAT(`news_name`, `news_text`) LIKE "%$1%"');
+
+		$this->append('order_by_hash', 'news_id_desc', "`news_id` DESC");
 		switch ($this->actor)
 		{
 		case 'a':

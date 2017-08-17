@@ -10,29 +10,24 @@ class Comment_model extends Crud_model {
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
 		$this->append('action_list', 'delete');
-
-		$this->overwrite('select_hash', [
-			'comment_id' => NULL,
-			'comment_post_id' => NULL,
-			'post_name' => NULL,
-			'comment_writer' => NULL,
-			'comment_created' => NULL,
-			'comment_text' => NULL,
-		]);
-		$this->overwrite('set_list', [
-			'comment_writer',
-			'comment_text',
-		]);
-		$this->overwrite('join_hash', [
-			'comment_post' => [
-				'table' => '`post`',
-				'cond' => '`post_id` = `comment_post_id`',
-			],
-		]);
-		$this->overwrite('order_by_hash', ['comment_id_desc' => '`comment_id` DESC']);
-		$this->append('fixed_hash', 'comment_created', 'CURRENT_TIMESTAMP');
-		$this->append('where_hash', 'simple', 'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE "%$1%"');
+		$this->append('select_hash', 'comment_id', NULL);
+		$this->append('select_hash', 'comment_post_id', NULL);
+		$this->append('select_hash', 'post_name', NULL);
+		$this->append('select_hash', 'comment_writer', NULL);
+		$this->append('select_hash', 'comment_created', NULL);
+		$this->append('select_hash', 'comment_text', NULL);
+		$this->append('hidden_list', 'comment_id');
 		$this->append('hidden_list', 'comment_post_id');
+		$this->append('set_list', 'comment_writer');
+		$this->append('set_list', 'comment_text');
+		$this->append('fixed_hash', 'comment_created', 'CURRENT_TIMESTAMP');
+		$this->append('join_hash', 'comment_post', [
+			'table' => '`post`',
+			'cond' => '`post_id` = `comment_post_id`',
+		]);
+
+		$this->overwrite('order_by_hash', ['comment_id_desc' => '`comment_id` DESC']);
+		$this->append('where_hash', 'simple', 'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE "%$1%"');
 		switch ($this->actor)
 		{
 		case 'a':

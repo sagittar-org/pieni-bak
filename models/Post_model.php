@@ -11,36 +11,31 @@ class Post_model extends Crud_model {
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
 		$this->append('action_list', 'delete');
-
-		$this->overwrite('select_hash', [
-			'post_id' => NULL,
-			'post_member_id' => NULL,
-			'member_name' => NULL,
-			'post_name' => NULL,
-			'post_created' => NULL,
-			'post_text' => NULL,
-			'post_image' => NULL,
-			'count_comment' => NULL,
-		]);
-		$this->overwrite('set_list', [
-			'post_name',
-			'post_text',
-			'post_image',
-		]);
-		$this->overwrite('join_hash', [
-			'post_member' => [
-				'table' => '`member`',
-				'cond' => '`member_id` = `post_member_id`',
-			],
-			'post_comment' => [
-				'table' => '(SELECT `comment_post_id`, COUNT(*) AS `count_comment` FROM `comment` GROUP BY `comment_post_id`)',
-				'cond' => '`comment_post_id` = `post_id`',
-			],
-		]);
-		$this->overwrite('order_by_hash', ['post_id_desc' => "`post_id` DESC"]);
-		$this->append('fixed_hash' , 'post_created', 'CURRENT_TIMESTAMP');
-		$this->append('where_hash' , 'simple', 'CONCAT(`member_name`, `post_name`, `post_text`) LIKE "%$1%"');
+		$this->append('select_hash', 'post_id', NULL);
+		$this->append('select_hash', 'post_member_id', NULL);
+		$this->append('select_hash', 'member_name', NULL);
+		$this->append('select_hash', 'post_name', NULL);
+		$this->append('select_hash', 'post_created', NULL);
+		$this->append('select_hash', 'post_text', NULL);
+		$this->append('select_hash', 'post_image', NULL);
+		$this->append('select_hash', 'count_comment', NULL);
+		$this->append('hidden_list', 'post_id');
 		$this->append('hidden_list' , 'post_member_id');
+		$this->append('set_list', 'post_name');
+		$this->append('set_list', 'post_text');
+		$this->append('set_list', 'post_image');
+		$this->append('fixed_hash' , 'post_created', 'CURRENT_TIMESTAMP');
+		$this->append('join_hash', 'post_member', [
+			'table' => '`member`',
+			'cond' => '`member_id` = `post_member_id`',
+		]);
+		$this->append('join_hash', 'post_comment', [
+			'table' => '(SELECT `comment_post_id`, COUNT(*) AS `count_comment` FROM `comment` GROUP BY `comment_post_id`)',
+			'cond' => '`comment_post_id` = `post_id`',
+		]);
+		$this->append('where_hash' , 'simple', 'CONCAT(`member_name`, `post_name`, `post_text`) LIKE "%$1%"');
+
+		$this->overwrite('order_by_hash', ['post_id_desc' => "`post_id` DESC"]);
 		switch ($this->actor)
 		{
 		case 'a':

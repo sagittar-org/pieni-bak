@@ -11,19 +11,16 @@ class Member_model extends Crud_model {
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
 		$this->append('action_list', 'delete');
-
-		$this->overwrite('select_hash', [
-			'member_id' => NULL,
-			'member_name' => NULL,
-			'member_email' => NULL,
-		]);
-		$this->overwrite('set_list', [
-			'member_name',
-			'member_email',
-			'member_password',
-		]);
 		$this->append('row_action_hash', 'proxy', 'view');
+		$this->append('select_hash', 'member_id', NULL);
+		$this->append('select_hash', 'member_name', NULL);
+		$this->append('select_hash', 'member_email', NULL);
+		$this->append('hidden_list', 'member_id');
+		$this->append('set_list', 'member_name');
+		$this->append('set_list', 'member_email');
+		$this->append('set_list', 'member_password');
 		$this->append('where_hash', 'simple', 'CONCAT(`member_name`, `member_email`) LIKE "%$1%"');
+
 		$this->append('order_by_hash', 'member_id_desc', "`member_id` DESC");
 		switch ($this->actor)
 		{

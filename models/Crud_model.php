@@ -25,9 +25,9 @@ class Crud_model {
 		$this->has_hash        = [];
 		$this->action_list     = [];
 		$this->row_action_hash = [];
-		$this->select_hash     = ["{$this->table}_id" => NULL, "{$this->table}_name" => NULL];
-		$this->hidden_list     = [$this->primary_key];
-		$this->set_list        = ["{$this->table}_name"];
+		$this->select_hash     = [];
+		$this->hidden_list     = [];
+		$this->set_list        = [];
 		$this->fixed_hash      = [];
 		$this->success_hash    = [];
 		$this->join_hash       = [];
@@ -275,9 +275,9 @@ class Crud_model {
 	}
 
 	// メンバの添字・添字配列へ要素を追加する
-	public function append($array, $element, $value = NULL)
+	public function append($array, $element, $value = '-')
 	{
-		if ($value === NULL)
+		if ($value === '-')
 		{
 			$this->$array[] = $element;
 		}

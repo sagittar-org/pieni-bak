@@ -8,21 +8,18 @@ class File_model extends Crud_model {
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
 		$this->append('action_list', 'delete');
-
-		$this->overwrite('select_hash', [
-			'file_id' => NULL,
-			'file_name' => NULL,
-			'file_created' => NULL,
-			'file_file' => NULL,
-		]);
-		$this->overwrite('set_list', [
-			'file_name',
-			'file_file',
-		]);
-		$this->overwrite('order_by_hash', ['file_id_desc' => "`file_id` DESC"]);
 		$this->append('row_action_hash', 'download', 'view');
+		$this->append('select_hash', 'file_id', NULL);
+		$this->append('select_hash', 'file_name', NULL);
+		$this->append('select_hash', 'file_created', NULL);
+		$this->append('select_hash', 'file_file', NULL);
+		$this->append('hidden_list', 'file_id');
+		$this->append('set_list', 'file_name');
+		$this->append('set_list', 'file_file');
 		$this->append('fixed_hash', 'file_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash', 'simple', '`file_name` LIKE "%$1%"');
+
+		$this->overwrite('order_by_hash', ['file_id_desc' => "`file_id` DESC"]);
 		switch ($this->actor)
 		{
 		case 'm':
