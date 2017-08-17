@@ -44,24 +44,20 @@ class Comment_model extends Crud_model {
 		$this->actor('g');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			switch ($this->alias)
-			{
-			case 'comment':
+
+			$this->alias('comment');
 				$this->remove('action_list', 'index');
 				$this->remove('action_list', 'add');
-				break;
-			case 'post_comment':
+			$this->alias();
+
+			$this->alias('post_comment');
 				$this->append('fixed_hash', 'comment_post_id', $this->parent_id);
-				break;
-			}
+			$this->alias();
 		$this->actor();
 
-		switch ($this->alias)
-		{
-		case 'post_comment':
+		$this->alias('post_comment');
 			$this->remove('select_hash', 'post_name');
 			$this->append('where_list', "`comment_post_id` = {$this->parent_id}");
-			break;
-		}
+		$this->alias();
 	}
 }

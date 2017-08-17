@@ -24,7 +24,7 @@ class Post_model extends Crud_model {
 		$this->append('set_list', 'post_name');
 		$this->append('set_list', 'post_text');
 		$this->append('set_list', 'post_image');
-		$this->append('fixed_hash' , 'post_created', 'CURRENT_TIMESTAMP');
+		$this->append('fixed_hash', 'post_created', 'CURRENT_TIMESTAMP');
 		$this->append('join_hash', 'post_member', [
 			'table' => '`member`',
 			'cond' => '`member_id` = `post_member_id`',
@@ -53,22 +53,18 @@ class Post_model extends Crud_model {
 			$this->remove('action_list', 'delete');
 		$this->actor();
 
-		switch ($this->action)
-		{
-		case 'index':
+		$this->action('index');
 			$this->remove('select_hash', 'post_text');
-			break;
-		case 'delete':
+		$this->action();
+
+		$this->action('delete');
 			$this->remove('select_hash', 'post_image');
-			break;
-		}
-		switch ($this->alias)
-		{
-		case 'member_post':
+		$this->action();
+
+		$this->alias('member_post');
 			$this->remove('select_hash', 'post_member_id');
 			$this->remove('select_hash', 'member_name');
 			$this->append('where_list', "`post_member_id` = {$this->parent_id}");
-			break;
-		}
+		$this->alias();
 	}
 }

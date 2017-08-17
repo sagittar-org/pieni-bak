@@ -49,17 +49,12 @@ class News_model extends Crud_model {
 			$this->remove('action_list', 'delete');
 		$this->actor();
 
-		switch ($this->action)
-		{
-		case 'index':
+		$this->action('index');
 			$this->remove('select_hash', 'news_text');
-			break;
-		}
-		switch ($this->alias)
-		{
-		case 'news_delete':
+		$this->action();
+
+		$this->alias('news_delete');
 			$this->remove('select_hash', 'news_image');
-			break;
-		}
+		$this->alias();
 	}
 }

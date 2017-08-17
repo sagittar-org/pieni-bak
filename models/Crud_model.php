@@ -2,6 +2,9 @@
 class Crud_model {
 
 	private $spec_actor;
+	private $spec_action;
+	private $spec_alias;
+
 	private $db;
 	private $post;
 	private $get;
@@ -9,6 +12,8 @@ class Crud_model {
 	public function __construct($params)
 	{
 		$this->spec_actor      = NULL;
+		$this->spec_action     = NULL;
+		$this->spec_alias      = NULL;
 
 		$this->db              = load_library('db');
 		$this->post            = isset($params['post']) ? $params['post'] : [];
@@ -258,16 +263,28 @@ class Crud_model {
 		return $this->result->fetch_assoc();
 	}
 
-	// アクターを設定する
+	// 仕様書アクターを設定する
 	public function actor($actor = NULL)
 	{
 		$this->spec_actor = $actor;
 	}
 
+	// 仕様書アクションを設定する
+	public function action($action = NULL)
+	{
+		$this->spec_action = $action;
+	}
+
+	// 仕様書エイリアスを設定する
+	public function alias($alias = NULL)
+	{
+		$this->spec_alias = $alias;
+	}
+
 	// メンバの添字・連想配列から要素を削除する
 	public function remove($key1, $value)
 	{
-		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor)
+		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor OR $this->spec_action !== NULL && $this->spec_action !== $this->action OR $this->spec_alias !== NULL && $this->spec_alias !== $this->alias)
 		{
 			return;
 		}
@@ -284,7 +301,7 @@ class Crud_model {
 	// メンバの値を上書きする
 	public function overwrite($key1, $value)
 	{
-		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor)
+		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor OR $this->spec_action !== NULL && $this->spec_action !== $this->action OR $this->spec_alias !== NULL && $this->spec_alias !== $this->alias)
 		{
 			return;
 		}
@@ -294,7 +311,7 @@ class Crud_model {
 	// メンバの添字・添字配列へ要素を追加する
 	public function append($key1, $key2, $value = '-')
 	{
-		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor)
+		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor OR $this->spec_action !== NULL && $this->spec_action !== $this->action OR $this->spec_alias !== NULL && $this->spec_alias !== $this->alias)
 		{
 			return;
 		}

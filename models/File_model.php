@@ -36,14 +36,12 @@ class File_model extends Crud_model {
 			$this->remove('action_list', 'delete');
 		$this->actor();
 
-		switch ($this->action)
-		{
-		case 'index':
+		$this->action('index');
 			$this->remove('select_hash', 'file_file');
-			break;
-		case 'delete':
+		$this->action();
+
+		$this->action('delete');
 			$this->remove('select_hash', 'file_file');
-			break;
-		}
+		$this->action();
 	}
 }
