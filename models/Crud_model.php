@@ -266,6 +266,12 @@ class Crud_model {
 		}
 	}
 
+	// メンバの値を上書きする
+	public function overwrite($key, $value)
+	{
+		$this->$key = $value;
+	}
+
 	// メンバの添字・添字配列へ要素を追加する
 	public function append($array, $element, $value = NULL)
 	{
@@ -277,11 +283,5 @@ class Crud_model {
 		{
 			$this->$array[$element] = $value;
 		}
-	}
-
-	// メンバの値を上書きする
-	public function overwrite($key, $value)
-	{
-		$this->$key = $value;
 	}
 }

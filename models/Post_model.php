@@ -29,12 +29,12 @@ class Post_model extends Crud_model {
 				'cond'  => '`comment_post_id` = `post_id`',
 			],
 		]);
+		$this->overwrite('order_by_hash', ['post_id_desc' => "`post_id` DESC"]);
+		$this->overwrite('use_card' , TRUE);
 		$this->append('has_hash', 'post_comment', 'comment');
 		$this->append('fixed_hash' , 'post_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash' , 'simple', 'CONCAT(`member_name`, `post_name`, `post_text`) LIKE "%$1%"');
 		$this->append('hidden_list' , 'post_member_id');
-		$this->overwrite('order_by_hash', ['post_id_desc' => "`post_id` DESC"]);
-		$this->overwrite('use_card' , TRUE);
 		switch ($this->actor)
 		{
 		case 'a':
