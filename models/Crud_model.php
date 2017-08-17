@@ -256,34 +256,34 @@ class Crud_model {
 	}
 
 	// メンバの添字・連想配列から要素を削除する
-	public function remove($array, $element)
+	public function remove($key1, $value)
 	{
-		if (array_values($this->$array) === $this->$array)
+		if (array_values($this->$key1) === $this->$key1)
 		{
-			$this->$array = array_merge(array_diff($this->$array, [$element]));
+			$this->$key1 = array_merge(array_diff($this->$key1, [$value]));
 		}
 		else
 		{
-			unset($this->$array[$element]);
+			unset($this->$key1[$value]);
 		}
 	}
 
 	// メンバの値を上書きする
-	public function overwrite($key, $value)
+	public function overwrite($key1, $value)
 	{
-		$this->$key = $value;
+		$this->$key1 = $value;
 	}
 
 	// メンバの添字・添字配列へ要素を追加する
-	public function append($array, $element, $value = '-')
+	public function append($key1, $key2, $value = '-')
 	{
 		if ($value === '-')
 		{
-			$this->$array[] = $element;
+			$this->$key1[] = $key2;
 		}
 		else
 		{
-			$this->$array[$element] = $value;
+			$this->$key1[$key2] = $value;
 		}
 	}
 }
