@@ -33,8 +33,8 @@ class Crud_model {
 		$this->join_hash       = [];
 		$this->where_list      = [];
 		$this->where_hash      = [];
-		$this->order_by_hash   = ["{$this->primary_key}_desc" => "`{$this->primary_key}` DESC"];
-		$this->limit_list      = [10];
+		$this->order_by_hash   = [];
+		$this->limit_list      = [];
 	}
 
 	// 行数と結果を取得

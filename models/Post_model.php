@@ -34,8 +34,9 @@ class Post_model extends Crud_model {
 			'cond' => '`comment_post_id` = `post_id`',
 		]);
 		$this->append('where_hash' , 'simple', 'CONCAT(`member_name`, `post_name`, `post_text`) LIKE "%$1%"');
+		$this->append('order_by_hash', 'post_id_desc', '`post_id` DESC');
+		$this->append('limit_list', 10);
 
-		$this->overwrite('order_by_hash', ['post_id_desc' => "`post_id` DESC"]);
 		switch ($this->actor)
 		{
 		case 'a':

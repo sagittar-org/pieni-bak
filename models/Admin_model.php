@@ -18,8 +18,9 @@ class Admin_model extends Crud_model {
 		$this->append('set_list', 'admin_email');
 		$this->append('set_list', 'admin_password');
 		$this->append('where_hash', 'simple', 'CONCAT(`admin_name`, `admin_email`) LIKE "%$1%"');
+		$this->append('order_by_hash', 'admin_id_asc', '`admin_id` DESC');
+		$this->append('limit_list', 10);
 
-		$this->overwrite('order_by_hash', ['admin_id_asc' => "`admin_id` DESC"]);
 		switch ($this->actor)
 		{
 		case 'm':

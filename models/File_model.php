@@ -18,8 +18,9 @@ class File_model extends Crud_model {
 		$this->append('set_list', 'file_file');
 		$this->append('fixed_hash', 'file_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash', 'simple', '`file_name` LIKE "%$1%"');
+		$this->append('order_by_hash', 'file_id_desc', '`file_id` DESC');
+		$this->append('limit_list', 10);
 
-		$this->overwrite('order_by_hash', ['file_id_desc' => "`file_id` DESC"]);
 		switch ($this->actor)
 		{
 		case 'm':

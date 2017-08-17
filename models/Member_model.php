@@ -20,8 +20,9 @@ class Member_model extends Crud_model {
 		$this->append('set_list', 'member_email');
 		$this->append('set_list', 'member_password');
 		$this->append('where_hash', 'simple', 'CONCAT(`member_name`, `member_email`) LIKE "%$1%"');
+		$this->append('order_by_hash', 'member_id_desc', '`member_id` DESC');
+		$this->append('limit_list', 10);
 
-		$this->append('order_by_hash', 'member_id_desc', "`member_id` DESC");
 		switch ($this->actor)
 		{
 		case 'm':
