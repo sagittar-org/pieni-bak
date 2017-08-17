@@ -3,10 +3,10 @@ class Admin_model extends Crud_model {
 
 	public function __construct($params)
 	{
-                parent::__construct($params);
+		parent::__construct($params);
 		$this->overwrite('select_hash', [
-			'admin_id'    => NULL,
-			'admin_name'  => NULL,
+			'admin_id' => NULL,
+			'admin_name' => NULL,
 			'admin_email' => NULL,
 		]);
 		$this->overwrite('set_list', [

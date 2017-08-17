@@ -3,22 +3,22 @@ class File_model extends Crud_model {
 
 	public function __construct($params)
 	{
-                parent::__construct($params);
-		$this->remove('action_list', 'view');
-		$this->append('row_action_hash', 'download', 'view');
+		parent::__construct($params);
 		$this->overwrite('select_hash', [
-			'file_id'      => NULL,
-			'file_name'    => NULL,
+			'file_id' => NULL,
+			'file_name' => NULL,
 			'file_created' => NULL,
-			'file_file'    => NULL,
+			'file_file' => NULL,
 		]);
 		$this->overwrite('set_list', [
 			'file_name',
 			'file_file',
 		]);
+		$this->overwrite('order_by_hash', ['file_id_desc' => "`file_id` DESC"]);
+		$this->append('row_action_hash', 'download', 'view');
 		$this->append('fixed_hash', 'file_created', 'CURRENT_TIMESTAMP');
 		$this->append('where_hash', 'simple', '`file_name` LIKE "%$1%"');
-		$this->overwrite('order_by_hash', ['file_id_desc' => "`file_id` DESC"]);
+		$this->remove('action_list', 'view');
 		switch ($this->actor)
 		{
 		case 'm':

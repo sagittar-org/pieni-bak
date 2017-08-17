@@ -3,15 +3,15 @@ class News_model extends Crud_model {
 
 	public function __construct($params)
 	{
-                parent::__construct($params);
+		parent::__construct($params);
 		$this->overwrite('select_hash', [
-			'news_id'       => NULL,
+			'news_id' => NULL,
 			'news_admin_id' => NULL,
-			'admin_name'    => NULL,
-			'news_name'     => NULL,
-			'news_created'  => NULL,
-			'news_text'     => NULL,
-			'news_image'    => NULL,
+			'admin_name' => NULL,
+			'news_name' => NULL,
+			'news_created' => NULL,
+			'news_text' => NULL,
+			'news_image' => NULL,
 		]);
 		$this->overwrite('set_list', [
 			'news_name',
@@ -21,7 +21,7 @@ class News_model extends Crud_model {
 		$this->overwrite('join_hash', [
 			'news_admin' => [
 				'table' => '`admin`',
-				'cond'  => '`admin_id` = `news_admin_id`',
+				'cond' => '`admin_id` = `news_admin_id`',
 			],
 		]);
 		$this->overwrite('use_card', TRUE);

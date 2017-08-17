@@ -3,14 +3,14 @@ class Comment_model extends Crud_model {
 
 	public function __construct($params)
 	{
-                parent::__construct($params);
+		parent::__construct($params);
 		$this->overwrite('select_hash', [
-			'comment_id'      => NULL,
+			'comment_id' => NULL,
 			'comment_post_id' => NULL,
-			'post_name'       => NULL,
-			'comment_writer'  => NULL,
+			'post_name' => NULL,
+			'comment_writer' => NULL,
 			'comment_created' => NULL,
-			'comment_text'    => NULL,
+			'comment_text' => NULL,
 		]);
 		$this->overwrite('set_list', [
 			'comment_writer',

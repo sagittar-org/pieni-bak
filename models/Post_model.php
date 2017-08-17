@@ -3,16 +3,16 @@ class Post_model extends Crud_model {
 
 	public function __construct($params)
 	{
-                parent::__construct($params);
+		parent::__construct($params);
 		$this->overwrite('select_hash', [
-			'post_id'        => NULL,
+			'post_id' => NULL,
 			'post_member_id' => NULL,
-			'member_name'    => NULL,
-			'post_name'      => NULL,
-			'post_created'   => NULL,
-			'post_text'      => NULL,
-			'post_image'     => NULL,
-			'count_comment'  => NULL,
+			'member_name' => NULL,
+			'post_name' => NULL,
+			'post_created' => NULL,
+			'post_text' => NULL,
+			'post_image' => NULL,
+			'count_comment' => NULL,
 		]);
 		$this->overwrite('set_list', [
 			'post_name',
@@ -22,11 +22,11 @@ class Post_model extends Crud_model {
 		$this->overwrite('join_hash', [
 			'post_member' => [
 				'table' => '`member`',
-				'cond'  => '`member_id` = `post_member_id`',
+				'cond' => '`member_id` = `post_member_id`',
 			],
 			'post_comment' => [
 				'table' => '(SELECT `comment_post_id`, COUNT(*) AS `count_comment` FROM `comment` GROUP BY `comment_post_id`)',
-				'cond'  => '`comment_post_id` = `post_id`',
+				'cond' => '`comment_post_id` = `post_id`',
 			],
 		]);
 		$this->overwrite('order_by_hash', ['post_id_desc' => "`post_id` DESC"]);
