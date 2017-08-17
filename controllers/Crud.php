@@ -85,6 +85,10 @@ class Crud extends Controller {
 				'model' => model($key),
 			];
 		}
+		if ($_POST !== [])
+		{
+			redirect(uri('uri_string'), FALSE, FALSE);
+		}
 		is_ajax() ? exit(json_encode($this->model->row)) : load_template('view', ['model' => $this->model]);
 	}
 
