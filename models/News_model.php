@@ -4,7 +4,7 @@ class News_model extends Crud_model {
 	public function __construct($params)
 	{
                 parent::__construct($params);
-		$this->select_hash = [
+		$this->overwrite('select_hash', [
 			'news_id'       => NULL,
 			'news_admin_id' => NULL,
 			'admin_name'    => NULL,
@@ -12,45 +12,51 @@ class News_model extends Crud_model {
 			'news_created'  => NULL,
 			'news_text'     => NULL,
 			'news_image'    => NULL,
-		];
-		$this->join_hash = [
-			'news_admin' => [
-				'table' => '`admin`',
-				'cond' => '`admin_id` = `news_admin_id`',
-			],
-		];
-		$this->set_list = [
+		]);
+		$this->overwrite('set_list', [
 			'news_name',
 			'news_text',
 			'news_image',
-		];
-		$this->fixed_hash = ['news_created'  => 'CURRENT_TIMESTAMP'];
-		$this->where_hash = ['simple' => 'CONCAT(`news_name`, `news_text`) LIKE "%$1%"'];
-		$this->order_by_hash = ['news_id_desc' => "`news_id` DESC"];
-		$this->hidden_list[] = 'news_admin_id';
-		$this->use_card = TRUE;
+		]);
+		$this->overwrite('join_hash', [
+			'news_admin' => [
+				'table' => '`admin`',
+				'cond'  => '`admin_id` = `news_admin_id`',
+			],
+		]);
+		$this->overwrite('use_card', TRUE);
+		$this->append('fixed_hash', 'news_created', 'CURRENT_TIMESTAMP');
+		$this->append('where_hash', 'simple', 'CONCAT(`news_name`, `news_text`) LIKE "%$1%"');
+		$this->append('order_by_hash', 'news_id_desc', "`news_id` DESC");
+		$this->append('hidden_list', 'news_admin_id');
 		switch ($this->actor)
 		{
 		case 'a':
-			$this->fixed_hash['news_admin_id'] = $this->auth['id'];
+			$this->append('fixed_hash', 'news_admin_id', $this->auth['id']);
 			break;
 		case 'm':
-			$this->action_list = [];
+			$this->remove('action_list', 'index');
+			$this->remove('action_list', 'view');
+			$this->remove('action_list', 'add');
+			$this->remove('action_list', 'edit');
+			$this->remove('action_list', 'delete');
 			break;
 		case 'g':
-			$this->action_list = ['index', 'view'];
+			$this->remove('action_list', 'add');
+			$this->remove('action_list', 'edit');
+			$this->remove('action_list', 'delete');
 			break;
 		}
 		switch ($this->action)
 		{
 		case 'index':
-			unset($this->select_hash['news_text']);
+			$this->remove('select_hash', 'news_text');
 			break;
 		}
 		switch ($this->alias)
 		{
 		case 'news_delete':
-			unset($this->select_hash['news_image']);
+			$this->remove('select_hash', 'news_image');
 			break;
 		}
 	}
