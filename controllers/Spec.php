@@ -22,7 +22,14 @@ class Spec extends Controller {
 	public function assemble()
 	{
 		load_library('db');
-		$result = library('db')->query('SELECT * FROM `spec`');
+		$result = library('db')->query("SELECT * FROM `spec` ORDER BY
+`spec_actor` IS NULL DESC, FIELD(`spec_actor`, 'm', 'g'),
+`spec_action` IS NULL DESC, FIELD(`spec_action`, 'index', 'view', 'add', 'edit', 'delete'),
+`spec_alias` IS NULL DESC,
+`spec_method` IS NULL DESC, FIELD(`spec_method`, 'overwrite', 'append', 'remove'),
+`spec_key1` IS NULL DESC, FIELD(`spec_key1`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+`spec_id` ASC
+");
 		while (($row = $result->fetch_assoc()))
 		{
 			// アクター終了
