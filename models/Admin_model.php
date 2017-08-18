@@ -22,20 +22,22 @@ class Admin_model extends Crud_model {
 		$this->append('order_by_hash', 'admin_id_asc', '`admin_id` DESC');
 		$this->append('limit_list', 10);
 
-		$this->actor('m');
+		if ($this->actor === 'm')
+		{
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-		$this->actor();
+		}
 
-		$this->actor('g');
+		if ($this->actor === 'g')
+		{
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'view');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-		$this->actor();
+		}
 	}
 }

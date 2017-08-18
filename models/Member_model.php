@@ -24,19 +24,21 @@ class Member_model extends Crud_model {
 		$this->append('order_by_hash', 'member_id_desc', '`member_id` DESC');
 		$this->append('limit_list', 10);
 
-		$this->actor('m');
+		if ($this->actor === 'm')
+		{
 			$this->remove('action_list', 'index');
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'delete');
 			$this->remove('row_action_hash', 'proxy');
 			$this->append('where_list', "`member_id` = '{$this->auth['id']}'");
-		$this->actor();
+		}
 
-		$this->actor('g');
+		if ($this->actor === 'g')
+		{
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
 			$this->remove('row_action_hash', 'proxy');
-		$this->actor();
+		}
 	}
 }

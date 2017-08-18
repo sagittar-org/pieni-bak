@@ -37,34 +37,40 @@ class Post_model extends Crud_model {
 		$this->append('order_by_hash', 'post_id_desc', '`post_id` DESC');
 		$this->append('limit_list', 10);
 
-		$this->actor('a');
+		if ($this->actor === 'a')
+		{
 			$this->remove('action_list', 'add');
-		$this->actor();
+		}
 
-		$this->actor('m');
+		if ($this->actor === 'm')
+		{
 			$this->remove('select_hash', 'post_member_id');
 			$this->append('where_list' , "`post_member_id` = {$this->auth['id']}");
 			$this->append('fixed_hash' , 'post_member_id', $this->auth['id']);
-		$this->actor();
+		}
 
-		$this->actor('g');
+		if ($this->actor === 'g')
+		{
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-		$this->actor();
+		}
 
-		$this->action('index');
+		if ($this->action === 'index')
+		{
 			$this->remove('select_hash', 'post_text');
-		$this->action();
+		}
 
-		$this->action('delete');
+		if ($this->action === 'delete')
+		{
 			$this->remove('select_hash', 'post_image');
-		$this->action();
+		}
 
-		$this->alias('member_post');
+		if ($this->alias === 'member_post')
+		{
 			$this->remove('select_hash', 'post_member_id');
 			$this->remove('select_hash', 'member_name');
 			$this->append('where_list', "`post_member_id` = {$this->parent_id}");
-		$this->alias();
+		}
 	}
 }

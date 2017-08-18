@@ -29,7 +29,7 @@ class Spec extends Controller {
 			if ((isset($last_row) && $row['spec_actor'] !== $last_row['spec_actor']) && $last_row['spec_actor'] !== NULL)
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
-				echo "{$indent}\$this->actor();\n";
+				echo "{$indent}}\n";
 			}
 
 			// テーブル終了
@@ -48,7 +48,7 @@ class Spec extends Controller {
 			// アクター開始
 			if (( ! isset($last_row) OR $row['spec_actor'] !== $last_row['spec_actor']) && $row['spec_actor'] !== NULL)
 			{
-				echo "\n{$indent}\$this->actor('{$row['spec_actor']}');\n";
+				echo "\n{$indent}if (\$this->actor === '{$row['spec_actor']}')\n{$indent}{\n";
 				$indent .= "\t";
 			}
 
@@ -106,7 +106,7 @@ class Spec extends Controller {
 		if ($last_row['spec_actor'] !== NULL)
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
-			echo "{$indent}\$this->actor();\n";
+			echo "{$indent}}\n";
 		}
 
 		// テーブル終了
