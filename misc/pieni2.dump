@@ -231,7 +231,7 @@ CREATE TABLE `spec` (
   `spec_key3` varchar(255) DEFAULT NULL,
   `spec_value` varchar(255) NOT NULL,
   PRIMARY KEY (`spec_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,6 +266,39 @@ INSERT INTO `spec` VALUES (23,'admin','g',NULL,NULL,'remove','action_list',NULL,
 INSERT INTO `spec` VALUES (24,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
 INSERT INTO `spec` VALUES (25,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
 INSERT INTO `spec` VALUES (26,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `spec` VALUES (27,'comment',NULL,NULL,NULL,'overwrite','display',NULL,NULL,'\'comment_writer\'');
+INSERT INTO `spec` VALUES (28,'comment',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
+INSERT INTO `spec` VALUES (29,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `spec` VALUES (30,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `spec` VALUES (31,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `spec` VALUES (32,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `spec` VALUES (33,'comment',NULL,NULL,NULL,'append','select_hash','comment_id',NULL,'NULL');
+INSERT INTO `spec` VALUES (34,'comment',NULL,NULL,NULL,'append','select_hash','comment_post_id',NULL,'NULL');
+INSERT INTO `spec` VALUES (35,'comment',NULL,NULL,NULL,'append','select_hash','post_name',NULL,'NULL');
+INSERT INTO `spec` VALUES (36,'comment',NULL,NULL,NULL,'append','select_hash','comment_writer',NULL,'NULL');
+INSERT INTO `spec` VALUES (37,'comment',NULL,NULL,NULL,'append','select_hash','comment_created',NULL,'NULL');
+INSERT INTO `spec` VALUES (38,'comment',NULL,NULL,NULL,'append','select_hash','comment_text',NULL,'NULL');
+INSERT INTO `spec` VALUES (39,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_id\'');
+INSERT INTO `spec` VALUES (40,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_post_id\'');
+INSERT INTO `spec` VALUES (41,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_writer\'');
+INSERT INTO `spec` VALUES (42,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_text\'');
+INSERT INTO `spec` VALUES (43,'comment',NULL,NULL,NULL,'append','fixed_hash','comment_created',NULL,'\'CURRENT_TIMESTAMP\'');
+INSERT INTO `spec` VALUES (44,'comment',NULL,NULL,NULL,'append','join_hash','comment_post',NULL,'[\'table\' => \'`post`\', \'cond\' => \'`post_id` = `comment_post_id`\']');
+INSERT INTO `spec` VALUES (45,'comment',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE \"%$1%\"\'');
+INSERT INTO `spec` VALUES (46,'comment',NULL,NULL,NULL,'append','order_by_hash','comment_id_desc',NULL,'\'`comment_id` DESC\'');
+INSERT INTO `spec` VALUES (47,'comment',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
+INSERT INTO `spec` VALUES (48,'comment','a',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `spec` VALUES (49,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `spec` VALUES (50,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `spec` VALUES (51,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `spec` VALUES (52,'comment','m',NULL,NULL,'append','where_list',NULL,NULL,'\"`post_member_id` = {$this->auth[\'id\']}\"');
+INSERT INTO `spec` VALUES (53,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `spec` VALUES (54,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `spec` VALUES (55,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `spec` VALUES (56,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `spec` VALUES (57,'comment',NULL,NULL,'post_comment','remove','select_hash',NULL,NULL,'\'post_name\'');
+INSERT INTO `spec` VALUES (58,'comment',NULL,NULL,'post_comment','append','fixed_hash','comment_post_id',NULL,'$this->parent_id');
+INSERT INTO `spec` VALUES (59,'comment',NULL,NULL,'post_comment','append','where_list','comment_post_id',NULL,'\"`comment_post_id` = {$this->parent_id}\"');
 /*!40000 ALTER TABLE `spec` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -278,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-19  2:57:31
+-- Dump completed on 2017-08-19  4:06:55

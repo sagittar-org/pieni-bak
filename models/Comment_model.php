@@ -34,10 +34,10 @@ class Comment_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
+			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 			$this->remove('action_list', 'add');
 			$this->remove('action_list', 'edit');
 			$this->remove('action_list', 'delete');
-			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 		}
 
 		if ($this->actor === 'g')
@@ -54,9 +54,9 @@ class Comment_model extends Crud_model {
 
 		if ($this->alias === 'post_comment')
 		{
-			$this->remove('select_hash', 'post_name');
 			$this->append('fixed_hash', 'comment_post_id', $this->parent_id);
 			$this->append('where_list', "`comment_post_id` = {$this->parent_id}");
+			$this->remove('select_hash', 'post_name');
 		}
 	}
 }
