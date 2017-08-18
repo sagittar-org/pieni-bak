@@ -24,6 +24,18 @@ $config['uri'] = [
 		'member',
 		'admin',
 	],
+	'action_list' => [
+		'proxy',
+		'index',
+		'view',
+		'add',
+		'edit',
+		'delete',
+	],
+	'alias_list' => [
+		'member_post',
+		'post_comment',
+	],
 ];
 $config['auth'] = [
 	'm' => [

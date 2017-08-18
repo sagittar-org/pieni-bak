@@ -22,14 +22,20 @@ class Spec extends Controller {
 	public function assemble()
 	{
 		load_library('db');
+		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
+		$actor_list = "'".implode("', '", array_reverse(array_keys(config('uri')['actor_hash'])))."'";
+		$action_list = "'".implode("', '", config('uri')['action_list'])."'";
+		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
 		$result = library('db')->query("SELECT * FROM `spec` ORDER BY
-`spec_actor` IS NULL DESC, FIELD(`spec_actor`, 'm', 'g'),
-`spec_action` IS NULL DESC, FIELD(`spec_action`, 'index', 'view', 'add', 'edit', 'delete'),
-`spec_alias` IS NULL DESC,
+`spec_table` IS NULL DESC, FIELD(`spec_table`, {$table_list}),
+`spec_actor` IS NULL DESC, FIELD(`spec_actor`, {$actor_list}),
+`spec_action` IS NULL DESC, FIELD(`spec_action`, {$actor_list}),
+`spec_alias` IS NULL DESC, FIELD(`spec_alias`, {$alias_list}),
 `spec_method` IS NULL DESC, FIELD(`spec_method`, 'overwrite', 'append', 'remove'),
 `spec_key1` IS NULL DESC, FIELD(`spec_key1`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `spec_id` ASC
 ");
+r(library('db')->last_query);
 		while (($row = $result->fetch_assoc()))
 		{
 			// アクター終了

@@ -22,10 +22,7 @@ class Comment_model extends Crud_model {
 		$this->append('set_list', 'comment_writer');
 		$this->append('set_list', 'comment_text');
 		$this->append('fixed_hash', 'comment_created', 'CURRENT_TIMESTAMP');
-		$this->append('join_hash', 'comment_post', [
-			'table' => '`post`',
-			'cond' => '`post_id` = `comment_post_id`',
-		]);
+		$this->append('join_hash', 'comment_post', ['table' => '`post`', 'cond' => '`post_id` = `comment_post_id`']);
 		$this->append('where_hash', 'simple', 'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE "%$1%"');
 		$this->append('order_by_hash', 'comment_id_desc', '`comment_id` DESC');
 		$this->append('limit_list', 10);
@@ -53,16 +50,12 @@ class Comment_model extends Crud_model {
 				$this->remove('action_list', 'index');
 				$this->remove('action_list', 'add');
 			}
-
-			if ($this->alias === 'post_comment')
-			{
-				$this->append('fixed_hash', 'comment_post_id', $this->parent_id);
-			}
 		}
 
 		if ($this->alias === 'post_comment')
 		{
 			$this->remove('select_hash', 'post_name');
+			$this->append('fixed_hash', 'comment_post_id', $this->parent_id);
 			$this->append('where_list', "`comment_post_id` = {$this->parent_id}");
 		}
 	}
