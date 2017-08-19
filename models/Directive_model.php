@@ -51,5 +51,21 @@ class Directive_model extends Crud_model {
 `directive_key1` IS NULL DESC, FIELD(`directive_key1`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC");
 		$this->append('limit_list', 100);
+
+		if ($this->actor === 'm')
+		{
+			$this->remove('action_list', 'index');
+			$this->remove('action_list', 'add');
+			$this->remove('action_list', 'edit');
+			$this->remove('action_list', 'delete');
+		}
+
+		if ($this->actor === 'g')
+		{
+			$this->remove('action_list', 'index');
+			$this->remove('action_list', 'add');
+			$this->remove('action_list', 'edit');
+			$this->remove('action_list', 'delete');
+		}
 	}
 }
