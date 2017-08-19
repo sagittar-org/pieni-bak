@@ -12,11 +12,11 @@ foreach ($action_list as $action)
 }
 ?>
 <a class="pull-right" data-toggle="collapse" href="#<?php h($vars['model']->alias); ?>_matrix"><span class="caret"></span></a>
-<h4>CRUDマトリクス</h4>
+<h4><?php l('matrix'); ?></h4>
 <div class="collapse in" id="<?php h($vars['model']->alias); ?>_matrix">
 <table class="table table-bordered">
 <tr>
-<th>フィールド</th>
+<th><?php l('field'); ?></th>
 <?php foreach ($action_list as $action): ?>
 <?php if ( ! in_array($action, $vars['model']->action_list)) continue; ?>
 <th class="text-center"><?php l("crud_{$action}"); ?></th>
@@ -74,7 +74,7 @@ else
 </div>
 
 <a class="pull-right" data-toggle="collapse" href="#<?php h($vars['model']->alias); ?>_propaties"><span class="caret"></span></a>
-<h4>詳細情報</h4>
+<h4><?php l('directive'); ?></h4>
 <div class="collapse in" id="<?php h($vars['model']->alias); ?>_propaties">
 <table class="table">
 <tr>
