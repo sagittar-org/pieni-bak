@@ -24,6 +24,6 @@
 <?php endif; ?>
 <?php load_view('pagination2', $vars, $table); ?>
     </div>
-<?php if (in_array('add', array_keys($vars['model']->action_hash))) load_view('add', $vars, $table); ?>
+<?php load_view('add', $vars, $table); ?>
 <?php load_view('edit', $vars, $table); ?>
 <?php load_view('delete', $vars, $table); ?>

@@ -52,11 +52,6 @@
   <td>['index', 'view', 'add', 'edit', 'delete']</td>
 </tr>
 <tr>
-  <td>row_action_hash</td>
-  <td>拡張アクション</td>
-  <td>[]</td>
-</tr>
-<tr>
   <td>select_hash</td>
   <td>SELECT列</td>
   <td>["{$this->table}_id" => NULL, "{$this->table}_name" => NULL]</td>

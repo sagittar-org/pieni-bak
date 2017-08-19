@@ -1,6 +1,6 @@
 <?php $table = $vars['model']->table; ?>
 <?php $alias = $vars['model']->alias; ?>
-<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
+<?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if ($row_action !== 'add') continue; ?>
     <form class="modal fade" id="<?php h($alias); ?>Add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" onsubmit="return false;">
       <input type="hidden" name="dummy" value="dummy">

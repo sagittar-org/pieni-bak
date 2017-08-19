@@ -20,7 +20,6 @@ class Crud_model {
 
 		$this->has_hash          = [];
 		$this->action_hash       = [];
-		$this->row_action_hash   = [];
 		$this->select_hash       = [];
 		$this->hidden_list       = [];
 		$this->set_list          = [];

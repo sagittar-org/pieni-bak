@@ -13,18 +13,14 @@
       </h3>
 <?php if (in_array('edit', array_keys($vars['model']->action_hash)) OR in_array('delete', array_keys($vars['model']->action_hash))): ?>
       <div class="text-right" style="margin-top:-35px">
-<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
-<?php if ($key === 'view') continue; ?>
-<?php if ($row_action !== 'view') continue; ?>
+<?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
+<?php if (in_array($row_action, ['row', 'view'])): ?>
         <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
-<?php endforeach; ?>
-<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
-<?php if ($row_action !== 'edit') continue; ?>
+<?php elseif ($row_action === 'edit'): ?>
         <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
-<?php endforeach; ?>
-<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
-<?php if ($row_action !== 'delete') continue; ?>
+<?php elseif ($row_action === 'delete'): ?>
         <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
+<?php endif; ?>
 <?php endforeach; ?>
       </div>
 <?php endif; ?>

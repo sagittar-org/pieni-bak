@@ -9,12 +9,12 @@ class Member_model extends Crud_model {
 		$this->overwrite('display', 'member_name');
 		$this->overwrite('use_card', TRUE);
 		$this->append('has_hash', 'member_post', 'post');
+		$this->append('action_hash', 'proxy', 'row');
 		$this->append('action_hash', 'index', 'index');
 		$this->append('action_hash', 'view', 'view');
 		$this->append('action_hash', 'add', 'add');
 		$this->append('action_hash', 'edit', 'edit');
 		$this->append('action_hash', 'delete', 'delete');
-		$this->append('row_action_hash', 'proxy', 'view');
 		$this->append('select_hash', 'member_id', NULL);
 		$this->append('select_hash', 'member_name', NULL);
 		$this->append('select_hash', 'member_email', NULL);
@@ -28,19 +28,19 @@ class Member_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
+			$this->remove('action_hash', 'proxy');
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'delete');
-			$this->remove('row_action_hash', 'proxy');
 			$this->append('where_list', "`member_id` = '{$this->auth['id']}'");
 		}
 
 		if ($this->actor === 'g')
 		{
+			$this->remove('action_hash', 'proxy');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
-			$this->remove('row_action_hash', 'proxy');
 		}
 	}
 }

@@ -160,7 +160,6 @@ $language['display']               = 'タイトル';
 $language['use_card']              = 'カード形式表示';
 $language['has_hash']              = '子エンティティ';
 $language['action_hash']           = 'アクション';
-$language['row_action_hash']       = '行アクション';
 $language['select_hash']           = '選択フィールド';
 $language['hidden_list']           = '非表示フィールド';
 $language['set_list']              = '更新フィールド';

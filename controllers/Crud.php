@@ -13,7 +13,7 @@ class Crud extends Controller {
 
 		if (in_array(uri('class'), config('uri')['table_list']))
 		{
-			if ( ! in_array(uri('method'), array_keys(array_merge($this->model->action_hash, $this->model->row_action_hash))))
+			if ( ! in_array(uri('method'), array_keys($this->model->action_hash)))
 			{
 				show_404();
 			}

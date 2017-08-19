@@ -8,11 +8,11 @@ class File_model extends Crud_model {
 		$this->overwrite('primary_key', 'file_id');
 		$this->overwrite('display', 'file_name');
 		$this->overwrite('use_card', FALSE);
+		$this->append('action_hash', 'download', 'row');
 		$this->append('action_hash', 'index', 'index');
 		$this->append('action_hash', 'add', 'add');
 		$this->append('action_hash', 'edit', 'edit');
 		$this->append('action_hash', 'delete', 'delete');
-		$this->append('row_action_hash', 'download', 'view');
 		$this->append('select_hash', 'file_id', NULL);
 		$this->append('select_hash', 'file_name', NULL);
 		$this->append('select_hash', 'file_created', NULL);
