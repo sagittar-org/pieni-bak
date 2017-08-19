@@ -17,7 +17,6 @@
           <td><?php load_view('col', ['row' => $row, 'key' => $key], $table); ?></td>
 <?php endforeach; ?>
           <td style="white-space:nowrap; width:0; text-align:right;">
-
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if (in_array($row_action, ['row', 'view'])): ?>
             <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
@@ -27,7 +26,6 @@
             <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
 <?php endif; ?>
 <?php endforeach; ?>
-
           </td>
         </tr>
 <?php endwhile; ?>
