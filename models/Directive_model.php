@@ -34,7 +34,7 @@ class Directive_model extends Crud_model {
 		$this->append('set_list', 'directive_key1');
 		$this->append('set_list', 'directive_key2');
 		$this->append('set_list', 'directive_value');
-		$this->append('order_by_hash', 'directive_id_desc', '`directive_id` DESC');
+		$this->append('where_hash', 'simple', 'CONCAT(`directive_table`, " ", `directive_actor`) LIKE "%$1%"');
 		$this->append('order_by_hash', 'directive', "`directive_table` IS NULL DESC, FIELD(`directive_table`, {$table_list}),
 `directive_alias` IS NULL DESC, FIELD(`directive_alias`, {$alias_list}),
 `directive_action` IS NULL DESC, FIELD(`directive_action`, {$actor_list}),
