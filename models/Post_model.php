@@ -34,29 +34,35 @@ class Post_model extends Crud_model {
 		$this->append('order_by_hash', 'post_id_desc', '`post_id` DESC');
 		$this->append('limit_list', 10);
 
+		// アクター:管理者
 		if ($this->actor === 'a'):
 			$this->remove('action_hash', 'add');
 		endif;
 
+		// アクター:会員
 		if ($this->actor === 'm'):
 			$this->append('fixed_hash', 'post_member_id', $this->auth['id']);
 			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 		endif;
 
+		// アクター:ゲスト
 		if ($this->actor === 'g'):
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
 		endif;
 
+		// アクション:index
 		if ($this->action === 'index'):
 			$this->remove('select_hash', 'post_text');
 		endif;
 
+		// アクション:delete
 		if ($this->action === 'delete'):
 			$this->remove('select_hash', 'post_image');
 		endif;
 
+		// エイリアス:投稿 (member_post)
 		if ($this->alias === 'member_post'):
 			$this->append('where_list', "`post_member_id` = {$this->parent_id}");
 			$this->remove('select_hash', 'post_member_id');

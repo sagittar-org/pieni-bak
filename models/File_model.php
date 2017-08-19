@@ -25,6 +25,7 @@ class File_model extends Crud_model {
 		$this->append('order_by_hash', 'file_id_desc', '`file_id` DESC');
 		$this->append('limit_list', 10);
 
+		// アクター:会員
 		if ($this->actor === 'm'):
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
@@ -32,6 +33,7 @@ class File_model extends Crud_model {
 			$this->remove('action_hash', 'delete');
 		endif;
 
+		// アクター:ゲスト
 		if ($this->actor === 'g'):
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
@@ -39,10 +41,12 @@ class File_model extends Crud_model {
 			$this->remove('action_hash', 'delete');
 		endif;
 
+		// アクション:index
 		if ($this->action === 'index'):
 			$this->remove('select_hash', 'file_file');
 		endif;
 
+		// アクション:delete
 		if ($this->action === 'delete'):
 			$this->remove('select_hash', 'file_file');
 		endif;

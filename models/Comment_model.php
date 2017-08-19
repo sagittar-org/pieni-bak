@@ -28,10 +28,12 @@ class Comment_model extends Crud_model {
 		$this->append('order_by_hash', 'comment_id_desc', '`comment_id` DESC');
 		$this->append('limit_list', 10);
 
+		// アクター:管理者
 		if ($this->actor === 'a'):
 			$this->remove('action_hash', 'add');
 		endif;
 
+		// アクター:会員
 		if ($this->actor === 'm'):
 			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 			$this->remove('action_hash', 'add');
@@ -39,16 +41,19 @@ class Comment_model extends Crud_model {
 			$this->remove('action_hash', 'delete');
 		endif;
 
+		// アクター:ゲスト
 		if ($this->actor === 'g'):
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
 
+			// エイリアス:コメント (comment)
 			if ($this->alias === 'comment'):
 				$this->remove('action_hash', 'index');
 				$this->remove('action_hash', 'add');
 			endif;
 		endif;
 
+		// エイリアス:コメント (post_comment)
 		if ($this->alias === 'post_comment'):
 			$this->append('fixed_hash', 'comment_post_id', $this->parent_id);
 			$this->append('where_list', "`comment_post_id` = {$this->parent_id}");

@@ -31,10 +31,12 @@ class News_model extends Crud_model {
 		$this->append('order_by_hash', 'news_id_desc', '`news_id` DESC');
 		$this->append('limit_list', 10);
 
+		// アクター:管理者
 		if ($this->actor === 'a'):
 			$this->append('fixed_hash', 'news_admin_id', $this->auth['id']);
 		endif;
 
+		// アクター:会員
 		if ($this->actor === 'm'):
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'view');
@@ -43,16 +45,19 @@ class News_model extends Crud_model {
 			$this->remove('action_hash', 'delete');
 		endif;
 
+		// アクター:ゲスト
 		if ($this->actor === 'g'):
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
 		endif;
 
+		// アクション:index
 		if ($this->action === 'index'):
 			$this->remove('select_hash', 'news_text');
 		endif;
 
+		// アクション:delete
 		if ($this->action === 'delete'):
 			$this->remove('select_hash', 'news_image');
 		endif;

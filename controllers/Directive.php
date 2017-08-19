@@ -139,7 +139,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			// アクター開始
 			if (( ! isset($last_row) OR $row['directive_actor'] !== $last_row['directive_actor']) && $row['directive_actor'] !== '')
 			{
-//				echo "\n{$indent}// ".l('actor', [], TRUE).':'.l($row['directive_actor'], [], TRUE);
+				echo "\n{$indent}// ".l('actor', [], TRUE).':'.l($row['directive_actor'], [], TRUE);
 				echo "\n{$indent}if (\$this->actor === '{$row['directive_actor']}'):\n";
 				$indent .= "\t";
 			}
@@ -147,7 +147,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			// アクション開始
 			if (( ! isset($last_row) OR $row['directive_action'] !== $last_row['directive_action']) && $row['directive_action'] !== '')
 			{
-//				echo "\n{$indent}// ".l('action', [], TRUE).':'.l($row['directive_action'], [], TRUE);
+				echo "\n{$indent}// ".l('action', [], TRUE).':'.l($row['directive_action'], [], TRUE);
 				echo "\n{$indent}if (\$this->action === '{$row['directive_action']}'):\n";
 				$indent .= "\t";
 			}
@@ -155,7 +155,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			// エイリアス開始
 			if (( ! isset($last_row) OR $row['directive_alias'] !== $last_row['directive_alias']) && $row['directive_alias'] !== '')
 			{
-//				echo "\n{$indent}// ".l('alias', [], TRUE).':'.l($row['directive_alias'], [], TRUE)." (".h($row['directive_alias'], TRUE).")";
+				echo "\n{$indent}// ".l('alias', [], TRUE).':'.l($row['directive_alias'], [], TRUE)." (".h($row['directive_alias'], TRUE).")";
 				echo "\n{$indent}if (\$this->alias === '{$row['directive_alias']}'):\n";
 				$indent .= "\t";
 			}
