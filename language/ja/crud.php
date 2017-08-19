@@ -73,6 +73,7 @@ $language['where_hash_directive_method']    = 'メソッド';
 $language['where_hash_directive_directive'] = 'ディレクティブ';
 $language['where_hash_directive_key']       = 'キー';
 $language['where_hash_directive_value']     = '値';
+$language['crud_compile']                   = 'コンパイル';
 
 $language['actor_a']               = '管理画面';
 $language['actor_m']               = 'マイページ';
