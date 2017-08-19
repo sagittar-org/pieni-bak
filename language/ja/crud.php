@@ -61,7 +61,6 @@ $language['directive_alias']       = 'エイリアス';
 $language['directive_method']      = 'メソッド';
 $language['directive_key1']        = 'キー1';
 $language['directive_key2']        = 'キー2';
-$language['directive_key3']        = 'キー3';
 $language['directive_value']       = '値';
 
 $language['actor_a']               = '管理画面';

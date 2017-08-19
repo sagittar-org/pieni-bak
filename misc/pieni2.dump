@@ -93,6 +93,95 @@ INSERT INTO `comment` VALUES (12,6,'Anonymous2','2017-07-22 16:56:40','Comment f
 UNLOCK TABLES;
 
 --
+-- Table structure for table `directive`
+--
+
+DROP TABLE IF EXISTS `directive`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `directive` (
+  `directive_id` int(11) NOT NULL AUTO_INCREMENT,
+  `directive_table` varchar(255) NOT NULL,
+  `directive_actor` varchar(255) DEFAULT NULL,
+  `directive_action` varchar(255) DEFAULT NULL,
+  `directive_alias` varchar(255) DEFAULT NULL,
+  `directive_method` varchar(255) NOT NULL,
+  `directive_key1` varchar(255) NOT NULL,
+  `directive_key2` varchar(255) DEFAULT NULL,
+  `directive_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`directive_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `directive`
+--
+
+LOCK TABLES `directive` WRITE;
+/*!40000 ALTER TABLE `directive` DISABLE KEYS */;
+INSERT INTO `directive` VALUES (1,'admin',NULL,NULL,NULL,'overwrite','use_card',NULL,'TRUE');
+INSERT INTO `directive` VALUES (2,'admin',NULL,NULL,NULL,'append','action_list',NULL,'\'index\'');
+INSERT INTO `directive` VALUES (3,'admin',NULL,NULL,NULL,'append','action_list',NULL,'\'view\'');
+INSERT INTO `directive` VALUES (4,'admin',NULL,NULL,NULL,'append','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (5,'admin',NULL,NULL,NULL,'append','action_list',NULL,'\'edit\'');
+INSERT INTO `directive` VALUES (6,'admin',NULL,NULL,NULL,'append','action_list',NULL,'\'delete\'');
+INSERT INTO `directive` VALUES (7,'admin',NULL,NULL,NULL,'append','select_hash','admin_id','NULL');
+INSERT INTO `directive` VALUES (8,'admin',NULL,NULL,NULL,'append','select_hash','admin_name','NULL');
+INSERT INTO `directive` VALUES (9,'admin',NULL,NULL,NULL,'append','select_hash','admin_email','NULL');
+INSERT INTO `directive` VALUES (10,'admin',NULL,NULL,NULL,'append','hidden_list',NULL,'\'admin_id\'');
+INSERT INTO `directive` VALUES (11,'admin',NULL,NULL,NULL,'append','set_list',NULL,'\'admin_name\'');
+INSERT INTO `directive` VALUES (12,'admin',NULL,NULL,NULL,'append','set_list',NULL,'\'admin_email\'');
+INSERT INTO `directive` VALUES (13,'admin',NULL,NULL,NULL,'append','set_list',NULL,'\'admin_password\'');
+INSERT INTO `directive` VALUES (14,'admin',NULL,NULL,NULL,'append','where_hash','simple','\'CONCAT(`admin_name`, `admin_email`) LIKE \"%$1%\"\'');
+INSERT INTO `directive` VALUES (15,'admin',NULL,NULL,NULL,'append','order_by_hash','admin_id_asc','\'`admin_id` DESC\'');
+INSERT INTO `directive` VALUES (16,'admin',NULL,NULL,NULL,'append','limit_list',NULL,'10');
+INSERT INTO `directive` VALUES (17,'admin','m',NULL,NULL,'remove','action_list',NULL,'\'index\'');
+INSERT INTO `directive` VALUES (18,'admin','m',NULL,NULL,'remove','action_list',NULL,'\'view\'');
+INSERT INTO `directive` VALUES (19,'admin','m',NULL,NULL,'remove','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (20,'admin','m',NULL,NULL,'remove','action_list',NULL,'\'edit\'');
+INSERT INTO `directive` VALUES (21,'admin','m',NULL,NULL,'remove','action_list',NULL,'\'delete\'');
+INSERT INTO `directive` VALUES (22,'admin','g',NULL,NULL,'remove','action_list',NULL,'\'index\'');
+INSERT INTO `directive` VALUES (23,'admin','g',NULL,NULL,'remove','action_list',NULL,'\'view\'');
+INSERT INTO `directive` VALUES (24,'admin','g',NULL,NULL,'remove','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (25,'admin','g',NULL,NULL,'remove','action_list',NULL,'\'edit\'');
+INSERT INTO `directive` VALUES (26,'admin','g',NULL,NULL,'remove','action_list',NULL,'\'delete\'');
+INSERT INTO `directive` VALUES (27,'comment',NULL,NULL,NULL,'overwrite','display',NULL,'\'comment_writer\'');
+INSERT INTO `directive` VALUES (28,'comment',NULL,NULL,NULL,'overwrite','use_card',NULL,'TRUE');
+INSERT INTO `directive` VALUES (29,'comment',NULL,NULL,NULL,'append','action_list',NULL,'\'index\'');
+INSERT INTO `directive` VALUES (30,'comment',NULL,NULL,NULL,'append','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (31,'comment',NULL,NULL,NULL,'append','action_list',NULL,'\'edit\'');
+INSERT INTO `directive` VALUES (32,'comment',NULL,NULL,NULL,'append','action_list',NULL,'\'delete\'');
+INSERT INTO `directive` VALUES (33,'comment',NULL,NULL,NULL,'append','select_hash','comment_id','NULL');
+INSERT INTO `directive` VALUES (34,'comment',NULL,NULL,NULL,'append','select_hash','comment_post_id','NULL');
+INSERT INTO `directive` VALUES (35,'comment',NULL,NULL,NULL,'append','select_hash','post_name','NULL');
+INSERT INTO `directive` VALUES (36,'comment',NULL,NULL,NULL,'append','select_hash','comment_writer','NULL');
+INSERT INTO `directive` VALUES (37,'comment',NULL,NULL,NULL,'append','select_hash','comment_created','NULL');
+INSERT INTO `directive` VALUES (38,'comment',NULL,NULL,NULL,'append','select_hash','comment_text','NULL');
+INSERT INTO `directive` VALUES (39,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,'\'comment_id\'');
+INSERT INTO `directive` VALUES (40,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,'\'comment_post_id\'');
+INSERT INTO `directive` VALUES (41,'comment',NULL,NULL,NULL,'append','set_list',NULL,'\'comment_writer\'');
+INSERT INTO `directive` VALUES (42,'comment',NULL,NULL,NULL,'append','set_list',NULL,'\'comment_text\'');
+INSERT INTO `directive` VALUES (43,'comment',NULL,NULL,NULL,'append','fixed_hash','comment_created','\'CURRENT_TIMESTAMP\'');
+INSERT INTO `directive` VALUES (44,'comment',NULL,NULL,NULL,'append','join_hash','comment_post','[\'table\' => \'`post`\', \'cond\' => \'`post_id` = `comment_post_id`\']');
+INSERT INTO `directive` VALUES (45,'comment',NULL,NULL,NULL,'append','where_hash','simple','\'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE \"%$1%\"\'');
+INSERT INTO `directive` VALUES (46,'comment',NULL,NULL,NULL,'append','order_by_hash','comment_id_desc','\'`comment_id` DESC\'');
+INSERT INTO `directive` VALUES (47,'comment',NULL,NULL,NULL,'append','limit_list',NULL,'10');
+INSERT INTO `directive` VALUES (48,'comment','a',NULL,NULL,'remove','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (49,'comment','m',NULL,NULL,'remove','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (50,'comment','m',NULL,NULL,'remove','action_list',NULL,'\'edit\'');
+INSERT INTO `directive` VALUES (51,'comment','m',NULL,NULL,'remove','action_list',NULL,'\'delete\'');
+INSERT INTO `directive` VALUES (52,'comment','m',NULL,NULL,'append','where_list',NULL,'\"`post_member_id` = {$this->auth[\'id\']}\"');
+INSERT INTO `directive` VALUES (53,'comment','g',NULL,NULL,'remove','action_list',NULL,'\'edit\'');
+INSERT INTO `directive` VALUES (54,'comment','g',NULL,NULL,'remove','action_list',NULL,'\'delete\'');
+INSERT INTO `directive` VALUES (55,'comment','g',NULL,'comment','remove','action_list',NULL,'\'index\'');
+INSERT INTO `directive` VALUES (56,'comment','g',NULL,'comment','remove','action_list',NULL,'\'add\'');
+INSERT INTO `directive` VALUES (57,'comment',NULL,NULL,'post_comment','remove','select_hash',NULL,'\'post_name\'');
+INSERT INTO `directive` VALUES (58,'comment',NULL,NULL,'post_comment','append','fixed_hash','comment_post_id','$this->parent_id');
+INSERT INTO `directive` VALUES (59,'comment',NULL,NULL,'post_comment','append','where_list','comment_post_id','\"`comment_post_id` = {$this->parent_id}\"');
+/*!40000 ALTER TABLE `directive` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `file`
 --
 
@@ -118,96 +207,6 @@ INSERT INTO `file` VALUES (1,'File1.txt','2017-07-22 12:14:23','data:text/plain;
 INSERT INTO `file` VALUES (2,'File2.txt','2017-07-22 12:14:28','data:text/plain;base64,VGhpcyBpcyBGaWxlMi4KCg==');
 INSERT INTO `file` VALUES (3,'File3.txt','2017-07-22 12:14:34','data:text/plain;base64,VGhpcyBpcyBGaWxlMy4KCg==');
 /*!40000 ALTER TABLE `file` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `inst`
---
-
-DROP TABLE IF EXISTS `inst`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `inst` (
-  `spec_id` int(11) NOT NULL AUTO_INCREMENT,
-  `spec_table` varchar(255) NOT NULL,
-  `spec_actor` varchar(255) DEFAULT NULL,
-  `spec_action` varchar(255) DEFAULT NULL,
-  `spec_alias` varchar(255) DEFAULT NULL,
-  `spec_method` varchar(255) NOT NULL,
-  `spec_key1` varchar(255) NOT NULL,
-  `spec_key2` varchar(255) DEFAULT NULL,
-  `spec_key3` varchar(255) DEFAULT NULL,
-  `spec_value` varchar(255) NOT NULL,
-  PRIMARY KEY (`spec_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `inst`
---
-
-LOCK TABLES `inst` WRITE;
-/*!40000 ALTER TABLE `inst` DISABLE KEYS */;
-INSERT INTO `inst` VALUES (1,'admin',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
-INSERT INTO `inst` VALUES (2,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `inst` VALUES (3,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'view\'');
-INSERT INTO `inst` VALUES (4,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (5,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `inst` VALUES (6,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `inst` VALUES (7,'admin',NULL,NULL,NULL,'append','select_hash','admin_id',NULL,'NULL');
-INSERT INTO `inst` VALUES (8,'admin',NULL,NULL,NULL,'append','select_hash','admin_name',NULL,'NULL');
-INSERT INTO `inst` VALUES (9,'admin',NULL,NULL,NULL,'append','select_hash','admin_email',NULL,'NULL');
-INSERT INTO `inst` VALUES (10,'admin',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'admin_id\'');
-INSERT INTO `inst` VALUES (11,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_name\'');
-INSERT INTO `inst` VALUES (12,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_email\'');
-INSERT INTO `inst` VALUES (13,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_password\'');
-INSERT INTO `inst` VALUES (14,'admin',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`admin_name`, `admin_email`) LIKE \"%$1%\"\'');
-INSERT INTO `inst` VALUES (15,'admin',NULL,NULL,NULL,'append','order_by_hash','admin_id_asc',NULL,'\'`admin_id` DESC\'');
-INSERT INTO `inst` VALUES (16,'admin',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
-INSERT INTO `inst` VALUES (17,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `inst` VALUES (18,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'view\'');
-INSERT INTO `inst` VALUES (19,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (20,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `inst` VALUES (21,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `inst` VALUES (22,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `inst` VALUES (23,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'view\'');
-INSERT INTO `inst` VALUES (24,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (25,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `inst` VALUES (26,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `inst` VALUES (27,'comment',NULL,NULL,NULL,'overwrite','display',NULL,NULL,'\'comment_writer\'');
-INSERT INTO `inst` VALUES (28,'comment',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
-INSERT INTO `inst` VALUES (29,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `inst` VALUES (30,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (31,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `inst` VALUES (32,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `inst` VALUES (33,'comment',NULL,NULL,NULL,'append','select_hash','comment_id',NULL,'NULL');
-INSERT INTO `inst` VALUES (34,'comment',NULL,NULL,NULL,'append','select_hash','comment_post_id',NULL,'NULL');
-INSERT INTO `inst` VALUES (35,'comment',NULL,NULL,NULL,'append','select_hash','post_name',NULL,'NULL');
-INSERT INTO `inst` VALUES (36,'comment',NULL,NULL,NULL,'append','select_hash','comment_writer',NULL,'NULL');
-INSERT INTO `inst` VALUES (37,'comment',NULL,NULL,NULL,'append','select_hash','comment_created',NULL,'NULL');
-INSERT INTO `inst` VALUES (38,'comment',NULL,NULL,NULL,'append','select_hash','comment_text',NULL,'NULL');
-INSERT INTO `inst` VALUES (39,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_id\'');
-INSERT INTO `inst` VALUES (40,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_post_id\'');
-INSERT INTO `inst` VALUES (41,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_writer\'');
-INSERT INTO `inst` VALUES (42,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_text\'');
-INSERT INTO `inst` VALUES (43,'comment',NULL,NULL,NULL,'append','fixed_hash','comment_created',NULL,'\'CURRENT_TIMESTAMP\'');
-INSERT INTO `inst` VALUES (44,'comment',NULL,NULL,NULL,'append','join_hash','comment_post',NULL,'[\'table\' => \'`post`\', \'cond\' => \'`post_id` = `comment_post_id`\']');
-INSERT INTO `inst` VALUES (45,'comment',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE \"%$1%\"\'');
-INSERT INTO `inst` VALUES (46,'comment',NULL,NULL,NULL,'append','order_by_hash','comment_id_desc',NULL,'\'`comment_id` DESC\'');
-INSERT INTO `inst` VALUES (47,'comment',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
-INSERT INTO `inst` VALUES (48,'comment','a',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (49,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (50,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `inst` VALUES (51,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `inst` VALUES (52,'comment','m',NULL,NULL,'append','where_list',NULL,NULL,'\"`post_member_id` = {$this->auth[\'id\']}\"');
-INSERT INTO `inst` VALUES (53,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `inst` VALUES (54,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `inst` VALUES (55,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `inst` VALUES (56,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `inst` VALUES (57,'comment',NULL,NULL,'post_comment','remove','select_hash',NULL,NULL,'\'post_name\'');
-INSERT INTO `inst` VALUES (58,'comment',NULL,NULL,'post_comment','append','fixed_hash','comment_post_id',NULL,'$this->parent_id');
-INSERT INTO `inst` VALUES (59,'comment',NULL,NULL,'post_comment','append','where_list','comment_post_id',NULL,'\"`comment_post_id` = {$this->parent_id}\"');
-/*!40000 ALTER TABLE `inst` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -311,4 +310,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-19 11:06:38
+-- Dump completed on 2017-08-19 11:33:16
