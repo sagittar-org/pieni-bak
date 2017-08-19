@@ -21,6 +21,7 @@ class Directive_model extends Crud_model {
 		$this->append('select_hash', 'directive_value', NULL);
 		$this->append('hidden_list', 'directive_id');
 		$this->append('set_list', 'directive_table');
+		$this->append('set_list', 'directive_actor');
 		$this->append('order_by_hash', 'directive_id_desc', '`directive_id` DESC');
 		$this->append('limit_list', 100);
 	}

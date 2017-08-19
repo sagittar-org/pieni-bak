@@ -1,8 +1,16 @@
 <?php /* テーブル */ ?>
 <?php if ($vars['key'] === 'directive_table'): ?>
 <select name="<?php h($vars['key']); ?>" class="form-control">
-<?php foreach (config('uri')['table_list'] as $value): ?>
-<option value="<?php h($value); ?>"><?php l($value); ?></option>
+<?php foreach (config('uri')['table_list'] as $key): ?>
+<option value="<?php h($key); ?>"><?php l($key); ?></option>
+<?php endforeach; ?>
+</select>
+<?php /* アクター */ ?>
+<?php elseif ($vars['key'] === 'directive_actor'): ?>
+<select name="<?php h($vars['key']); ?>" class="form-control">
+<option value=""></option>
+<?php foreach (array_reverse(array_keys(config('uri')['actor_hash'])) as $key): ?>
+<option value="<?php h($key); ?>"><?php l($key); ?></option>
 <?php endforeach; ?>
 </select>
 <?php /* デフォルト */ ?>
