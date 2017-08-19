@@ -94,6 +94,8 @@ $language['docs']                  = 'ユーザガイド';
 $language['spec']                  = '仕様書';
 $language['matrix']                = 'CRUDマトリクス';
 $language['field']                 = 'フィールド';
+$language['scalar']                = 'スカラー';
+$language['array']                 = '配列';
 
 $language['crud_search']           = '検索';
 $language['crud_clear']            = '検索条件をクリア';

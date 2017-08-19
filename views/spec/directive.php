@@ -1,9 +1,10 @@
-<a class="pull-right" data-toggle="collapse" href="#<?php h($vars['model']->alias); ?>_propaties"><span class="caret"></span></a>
+<a class="pull-right" data-toggle="collapse" href="#<?php h($vars['model']->alias); ?>_directive"><span class="caret"></span></a>
 <h4><?php l('directive'); ?></h4>
-<div class="collapse in" id="<?php h($vars['model']->alias); ?>_propaties">
+<div class="collapse in" id="<?php h($vars['model']->alias); ?>_directive">
+<h5><?php l('scalar'); ?></h5>
 <table class="table">
 <tr>
-<th><?php l('primary_key'); ?></th>
+<th style="width:150px;"><?php l('primary_key'); ?></th>
 <td><?php l($vars['model']->primary_key); ?></td>
 </tr>
 <tr>
@@ -14,8 +15,11 @@
 <th><?php l('use_card'); ?></th>
 <td><?php h($vars['model']->use_card === TRUE ? 'Yes' : 'No'); ?></td>
 </tr>
+</table>
+<h5><?php l('array'); ?></h5>
+<table class="table">
 <tr>
-<th><?php l('join_hash'); ?></th>
+<th style="width:150px;"><?php l('join_hash'); ?></th>
 <td>
 <?php foreach ($vars['model']->join_hash as $key => $join): ?>
 <div title="<?php h("{$join['table']} AS `{$key}` ON{$join['cond']}"); ?>"><?php l($key); ?></div>

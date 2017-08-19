@@ -24,5 +24,5 @@ $has_model = load_model($has, [
 ]);
 ?>
 <?php load_view('matrix', ['actor' => $vars['actor'], 'class' => $has, 'model' => $has_model], 'spec'); ?>
-<?php load_view('directive', ['actor' => $vars['actor'], 'class' => $vars['class'], 'model' => $model], 'spec'); ?>
+<?php load_view('directive', ['actor' => $vars['actor'], 'class' => $has, 'model' => $has_model], 'spec'); ?>
 <?php endforeach; ?>
