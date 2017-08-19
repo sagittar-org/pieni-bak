@@ -1,5 +1,6 @@
 <?php
-foreach ($vars['action_list'] as $action)
+$action_list = ['index', 'view', 'add', 'edit', 'delete'];
+foreach ($action_list as $action)
 {
 	load_model($vars['class'], [
 		'actor'  => $vars['actor'],
@@ -16,7 +17,7 @@ foreach ($vars['action_list'] as $action)
 <table class="table table-bordered">
 <tr>
 <th>フィールド</th>
-<?php foreach ($vars['action_list'] as $action): ?>
+<?php foreach ($action_list as $action): ?>
 <?php if ( ! in_array($action, $vars['model']->action_list)) continue; ?>
 <th class="text-center"><?php l("crud_{$action}"); ?></th>
 <?php endforeach; ?>
@@ -24,7 +25,7 @@ foreach ($vars['action_list'] as $action)
 <?php foreach (array_unique(array_merge(array_keys($vars['model']->select_hash), $vars['model']->set_list, array_keys($vars['model']->fixed_hash))) as $key): ?>
 <tr>
 <td title="<?php h($key); ?>"><?php l($key); ?></td>
-<?php foreach ($vars['action_list'] as $action): ?>
+<?php foreach ($action_list as $action): ?>
 <?php $action_model = model("{$vars['model']->alias}_{$action}"); ?>
 <?php if ( ! in_array($action, $vars['model']->action_list)) continue; ?>
 <?php

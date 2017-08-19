@@ -1,5 +1,4 @@
 <?php
-$action_list = ['index', 'view', 'add', 'edit', 'delete'];
 $model = load_model($vars['class'], [
 	'actor'  => $vars['actor'],
 	'class'  => $vars['class'],
@@ -9,7 +8,7 @@ $model = load_model($vars['class'], [
 ]);
 ?>
 <h3><?php l("actor_{$vars['actor']}"); ?> / <?php l($vars['class']); ?></h3>
-<?php load_view('matrix', ['actor' => $vars['actor'], 'class' => $vars['class'], 'model' => $model, 'action_list'=> $action_list], 'spec'); ?>
+<?php load_view('matrix', ['actor' => $vars['actor'], 'class' => $vars['class'], 'model' => $model], 'spec'); ?>
 
 <?php foreach ($model->has_hash as $key => $has): ?>
 <hr>
@@ -23,5 +22,5 @@ $has_model = load_model($has, [
 	'parent_id' => 'PARENT_ID',
 ]);
 ?>
-<?php load_view('matrix', ['actor' => $vars['actor'], 'class' => $has, 'model' => $has_model, 'action_list'=> $action_list], 'spec'); ?>
+<?php load_view('matrix', ['actor' => $vars['actor'], 'class' => $has, 'model' => $has_model], 'spec'); ?>
 <?php endforeach; ?>
