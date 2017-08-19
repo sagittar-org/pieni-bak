@@ -19,7 +19,7 @@ class Spec extends Controller {
 	}
 
 	// DBからモデルを生成
-	public function assemble()
+	public function compile()
 	{
 		load_library('db');
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
@@ -40,6 +40,13 @@ r(library('db')->last_query);
 		{
 			// エイリアス終了
 			if ((isset($last_row) && $row['spec_alias'] !== $last_row['spec_alias']) && $last_row['spec_alias'] !== NULL)
+			{
+				$indent = substr($indent, 0, strlen($indent) - 1);
+				echo "{$indent}}\n";
+			}
+
+			// アクター終了
+			if ((isset($last_row) && $row['spec_action'] !== $last_row['spec_action']) && $last_row['spec_action'] !== NULL)
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
 				echo "{$indent}}\n";
@@ -69,6 +76,13 @@ r(library('db')->last_query);
 			if (( ! isset($last_row) OR $row['spec_actor'] !== $last_row['spec_actor']) && $row['spec_actor'] !== NULL)
 			{
 				echo "\n{$indent}if (\$this->actor === '{$row['spec_actor']}')\n{$indent}{\n";
+				$indent .= "\t";
+			}
+
+			// アクション開始
+			if (( ! isset($last_row) OR $row['spec_action'] !== $last_row['spec_action']) && $row['spec_action'] !== NULL)
+			{
+				echo "\n{$indent}if (\$this->actor === '{$row['spec_action']}')\n{$indent}{\n";
 				$indent .= "\t";
 			}
 
@@ -156,6 +170,13 @@ r(library('db')->last_query);
 
 		// エイリアス終了
 		if ($last_row['spec_alias'] !== NULL)
+		{
+			$indent = substr($indent, 0, strlen($indent) - 1);
+			echo "{$indent}}\n";
+		}
+
+		// アクター終了
+		if ($last_row['spec_action'] !== NULL)
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
 			echo "{$indent}}\n";
