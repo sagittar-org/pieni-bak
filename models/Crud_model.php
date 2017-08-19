@@ -1,34 +1,22 @@
 <?php
 class Crud_model {
 
-	private $spec_actor;
-	private $spec_action;
-	private $spec_alias;
-
-	private $db;
-	private $post;
-	private $get;
-
 	public function __construct($params)
 	{
-		$this->spec_actor      = NULL;
-		$this->spec_action     = NULL;
-		$this->spec_alias      = NULL;
-
 		$this->db              = load_library('db');
 		$this->post            = isset($params['post']) ? $params['post'] : [];
 		$this->get             = isset($params['get']) ? $params['get'] : [];
 		$this->auth            = isset($params['auth']) ? $params['auth'] : [];
-		$this->actor           = isset($params['actor']) ? $params['actor'] : uri('actor');
+		$this->actor           = $params['actor'];
 		$this->table           = $params['class'];
 		$this->alias           = $params['alias'];
 		$this->action          = isset($params['method']) ? $params['method'] : 'index';
 		$this->parent_id       = isset($params['parent_id']) ? $params['parent_id'] : NULL;
 		$this->session         = isset($params['session']) ? $params['session'] : [];
 
-		$this->primary_key     = "{$this->table}_id";
-		$this->display         = "{$this->table}_name";
-		$this->use_card        = FALSE;
+		$this->primary_key     = NULL;
+		$this->display         = NULL;
+		$this->use_card        = NULL;
 
 		$this->has_hash        = [];
 		$this->action_list     = [];
@@ -266,10 +254,6 @@ class Crud_model {
 	// メンバの添字・連想配列から要素を削除する
 	public function remove($key1, $value)
 	{
-		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor OR $this->spec_action !== NULL && $this->spec_action !== $this->action OR $this->spec_alias !== NULL && $this->spec_alias !== $this->alias)
-		{
-			return;
-		}
 		if (array_values($this->$key1) === $this->$key1)
 		{
 			$this->$key1 = array_merge(array_diff($this->$key1, [$value]));
@@ -283,20 +267,12 @@ class Crud_model {
 	// メンバの値を上書きする
 	public function overwrite($key1, $value)
 	{
-		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor OR $this->spec_action !== NULL && $this->spec_action !== $this->action OR $this->spec_alias !== NULL && $this->spec_alias !== $this->alias)
-		{
-			return;
-		}
 		$this->$key1 = $value;
 	}
 
 	// メンバの添字・添字配列へ要素を追加する
 	public function append($key1, $key2, $value = '-')
 	{
-		if ($this->spec_actor !== NULL && $this->spec_actor !== $this->actor OR $this->spec_action !== NULL && $this->spec_action !== $this->action OR $this->spec_alias !== NULL && $this->spec_alias !== $this->alias)
-		{
-			return;
-		}
 		if ($value === '-')
 		{
 			$this->$key1[] = $key2;

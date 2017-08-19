@@ -5,6 +5,7 @@ class Comment_model extends Crud_model {
 	{
 		parent::__construct($params);
 
+		$this->overwrite('primary_key', 'comment_id');
 		$this->overwrite('display', 'comment_writer');
 		$this->overwrite('use_card', TRUE);
 		$this->append('action_list', 'index');

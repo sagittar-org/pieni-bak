@@ -4,6 +4,9 @@ class Post_model extends Crud_model {
 	public function __construct($params)
 	{
 		parent::__construct($params);
+
+		$this->overwrite('primary_key', 'post_id');
+		$this->overwrite('display', 'post_name');
 		$this->overwrite('use_card', TRUE);
 		$this->append('has_hash', 'post_comment', 'comment');
 		$this->append('action_list', 'index');

@@ -5,6 +5,8 @@ class Member_model extends Crud_model {
 	{
 		parent::__construct($params);
 
+		$this->overwrite('primary_key', 'member_id');
+		$this->overwrite('display', 'member_name');
 		$this->overwrite('use_card', TRUE);
 		$this->append('has_hash', 'member_post', 'post');
 		$this->append('action_list', 'index');

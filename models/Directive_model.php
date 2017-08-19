@@ -10,7 +10,9 @@ class Directive_model extends Crud_model {
 		$action_list = "'".implode("', '", config('uri')['action_list'])."'";
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
 
+		$this->overwrite('primary_key', 'directive_id');
 		$this->overwrite('display', 'directive_id');
+		$this->overwrite('use_card', FALSE);
 		$this->append('action_list', 'index');
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');

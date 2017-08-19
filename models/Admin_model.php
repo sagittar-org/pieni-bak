@@ -5,6 +5,8 @@ class Admin_model extends Crud_model {
 	{
 		parent::__construct($params);
 
+		$this->overwrite('primary_key', 'admin_id');
+		$this->overwrite('display', 'admin_name');
 		$this->overwrite('use_card', TRUE);
 		$this->append('action_list', 'index');
 		$this->append('action_list', 'view');

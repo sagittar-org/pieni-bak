@@ -2,7 +2,7 @@
 <?php $alias = $vars['model']->alias; ?>
 <?php foreach (array_merge(array_combine($vars['model']->action_list, $vars['model']->action_list), $vars['model']->row_action_hash) as $key => $row_action): ?>
 <?php if ($row_action !== 'edit') continue; ?>
-<?php load_model($table, ['class' => $table, 'alias' => $alias, 'method' => $key, 'auth' => $_SESSION[uri('actor')]['auth']], "{$alias}_{$key}"); ?>
+<?php load_model($table, ['actor' => uri('actor'), 'class' => $table, 'alias' => $alias, 'method' => $key, 'auth' => $_SESSION[uri('actor')]['auth']], "{$alias}_{$key}"); ?>
     <form class="modal fade" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" onsubmit="return false;">
       <input type="hidden" name="dummy" value="dummy">
       <div class="modal-dialog" role="document">

@@ -15,7 +15,7 @@
 
 <?php /* エンティティ */ ?>
 <?php foreach (config('uri')['table_list'] as $table): ?>
-<?php   if (! in_array('index', load_model($table, ['class' => $table, 'alias' => $table, 'auth' => $_SESSION[uri('actor')]['auth'], "header_{$table}"])->action_list)) continue; ?>
+<?php   if (! in_array('index', load_model($table, ['actor' => uri('actor'), 'class' => $table, 'alias' => $table, 'auth' => $_SESSION[uri('actor')]['auth'], "header_{$table}"])->action_list)) continue; ?>
             <li<?php if (uri('class') === $table): ?> class="active"<?php endif; ?>><a href="<?php href($table); ?>"><?php l($table); ?></a></li>
 <?php endforeach; ?>
 

@@ -5,6 +5,9 @@ class File_model extends Crud_model {
 	{
 		parent::__construct($params);
 
+		$this->overwrite('primary_key', 'file_id');
+		$this->overwrite('display', 'file_name');
+		$this->overwrite('use_card', FALSE);
 		$this->append('action_list', 'index');
 		$this->append('action_list', 'add');
 		$this->append('action_list', 'edit');
