@@ -9,14 +9,14 @@ class Directive extends Crud {
 	// モデルを正規化
 	public function regularize()
 	{
-		$this->compile();
-		$this->decompile();
+		$this->compile(FALSE);
+		$this->decompile(FALSE);
 		flash(l('crud_regularize_succeeded', [], TRUE), 'success');
 		redirect('directive');
 	}
 
 	// モデルからDBを生成
-	public function compile()
+	public function compile($flash = TRUE)
 	{
 		$stack = [];
 		$table = 'admin';
@@ -85,10 +85,15 @@ class Directive extends Crud {
 				}
 			}
 		}
+		if ($flash === TRUE)
+		{
+			flash(l('crud_compile_succeeded', [], TRUE), 'success');
+			redirect('directive');
+		}
 	}
 
 	// DBからモデルを生成
-	public function decompile()
+	public function decompile($flash = TRUE)
 	{
 		load_library('db');
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
@@ -274,5 +279,11 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 		$ob = ob_get_clean();
 //		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
 		file_put_contents('models/'.ucfirst($table).'_model.php', $ob);
+
+		if ($flash === TRUE)
+		{
+			flash(l('crud_decompile_succeeded', [], TRUE), 'success');
+			redirect('directive');
+		}
 	}
 }
