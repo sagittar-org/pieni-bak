@@ -17,15 +17,15 @@
           <td><?php load_view('col', ['row' => $row, 'key' => $key], $table); ?></td>
 <?php endforeach; ?>
           <td style="white-space:nowrap; width:0; text-align:right;">
-<?php foreach (array_merge(array_combine($vars['model']->action_list, $vars['model']->action_list), $vars['model']->row_action_hash) as $key => $row_action): ?>
+<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
 <?php if ($row_action !== 'view') continue; ?>
             <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
 <?php endforeach; ?>
-<?php foreach (array_merge(array_combine($vars['model']->action_list, $vars['model']->action_list), $vars['model']->row_action_hash) as $key => $row_action): ?>
+<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
 <?php if ($row_action !== 'edit') continue; ?>
             <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
 <?php endforeach; ?>
-<?php foreach (array_merge(array_combine($vars['model']->action_list, $vars['model']->action_list), $vars['model']->row_action_hash) as $key => $row_action): ?>
+<?php foreach (array_merge($vars['model']->action_hash, $vars['model']->row_action_hash) as $key => $row_action): ?>
 <?php if ($row_action !== 'delete') continue; ?>
             <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
 <?php endforeach; ?>

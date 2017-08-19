@@ -7,16 +7,16 @@ class Directive_model extends Crud_model {
 
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
 		$actor_list = "'".implode("', '", array_reverse(array_keys(config('uri')['actor_hash'])))."'";
-		$action_list = "'".implode("', '", config('uri')['action_list'])."'";
+		$action_list = "'".implode("', '", array_keys(config('uri')['action_hash']))."'";
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
 
 		$this->overwrite('primary_key', 'directive_id');
 		$this->overwrite('display', 'directive_id');
 		$this->overwrite('use_card', FALSE);
-		$this->append('action_list', 'index');
-		$this->append('action_list', 'add');
-		$this->append('action_list', 'edit');
-		$this->append('action_list', 'delete');
+		$this->append('action_hash', 'index', 'index');
+		$this->append('action_hash', 'add', 'add');
+		$this->append('action_hash', 'edit', 'edit');
+		$this->append('action_hash', 'delete', 'delete');
 		$this->append('select_hash', 'directive_id', NULL);
 		$this->append('select_hash', 'directive_table', NULL);
 		$this->append('select_hash', 'directive_actor', NULL);
@@ -48,24 +48,24 @@ class Directive_model extends Crud_model {
 `directive_action` IS NULL DESC, FIELD(`directive_action`, {$actor_list}),
 `directive_actor` IS NULL DESC, FIELD(`directive_actor`, {$actor_list}),
 `directive_method` IS NULL DESC, FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC");
 		$this->append('limit_list', 100);
 
 		if ($this->actor === 'm')
 		{
-			$this->remove('action_list', 'index');
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 
 		if ($this->actor === 'g')
 		{
-			$this->remove('action_list', 'index');
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 	}
 }

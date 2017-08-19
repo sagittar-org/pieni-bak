@@ -8,10 +8,10 @@ class File_model extends Crud_model {
 		$this->overwrite('primary_key', 'file_id');
 		$this->overwrite('display', 'file_name');
 		$this->overwrite('use_card', FALSE);
-		$this->append('action_list', 'index');
-		$this->append('action_list', 'add');
-		$this->append('action_list', 'edit');
-		$this->append('action_list', 'delete');
+		$this->append('action_hash', 'index', 'index');
+		$this->append('action_hash', 'add', 'add');
+		$this->append('action_hash', 'edit', 'edit');
+		$this->append('action_hash', 'delete', 'delete');
 		$this->append('row_action_hash', 'download', 'view');
 		$this->append('select_hash', 'file_id', NULL);
 		$this->append('select_hash', 'file_name', NULL);
@@ -27,18 +27,18 @@ class File_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
-			$this->remove('action_list', 'index');
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 
 		if ($this->actor === 'g')
 		{
-			$this->remove('action_list', 'index');
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 
 		if ($this->action === 'index')

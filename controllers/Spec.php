@@ -24,15 +24,15 @@ class Spec extends Controller {
 		load_library('db');
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
 		$actor_list = "'".implode("', '", array_reverse(array_keys(config('uri')['actor_hash'])))."'";
-		$action_list = "'".implode("', '", config('uri')['action_list'])."'";
+		$action_list = "'".implode("', '", array_keys(config('uri')['action_hash']))."'";
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
 		$result = library('db')->query("SELECT * FROM `directive` ORDER BY
 `directive_table` IS NULL DESC, FIELD(`directive_table`, {$table_list}),
 `directive_alias` IS NULL DESC, FIELD(`directive_alias`, {$alias_list}),
-`directive_action` IS NULL DESC, FIELD(`directive_action`, {$actor_list}),
+`directive_action` IS NULL DESC, FIELD(`directive_action`, {$action_list}),
 `directive_actor` IS NULL DESC, FIELD(`directive_actor`, {$actor_list}),
 `directive_method` IS NULL DESC, FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
 ");
 		while (($row = $result->fetch_assoc()))
@@ -111,7 +111,6 @@ class Spec extends Controller {
 			case 'append':
 				switch ($row['directive_directive'])
 				{
-				case 'action_list':
 				case 'hidden_list':
 				case 'set_list':
 				case 'where_list':
@@ -119,6 +118,7 @@ class Spec extends Controller {
 					$value = $row['directive_value'];
 					break;
 				case 'has_hash':
+				case 'action_hash':
 				case 'row_action_hash':
 				case 'select_hash':
 				case 'fixed_hash':
@@ -137,7 +137,6 @@ class Spec extends Controller {
 			case 'remove':
 				switch ($row['directive_directive'])
 				{
-				case 'action_list':
 				case 'hidden_list':
 				case 'set_list':
 				case 'where_list':
@@ -145,6 +144,7 @@ class Spec extends Controller {
 					$value = $row['directive_value'];
 					break;
 				case 'has_hash':
+				case 'action_hash':
 				case 'row_action_hash':
 				case 'select_hash':
 				case 'fixed_hash':

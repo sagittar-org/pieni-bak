@@ -25,13 +25,13 @@ $config['uri'] = [
 		'admin',
 		'directive',
 	],
-	'action_list' => [
-		'proxy',
-		'index',
-		'view',
-		'add',
-		'edit',
-		'delete',
+	'action_hash' => [
+		'proxy'  => 'row',
+		'index'  => 'index',
+		'view'   => 'view',
+		'add'    => 'add',
+		'edit'   => 'edit',
+		'delete' => 'delete',
 	],
 	'alias_list' => [
 		'member_post',

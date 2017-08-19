@@ -19,8 +19,7 @@ class Crud_model {
 		$this->use_card          = NULL;
 
 		$this->has_hash          = [];
-		$this->action_list       = [];
-		$this->table_action_hash = [];
+		$this->action_hash       = [];
 		$this->row_action_hash   = [];
 		$this->select_hash       = [];
 		$this->hidden_list       = [];

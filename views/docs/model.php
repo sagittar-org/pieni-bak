@@ -47,7 +47,7 @@
   <td>[]</td>
 </tr>
 <tr>
-  <td>action_list</td>
+  <td>action_hash</td>
   <td>CRUDアクション</td>
   <td>['index', 'view', 'add', 'edit', 'delete']</td>
 </tr>

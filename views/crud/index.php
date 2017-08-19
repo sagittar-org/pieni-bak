@@ -6,7 +6,7 @@
 <?php else: ?>
       <h2><?php l($alias); ?></h2>
 <?php endif; ?>
-<?php if (in_array('add', $vars['model']->action_list)): ?>
+<?php if (in_array('add', array_keys($vars['model']->action_hash))): ?>
       <div class="text-right" style="margin-top:-46px">
         <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?>AddShow" data-target="#<?php h($alias); ?>Add" onclick="<?php h($alias); ?>PreAdd($('#<?php h($alias); ?>Add'));"><?php l('crud_add'); ?></button>
       </div>
@@ -24,6 +24,6 @@
 <?php endif; ?>
 <?php load_view('pagination2', $vars, $table); ?>
     </div>
-<?php if (in_array('add', $vars['model']->action_list)) load_view('add', $vars, $table); ?>
+<?php if (in_array('add', array_keys($vars['model']->action_hash))) load_view('add', $vars, $table); ?>
 <?php load_view('edit', $vars, $table); ?>
 <?php load_view('delete', $vars, $table); ?>

@@ -1,6 +1,5 @@
 <?php
-$action_list = ['index', 'view', 'add', 'edit', 'delete'];
-foreach ($action_list as $action)
+foreach (array_keys($vars['model']->action_hash) as $action)
 {
 	load_model($vars['class'], [
 		'actor'  => $vars['actor'],
@@ -17,17 +16,15 @@ foreach ($action_list as $action)
 <table class="table table-bordered">
 <tr>
 <th><?php l('field'); ?></th>
-<?php foreach ($action_list as $action): ?>
-<?php if ( ! in_array($action, $vars['model']->action_list)) continue; ?>
+<?php foreach (array_keys($vars['model']->action_hash) as $action): ?>
 <th class="text-center"><?php l("crud_{$action}"); ?></th>
 <?php endforeach; ?>
 </tr>
 <?php foreach (array_unique(array_merge(array_keys($vars['model']->select_hash), $vars['model']->set_list, array_keys($vars['model']->fixed_hash))) as $key): ?>
 <tr>
 <td title="<?php h($key); ?>"><?php l($key); ?></td>
-<?php foreach ($action_list as $action): ?>
+<?php foreach (array_keys($vars['model']->action_hash) as $action): ?>
 <?php $action_model = model("{$vars['model']->alias}_{$action}"); ?>
-<?php if ( ! in_array($action, $vars['model']->action_list)) continue; ?>
 <?php
 /*
                 index   view    add     edit    delete

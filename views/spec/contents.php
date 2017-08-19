@@ -11,11 +11,11 @@ $model = load_model($class, [
 	'auth'   => ['id' => 'AUTH_ID', 'name' => 'AUTH_NAME'],
 ]);
 ?>
-<?php if (in_array('index', $model->action_list) OR in_array('view', $model->action_list)): ?>
+<?php if ($model->action_hash !== []): ?>
 <tr>
 <th style="width:100px; white-space:nowrap;"><a href="<?php href("spec/table/{$key}/{$class}"); ?>"><?php l($class); ?></a></th>
 <td>
-<?php foreach ($model->action_list as $action): ?>
+<?php foreach (array_keys($model->action_hash) as $action): ?>
 <?php l("crud_{$action}"); ?>&nbsp;
 <?php endforeach; ?>
 </td>

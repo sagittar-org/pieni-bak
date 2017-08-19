@@ -9,11 +9,11 @@ class Post_model extends Crud_model {
 		$this->overwrite('display', 'post_name');
 		$this->overwrite('use_card', TRUE);
 		$this->append('has_hash', 'post_comment', 'comment');
-		$this->append('action_list', 'index');
-		$this->append('action_list', 'view');
-		$this->append('action_list', 'add');
-		$this->append('action_list', 'edit');
-		$this->append('action_list', 'delete');
+		$this->append('action_hash', 'index', 'index');
+		$this->append('action_hash', 'view', 'view');
+		$this->append('action_hash', 'add', 'add');
+		$this->append('action_hash', 'edit', 'edit');
+		$this->append('action_hash', 'delete', 'delete');
 		$this->append('select_hash', 'post_id', NULL);
 		$this->append('select_hash', 'post_member_id', NULL);
 		$this->append('select_hash', 'member_name', NULL);
@@ -42,7 +42,7 @@ class Post_model extends Crud_model {
 
 		if ($this->actor === 'a')
 		{
-			$this->remove('action_list', 'add');
+			$this->remove('action_hash', 'add');
 		}
 
 		if ($this->actor === 'm')
@@ -54,9 +54,9 @@ class Post_model extends Crud_model {
 
 		if ($this->actor === 'g')
 		{
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 
 		if ($this->action === 'index')

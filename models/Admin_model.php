@@ -8,11 +8,11 @@ class Admin_model extends Crud_model {
 		$this->overwrite('primary_key', 'admin_id');
 		$this->overwrite('display', 'admin_name');
 		$this->overwrite('use_card', TRUE);
-		$this->append('action_list', 'index');
-		$this->append('action_list', 'view');
-		$this->append('action_list', 'add');
-		$this->append('action_list', 'edit');
-		$this->append('action_list', 'delete');
+		$this->append('action_hash', 'index', 'index');
+		$this->append('action_hash', 'view', 'view');
+		$this->append('action_hash', 'add', 'add');
+		$this->append('action_hash', 'edit', 'edit');
+		$this->append('action_hash', 'delete', 'delete');
 		$this->append('select_hash', 'admin_id', NULL);
 		$this->append('select_hash', 'admin_name', NULL);
 		$this->append('select_hash', 'admin_email', NULL);
@@ -26,20 +26,20 @@ class Admin_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
-			$this->remove('action_list', 'index');
-			$this->remove('action_list', 'view');
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'view');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 
 		if ($this->actor === 'g')
 		{
-			$this->remove('action_list', 'index');
-			$this->remove('action_list', 'view');
-			$this->remove('action_list', 'add');
-			$this->remove('action_list', 'edit');
-			$this->remove('action_list', 'delete');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'view');
+			$this->remove('action_hash', 'add');
+			$this->remove('action_hash', 'edit');
+			$this->remove('action_hash', 'delete');
 		}
 	}
 }

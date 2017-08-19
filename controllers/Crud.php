@@ -13,12 +13,7 @@ class Crud extends Controller {
 
 		if (in_array(uri('class'), config('uri')['table_list']))
 		{
-			$actions = array_merge($this->model->action_list, array_keys($this->model->row_action_hash));
-			if (is_ajax() && (in_array('edit', $this->model->action_list) OR in_array('delete', $this->model->action_list)))
-			{
-				$actions[] = 'view';
-			}
-			if ( ! in_array(uri('method'), $actions))
+			if ( ! in_array(uri('method'), array_keys(array_merge($this->model->action_hash, $this->model->row_action_hash))))
 			{
 				show_404();
 			}
@@ -74,7 +69,7 @@ class Crud extends Controller {
 				'get'       => $_GET,
 				'auth'      => $_SESSION[uri('actor')]['auth'],
 			]);
-			if ( ! in_array('index', model($key)->action_list))
+			if ( ! in_array('index', array_keys(model($key)->action_hash)))
 			{
 				continue;
 			}
