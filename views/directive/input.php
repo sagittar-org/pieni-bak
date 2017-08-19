@@ -18,7 +18,7 @@
 <select name="<?php h($vars['key']); ?>" class="form-control">
 <option value=""></option>
 <?php foreach (config('uri')['action_list'] as $key): ?>
-<option value="<?php h($key); ?>"><?php l($key); ?></option>
+<option value="<?php h($key); ?>"><?php l("crud_{$key}"); ?></option>
 <?php endforeach; ?>
 </select>
 <?php /* エイリアス */ ?>

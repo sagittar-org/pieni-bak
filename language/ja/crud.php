@@ -65,6 +65,14 @@ $language['directive_value']       = '値';
 $language['overwrite']             = '上書';
 $language['append']                = '追加';
 $language['remove']                = '削除';
+$language['where_hash_directive_table']  = 'テーブル';
+$language['where_hash_directive_actor']  = 'アクター';
+$language['where_hash_directive_action'] = 'アクション';
+$language['where_hash_directive_alias']  = 'エイリアス';
+$language['where_hash_directive_method'] = 'メソッド';
+$language['where_hash_directive_key1']   = 'キー1';
+$language['where_hash_directive_key2']   = 'キー2';
+$language['where_hash_directive_value']  = '値';
 
 $language['actor_a']               = '管理画面';
 $language['actor_m']               = 'マイページ';
