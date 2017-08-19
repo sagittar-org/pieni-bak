@@ -57,6 +57,7 @@ class Directive_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
+			$this->remove('action_hash', 'regularize');
 			$this->remove('action_hash', 'compile');
 			$this->remove('action_hash', 'decompile');
 			$this->remove('action_hash', 'index');
@@ -67,6 +68,7 @@ class Directive_model extends Crud_model {
 
 		if ($this->actor === 'g')
 		{
+			$this->remove('action_hash', 'regularize');
 			$this->remove('action_hash', 'compile');
 			$this->remove('action_hash', 'decompile');
 			$this->remove('action_hash', 'index');
