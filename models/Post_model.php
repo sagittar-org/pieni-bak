@@ -47,7 +47,6 @@ class Post_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
-			$this->remove('select_hash', 'post_member_id');
 			$this->append('where_list' , "`post_member_id` = {$this->auth['id']}");
 			$this->append('fixed_hash' , 'post_member_id', $this->auth['id']);
 		}

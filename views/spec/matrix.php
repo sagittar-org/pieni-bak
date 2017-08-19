@@ -20,7 +20,11 @@ foreach (array_keys($vars['model']->action_hash) as $action)
 <th class="text-center"><?php l("crud_{$action}"); ?></th>
 <?php endforeach; ?>
 </tr>
-<?php foreach (array_unique(array_merge(array_keys($vars['model']->select_hash), $vars['model']->set_list, array_keys($vars['model']->fixed_hash))) as $key): ?>
+<?php $key_list = array_keys($vars['model']->select_hash); ?>
+<?php foreach ($vars['model']->set_list as $key) if ( ! in_array($key, $key_list)) $key_list[] = $key; ?>
+<?php foreach (array_keys($vars['model']->fixed_hash) as $key) if ( ! in_array($key, $key_list)) $key_list[] = $key; ?>
+<?php //$key_list = array_unique(array_merge(array_keys($vars['model']->select_hash), $vars['model']->set_list, array_keys($vars['model']->fixed_hash))); ?>
+<?php foreach ($key_list as $key): ?>
 <tr>
 <td title="<?php h($key); ?>"><?php l($key); ?></td>
 <?php foreach ($vars['model']->action_hash as $action): ?>
