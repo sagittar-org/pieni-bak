@@ -106,8 +106,8 @@ CREATE TABLE `directive` (
   `directive_action` varchar(255) NOT NULL,
   `directive_alias` varchar(255) NOT NULL,
   `directive_method` varchar(255) NOT NULL,
-  `directive_key1` varchar(255) NOT NULL,
-  `directive_key2` varchar(255) NOT NULL,
+  `directive_directive` varchar(255) NOT NULL,
+  `directive_key` varchar(255) NOT NULL,
   `directive_value` varchar(255) NOT NULL,
   PRIMARY KEY (`directive_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
@@ -310,4 +310,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-19 13:02:43
+-- Dump completed on 2017-08-19 18:19:56

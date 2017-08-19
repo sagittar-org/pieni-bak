@@ -45,8 +45,8 @@
 <option value="<?php h($value); ?>"<?php h(isset($where_hash[$key]) && $value === $where_hash[$key] ?  ' selected' : ''); ?>><?php l($value); ?></option>
 <?php endforeach; ?>
 </select>
-<?php /* キー1 */ ?>
-<?php elseif ($key === 'directive_key1'): ?>
+<?php /* ディレクティブ */ ?>
+<?php elseif ($key === 'directive_directive'): ?>
 <select name="<?php h("{$alias}_where_hash_{$key}"); ?>" class="form-control" onchange="this.form.submit();">
 <option value=""></option>
 <?php foreach (['primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'] as $value): ?>

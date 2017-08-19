@@ -32,7 +32,7 @@ class Spec extends Controller {
 `directive_action` IS NULL DESC, FIELD(`directive_action`, {$actor_list}),
 `directive_actor` IS NULL DESC, FIELD(`directive_actor`, {$actor_list}),
 `directive_method` IS NULL DESC, FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-`directive_key1` IS NULL DESC, FIELD(`directive_key1`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
 ");
 		while (($row = $result->fetch_assoc()))
@@ -95,7 +95,7 @@ class Spec extends Controller {
 			switch ($row['directive_method'])
 			{
 			case 'overwrite':
-				switch ($row['directive_key1'])
+				switch ($row['directive_directive'])
 				{
 				case 'primary_key':
 				case 'display':
@@ -103,13 +103,13 @@ class Spec extends Controller {
 					$value = $row['directive_value'];
 					break;
 				default:
-					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_key1']}')");
+					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
 					break;
 				}
-				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_key1']}', {$value});\n";
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', {$value});\n";
 				break;
 			case 'append':
-				switch ($row['directive_key1'])
+				switch ($row['directive_directive'])
 				{
 				case 'action_list':
 				case 'hidden_list':
@@ -126,16 +126,16 @@ class Spec extends Controller {
 				case 'join_hash':
 				case 'where_hash':
 				case 'order_by_hash':
-					$value = "'{$row['directive_key2']}', {$row['directive_value']}";
+					$value = "'{$row['directive_key']}', {$row['directive_value']}";
 					break;
 				default:
-					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_key1']}')");
+					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
 					break;
 				}
-				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_key1']}', {$value});\n";
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', {$value});\n";
 				break;
 			case 'remove':
-				switch ($row['directive_key1'])
+				switch ($row['directive_directive'])
 				{
 				case 'action_list':
 				case 'hidden_list':
@@ -155,10 +155,10 @@ class Spec extends Controller {
 					$value = $row['directive_value'];
 					break;
 				default:
-					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_key1']}')");
+					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
 					break;
 				}
-				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_key1']}', {$value});\n";
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', {$value});\n";
 				break;
 			default:
 				show_500("Unknown Method ('{$row['directive_method']}')");
