@@ -6,6 +6,15 @@ class Directive extends Crud {
 		parent::__construct();
 	}
 
+	// モデルからDBを生成
+	public function decompile()
+	{
+		foreach (config('uri')['table_list'] as $table)
+		{
+			h($table);
+		}
+	}
+
 	// DBからモデルを生成
 	public function compile()
 	{
