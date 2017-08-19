@@ -121,6 +121,96 @@ INSERT INTO `file` VALUES (3,'File3.txt','2017-07-22 12:14:34','data:text/plain;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `inst`
+--
+
+DROP TABLE IF EXISTS `inst`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inst` (
+  `spec_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spec_table` varchar(255) NOT NULL,
+  `spec_actor` varchar(255) DEFAULT NULL,
+  `spec_action` varchar(255) DEFAULT NULL,
+  `spec_alias` varchar(255) DEFAULT NULL,
+  `spec_method` varchar(255) NOT NULL,
+  `spec_key1` varchar(255) NOT NULL,
+  `spec_key2` varchar(255) DEFAULT NULL,
+  `spec_key3` varchar(255) DEFAULT NULL,
+  `spec_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`spec_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inst`
+--
+
+LOCK TABLES `inst` WRITE;
+/*!40000 ALTER TABLE `inst` DISABLE KEYS */;
+INSERT INTO `inst` VALUES (1,'admin',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
+INSERT INTO `inst` VALUES (2,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `inst` VALUES (3,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'view\'');
+INSERT INTO `inst` VALUES (4,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (5,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `inst` VALUES (6,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `inst` VALUES (7,'admin',NULL,NULL,NULL,'append','select_hash','admin_id',NULL,'NULL');
+INSERT INTO `inst` VALUES (8,'admin',NULL,NULL,NULL,'append','select_hash','admin_name',NULL,'NULL');
+INSERT INTO `inst` VALUES (9,'admin',NULL,NULL,NULL,'append','select_hash','admin_email',NULL,'NULL');
+INSERT INTO `inst` VALUES (10,'admin',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'admin_id\'');
+INSERT INTO `inst` VALUES (11,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_name\'');
+INSERT INTO `inst` VALUES (12,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_email\'');
+INSERT INTO `inst` VALUES (13,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_password\'');
+INSERT INTO `inst` VALUES (14,'admin',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`admin_name`, `admin_email`) LIKE \"%$1%\"\'');
+INSERT INTO `inst` VALUES (15,'admin',NULL,NULL,NULL,'append','order_by_hash','admin_id_asc',NULL,'\'`admin_id` DESC\'');
+INSERT INTO `inst` VALUES (16,'admin',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
+INSERT INTO `inst` VALUES (17,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `inst` VALUES (18,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'view\'');
+INSERT INTO `inst` VALUES (19,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (20,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `inst` VALUES (21,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `inst` VALUES (22,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `inst` VALUES (23,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'view\'');
+INSERT INTO `inst` VALUES (24,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (25,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `inst` VALUES (26,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `inst` VALUES (27,'comment',NULL,NULL,NULL,'overwrite','display',NULL,NULL,'\'comment_writer\'');
+INSERT INTO `inst` VALUES (28,'comment',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
+INSERT INTO `inst` VALUES (29,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `inst` VALUES (30,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (31,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `inst` VALUES (32,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `inst` VALUES (33,'comment',NULL,NULL,NULL,'append','select_hash','comment_id',NULL,'NULL');
+INSERT INTO `inst` VALUES (34,'comment',NULL,NULL,NULL,'append','select_hash','comment_post_id',NULL,'NULL');
+INSERT INTO `inst` VALUES (35,'comment',NULL,NULL,NULL,'append','select_hash','post_name',NULL,'NULL');
+INSERT INTO `inst` VALUES (36,'comment',NULL,NULL,NULL,'append','select_hash','comment_writer',NULL,'NULL');
+INSERT INTO `inst` VALUES (37,'comment',NULL,NULL,NULL,'append','select_hash','comment_created',NULL,'NULL');
+INSERT INTO `inst` VALUES (38,'comment',NULL,NULL,NULL,'append','select_hash','comment_text',NULL,'NULL');
+INSERT INTO `inst` VALUES (39,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_id\'');
+INSERT INTO `inst` VALUES (40,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_post_id\'');
+INSERT INTO `inst` VALUES (41,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_writer\'');
+INSERT INTO `inst` VALUES (42,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_text\'');
+INSERT INTO `inst` VALUES (43,'comment',NULL,NULL,NULL,'append','fixed_hash','comment_created',NULL,'\'CURRENT_TIMESTAMP\'');
+INSERT INTO `inst` VALUES (44,'comment',NULL,NULL,NULL,'append','join_hash','comment_post',NULL,'[\'table\' => \'`post`\', \'cond\' => \'`post_id` = `comment_post_id`\']');
+INSERT INTO `inst` VALUES (45,'comment',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE \"%$1%\"\'');
+INSERT INTO `inst` VALUES (46,'comment',NULL,NULL,NULL,'append','order_by_hash','comment_id_desc',NULL,'\'`comment_id` DESC\'');
+INSERT INTO `inst` VALUES (47,'comment',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
+INSERT INTO `inst` VALUES (48,'comment','a',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (49,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (50,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `inst` VALUES (51,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `inst` VALUES (52,'comment','m',NULL,NULL,'append','where_list',NULL,NULL,'\"`post_member_id` = {$this->auth[\'id\']}\"');
+INSERT INTO `inst` VALUES (53,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
+INSERT INTO `inst` VALUES (54,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
+INSERT INTO `inst` VALUES (55,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'index\'');
+INSERT INTO `inst` VALUES (56,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'add\'');
+INSERT INTO `inst` VALUES (57,'comment',NULL,NULL,'post_comment','remove','select_hash',NULL,NULL,'\'post_name\'');
+INSERT INTO `inst` VALUES (58,'comment',NULL,NULL,'post_comment','append','fixed_hash','comment_post_id',NULL,'$this->parent_id');
+INSERT INTO `inst` VALUES (59,'comment',NULL,NULL,'post_comment','append','where_list','comment_post_id',NULL,'\"`comment_post_id` = {$this->parent_id}\"');
+/*!40000 ALTER TABLE `inst` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `member`
 --
 
@@ -211,96 +301,6 @@ INSERT INTO `post` VALUES (5,3,'Member3 Post1','2017-07-22 16:21:54','Member3 Po
 INSERT INTO `post` VALUES (6,3,'Member3 Post2','2017-07-22 16:22:03','Member3 Post2\r\nMember3 Post2\r\nMember3 Post2\r\n','');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `spec`
---
-
-DROP TABLE IF EXISTS `spec`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `spec` (
-  `spec_id` int(11) NOT NULL AUTO_INCREMENT,
-  `spec_table` varchar(255) NOT NULL,
-  `spec_actor` varchar(255) DEFAULT NULL,
-  `spec_action` varchar(255) DEFAULT NULL,
-  `spec_alias` varchar(255) DEFAULT NULL,
-  `spec_method` varchar(255) NOT NULL,
-  `spec_key1` varchar(255) NOT NULL,
-  `spec_key2` varchar(255) DEFAULT NULL,
-  `spec_key3` varchar(255) DEFAULT NULL,
-  `spec_value` varchar(255) NOT NULL,
-  PRIMARY KEY (`spec_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `spec`
---
-
-LOCK TABLES `spec` WRITE;
-/*!40000 ALTER TABLE `spec` DISABLE KEYS */;
-INSERT INTO `spec` VALUES (1,'admin',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
-INSERT INTO `spec` VALUES (2,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `spec` VALUES (3,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'view\'');
-INSERT INTO `spec` VALUES (4,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (5,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `spec` VALUES (6,'admin',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `spec` VALUES (7,'admin',NULL,NULL,NULL,'append','select_hash','admin_id',NULL,'NULL');
-INSERT INTO `spec` VALUES (8,'admin',NULL,NULL,NULL,'append','select_hash','admin_name',NULL,'NULL');
-INSERT INTO `spec` VALUES (9,'admin',NULL,NULL,NULL,'append','select_hash','admin_email',NULL,'NULL');
-INSERT INTO `spec` VALUES (10,'admin',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'admin_id\'');
-INSERT INTO `spec` VALUES (11,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_name\'');
-INSERT INTO `spec` VALUES (12,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_email\'');
-INSERT INTO `spec` VALUES (13,'admin',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'admin_password\'');
-INSERT INTO `spec` VALUES (14,'admin',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`admin_name`, `admin_email`) LIKE \"%$1%\"\'');
-INSERT INTO `spec` VALUES (15,'admin',NULL,NULL,NULL,'append','order_by_hash','admin_id_asc',NULL,'\'`admin_id` DESC\'');
-INSERT INTO `spec` VALUES (16,'admin',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
-INSERT INTO `spec` VALUES (17,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `spec` VALUES (18,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'view\'');
-INSERT INTO `spec` VALUES (19,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (20,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `spec` VALUES (21,'admin','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `spec` VALUES (22,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `spec` VALUES (23,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'view\'');
-INSERT INTO `spec` VALUES (24,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (25,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `spec` VALUES (26,'admin','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `spec` VALUES (27,'comment',NULL,NULL,NULL,'overwrite','display',NULL,NULL,'\'comment_writer\'');
-INSERT INTO `spec` VALUES (28,'comment',NULL,NULL,NULL,'overwrite','use_card',NULL,NULL,'TRUE');
-INSERT INTO `spec` VALUES (29,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `spec` VALUES (30,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (31,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `spec` VALUES (32,'comment',NULL,NULL,NULL,'append','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `spec` VALUES (33,'comment',NULL,NULL,NULL,'append','select_hash','comment_id',NULL,'NULL');
-INSERT INTO `spec` VALUES (34,'comment',NULL,NULL,NULL,'append','select_hash','comment_post_id',NULL,'NULL');
-INSERT INTO `spec` VALUES (35,'comment',NULL,NULL,NULL,'append','select_hash','post_name',NULL,'NULL');
-INSERT INTO `spec` VALUES (36,'comment',NULL,NULL,NULL,'append','select_hash','comment_writer',NULL,'NULL');
-INSERT INTO `spec` VALUES (37,'comment',NULL,NULL,NULL,'append','select_hash','comment_created',NULL,'NULL');
-INSERT INTO `spec` VALUES (38,'comment',NULL,NULL,NULL,'append','select_hash','comment_text',NULL,'NULL');
-INSERT INTO `spec` VALUES (39,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_id\'');
-INSERT INTO `spec` VALUES (40,'comment',NULL,NULL,NULL,'append','hidden_list',NULL,NULL,'\'comment_post_id\'');
-INSERT INTO `spec` VALUES (41,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_writer\'');
-INSERT INTO `spec` VALUES (42,'comment',NULL,NULL,NULL,'append','set_list',NULL,NULL,'\'comment_text\'');
-INSERT INTO `spec` VALUES (43,'comment',NULL,NULL,NULL,'append','fixed_hash','comment_created',NULL,'\'CURRENT_TIMESTAMP\'');
-INSERT INTO `spec` VALUES (44,'comment',NULL,NULL,NULL,'append','join_hash','comment_post',NULL,'[\'table\' => \'`post`\', \'cond\' => \'`post_id` = `comment_post_id`\']');
-INSERT INTO `spec` VALUES (45,'comment',NULL,NULL,NULL,'append','where_hash','simple',NULL,'\'CONCAT(`post_name`, `comment_writer`, `comment_text`) LIKE \"%$1%\"\'');
-INSERT INTO `spec` VALUES (46,'comment',NULL,NULL,NULL,'append','order_by_hash','comment_id_desc',NULL,'\'`comment_id` DESC\'');
-INSERT INTO `spec` VALUES (47,'comment',NULL,NULL,NULL,'append','limit_list',NULL,NULL,'10');
-INSERT INTO `spec` VALUES (48,'comment','a',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (49,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (50,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `spec` VALUES (51,'comment','m',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `spec` VALUES (52,'comment','m',NULL,NULL,'append','where_list',NULL,NULL,'\"`post_member_id` = {$this->auth[\'id\']}\"');
-INSERT INTO `spec` VALUES (53,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'edit\'');
-INSERT INTO `spec` VALUES (54,'comment','g',NULL,NULL,'remove','action_list',NULL,NULL,'\'delete\'');
-INSERT INTO `spec` VALUES (55,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'index\'');
-INSERT INTO `spec` VALUES (56,'comment','g',NULL,'comment','remove','action_list',NULL,NULL,'\'add\'');
-INSERT INTO `spec` VALUES (57,'comment',NULL,NULL,'post_comment','remove','select_hash',NULL,NULL,'\'post_name\'');
-INSERT INTO `spec` VALUES (58,'comment',NULL,NULL,'post_comment','append','fixed_hash','comment_post_id',NULL,'$this->parent_id');
-INSERT INTO `spec` VALUES (59,'comment',NULL,NULL,'post_comment','append','where_list','comment_post_id',NULL,'\"`comment_post_id` = {$this->parent_id}\"');
-/*!40000 ALTER TABLE `spec` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -311,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-19  4:06:55
+-- Dump completed on 2017-08-19 11:06:38
