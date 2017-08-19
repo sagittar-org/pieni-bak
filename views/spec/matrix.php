@@ -31,9 +31,9 @@ foreach ($action_list as $action)
 <?php
 /*
                 index   view    add     edit    delete
-select_hash     Yes     Yes             Show    Show
+select_hash     Show    Show            Show    Show
 hidden_list     Hidden  Hidden          Hidden  Hidden
-set_list                        Yes     Yes
+set_list                        Affect  Affect
 fixed_hash                      Fixed
 */
 $class = 'danger';
@@ -66,7 +66,7 @@ case 'add':
 	else if (in_array($key, $action_model->set_list))
 	{
 		$class = 'success';
-		$value = 'Yes';
+		$value = 'Affect';
 		$title = '';
 	}
 	break;
@@ -80,7 +80,7 @@ case 'edit':
 	else if (in_array($key, $action_model->set_list))
 	{
 		$class = 'success';
-		$value = 'Yes';
+		$value = 'Affect';
 		$title = '';
 	}
 	else if (in_array($key, array_keys($action_model->select_hash)))
