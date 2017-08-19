@@ -3,34 +3,35 @@ class Crud_model {
 
 	public function __construct($params)
 	{
-		$this->db              = load_library('db');
-		$this->post            = isset($params['post']) ? $params['post'] : [];
-		$this->get             = isset($params['get']) ? $params['get'] : [];
-		$this->auth            = isset($params['auth']) ? $params['auth'] : [];
-		$this->actor           = $params['actor'];
-		$this->table           = $params['class'];
-		$this->alias           = $params['alias'];
-		$this->action          = isset($params['method']) ? $params['method'] : 'index';
-		$this->parent_id       = isset($params['parent_id']) ? $params['parent_id'] : NULL;
-		$this->session         = isset($params['session']) ? $params['session'] : [];
+		$this->db                = load_library('db');
+		$this->post              = isset($params['post']) ? $params['post'] : [];
+		$this->get               = isset($params['get']) ? $params['get'] : [];
+		$this->auth              = isset($params['auth']) ? $params['auth'] : [];
+		$this->actor             = $params['actor'];
+		$this->table             = $params['class'];
+		$this->alias             = $params['alias'];
+		$this->action            = isset($params['method']) ? $params['method'] : 'index';
+		$this->parent_id         = isset($params['parent_id']) ? $params['parent_id'] : NULL;
+		$this->session           = isset($params['session']) ? $params['session'] : [];
 
-		$this->primary_key     = NULL;
-		$this->display         = NULL;
-		$this->use_card        = NULL;
+		$this->primary_key       = NULL;
+		$this->display           = NULL;
+		$this->use_card          = NULL;
 
-		$this->has_hash        = [];
-		$this->action_list     = [];
-		$this->row_action_hash = [];
-		$this->select_hash     = [];
-		$this->hidden_list     = [];
-		$this->set_list        = [];
-		$this->fixed_hash      = [];
-		$this->success_hash    = [];
-		$this->join_hash       = [];
-		$this->where_list      = [];
-		$this->where_hash      = [];
-		$this->order_by_hash   = [];
-		$this->limit_list      = [];
+		$this->has_hash          = [];
+		$this->action_list       = [];
+		$this->table_action_hash = [];
+		$this->row_action_hash   = [];
+		$this->select_hash       = [];
+		$this->hidden_list       = [];
+		$this->set_list          = [];
+		$this->fixed_hash        = [];
+		$this->success_hash      = [];
+		$this->join_hash         = [];
+		$this->where_list        = [];
+		$this->where_hash        = [];
+		$this->order_by_hash     = [];
+		$this->limit_list        = [];
 	}
 
 	// 行数と結果を取得
