@@ -81,6 +81,14 @@ else
 <td><?php l($vars['model']->primary_key); ?></td>
 </tr>
 <tr>
+<th><?php l('display'); ?></th>
+<td><?php l($vars['model']->display); ?></td>
+</tr>
+<tr>
+<th><?php l('use_card'); ?></th>
+<td><?php h($vars['model']->use_card === TRUE ? 'Yes' : 'No'); ?></td>
+</tr>
+<tr>
 <th><?php l('join_hash'); ?></th>
 <td>
 <?php foreach ($vars['model']->join_hash as $key => $join): ?>
@@ -115,10 +123,6 @@ else
 <tr>
 <th><?php l('limit_list'); ?></th>
 <td><?php h(implode(', ', $vars['model']->limit_list)); ?></td>
-</tr>
-<tr>
-<th><?php l('use_card'); ?></th>
-<td><?php h($vars['model']->use_card === TRUE ? 'Yes' : 'No'); ?></td>
 </tr>
 </table>
 </div>
