@@ -23,7 +23,7 @@ foreach (array_keys($vars['model']->action_hash) as $action)
 <?php foreach (array_unique(array_merge(array_keys($vars['model']->select_hash), $vars['model']->set_list, array_keys($vars['model']->fixed_hash))) as $key): ?>
 <tr>
 <td title="<?php h($key); ?>"><?php l($key); ?></td>
-<?php foreach (array_keys($vars['model']->action_hash) as $action): ?>
+<?php foreach ($vars['model']->action_hash as $action): ?>
 <?php $action_model = model("{$vars['model']->alias}_{$action}"); ?>
 <?php
 /*
@@ -38,6 +38,12 @@ $value = 'No';
 $title = '';
 switch ($action)
 {
+case 'table':
+case 'row':
+	$class = '';
+	$value = '-';
+	$title = '';
+	break;
 case 'index':
 case 'view':
 	if (in_array($key, $action_model->hidden_list))
