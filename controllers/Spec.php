@@ -35,7 +35,6 @@ class Spec extends Controller {
 `directive_key1` IS NULL DESC, FIELD(`directive_key1`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_list', 'row_action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
 ");
-r(library('db')->last_query);
 		while (($row = $result->fetch_assoc()))
 		{
 			// エイリアス終了
