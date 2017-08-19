@@ -28,14 +28,8 @@ class Post_model extends Crud_model {
 		$this->append('set_list', 'post_text');
 		$this->append('set_list', 'post_image');
 		$this->append('fixed_hash', 'post_created', 'CURRENT_TIMESTAMP');
-		$this->append('join_hash', 'post_member', [
-			'table' => '`member`',
-			'cond' => '`member_id` = `post_member_id`',
-		]);
-		$this->append('join_hash', 'post_comment', [
-			'table' => '(SELECT `comment_post_id`, COUNT(*) AS `count_comment` FROM `comment` GROUP BY `comment_post_id`)',
-			'cond' => '`comment_post_id` = `post_id`',
-		]);
+		$this->append('join_hash', 'post_member', ['table' => '`member`', 'cond' => '`member_id` = `post_member_id`']);
+		$this->append('join_hash', 'post_comment', ['table' => '(SELECT `comment_post_id`, COUNT(*) AS `count_comment` FROM `comment` GROUP BY `comment_post_id`)', 'cond' => '`comment_post_id` = `post_id`']);
 		$this->append('where_hash' , 'simple', 'CONCAT(`member_name`, `post_name`, `post_text`) LIKE "%$1%"');
 		$this->append('order_by_hash', 'post_id_desc', '`post_id` DESC');
 		$this->append('limit_list', 10);

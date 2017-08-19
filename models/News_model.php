@@ -26,10 +26,7 @@ class News_model extends Crud_model {
 		$this->append('set_list', 'news_text');
 		$this->append('set_list', 'news_image');
 		$this->append('fixed_hash', 'news_created', 'CURRENT_TIMESTAMP');
-		$this->append('join_hash', 'news_admin', [
-			'table' => '`admin`',
-			'cond' => '`admin_id` = `news_admin_id`',
-		]);
+		$this->append('join_hash', 'news_admin', ['table' => '`admin`', 'cond' => '`admin_id` = `news_admin_id`']);
 		$this->append('where_hash', 'simple', 'CONCAT(`news_name`, `news_text`) LIKE "%$1%"');
 		$this->append('order_by_hash', 'news_id_desc', '`news_id` DESC');
 		$this->append('limit_list', 10);
