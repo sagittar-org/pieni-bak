@@ -52,6 +52,18 @@ $language['admin_name']            = '管理者名';
 $language['admin_email']           = 'メールアドレス';
 $language['admin_password']        = 'パスワード';
 
+$language['directive']             = 'ディレクティブ';
+$language['directive_id']          = 'ディレクティブID';
+$language['directive_table']       = 'テーブル';
+$language['directive_actor']       = 'アクター';
+$language['directive_action']      = 'アクション';
+$language['directive_alias']       = 'エイリアス';
+$language['directive_method']      = 'メソッド';
+$language['directive_key1']        = 'キー1';
+$language['directive_key2']        = 'キー2';
+$language['directive_key3']        = 'キー3';
+$language['directive_value']       = '値';
+
 $language['actor_a']               = '管理画面';
 $language['actor_m']               = 'マイページ';
 $language['actor_g']               = 'Webサイト';

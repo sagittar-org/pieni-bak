@@ -23,7 +23,7 @@ $config['uri'] = [
 		'file',
 		'member',
 		'admin',
-		'inst',
+		'directive',
 	],
 	'action_list' => [
 		'proxy',
