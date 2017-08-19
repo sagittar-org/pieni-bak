@@ -25,30 +25,26 @@ class File_model extends Crud_model {
 		$this->append('order_by_hash', 'file_id_desc', '`file_id` DESC');
 		$this->append('limit_list', 10);
 
-		if ($this->actor === 'm')
-		{
+		if ($this->actor === 'm'):
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
-		}
+		endif;
 
-		if ($this->actor === 'g')
-		{
+		if ($this->actor === 'g'):
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
-		}
+		endif;
 
-		if ($this->action === 'index')
-		{
+		if ($this->action === 'index'):
 			$this->remove('select_hash', 'file_file');
-		}
+		endif;
 
-		if ($this->action === 'delete')
-		{
+		if ($this->action === 'delete'):
 			$this->remove('select_hash', 'file_file');
-		}
+		endif;
 	}
 }

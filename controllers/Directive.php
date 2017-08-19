@@ -7,7 +7,7 @@ class Directive extends Crud {
 	}
 
 	// モデルからDBを生成
-	public function decompile()
+	public function compile()
 	{
 		$stack = [];
 		$table = 'admin';
@@ -37,11 +37,11 @@ class Directive extends Crud {
 				}
 				else if (preg_match('/^\s*\$this->append\(\'([^\']+_list)\', (.+)\);/', $line, $matches))
 				{
-					$row = [$table, $actor, $action, $alias, 'append_list', $matches[1], '', $matches[2]];
+					$row = [$table, $actor, $action, $alias, 'append', $matches[1], '', $matches[2]];
 				}
 				else if (preg_match('/^\s*\$this->append\(\'([^\']+_hash)\', \'([^\']+)\', (.+)\);/', $line, $matches))
 				{
-					$row = [$table, $actor, $action, $alias, 'append_hash', $matches[1], $matches[2], $matches[3]];
+					$row = [$table, $actor, $action, $alias, 'append', $matches[1], $matches[2], $matches[3]];
 				}
 				elseif (preg_match('/^\s*\$this->remove\(\'([^\']+)\', \'([^\']+)\'\);/', $line, $matches))
 				{
@@ -79,7 +79,7 @@ class Directive extends Crud {
 	}
 
 	// DBからモデルを生成
-	public function compile()
+	public function decompile()
 	{
 		load_library('db');
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";

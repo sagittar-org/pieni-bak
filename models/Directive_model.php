@@ -13,8 +13,8 @@ class Directive_model extends Crud_model {
 		$this->overwrite('primary_key', 'directive_id');
 		$this->overwrite('display', 'directive_id');
 		$this->overwrite('use_card', FALSE);
-		$this->append('action_hash', 'decompile', 'table');
 		$this->append('action_hash', 'compile', 'table');
+		$this->append('action_hash', 'decompile', 'table');
 		$this->append('action_hash', 'index', 'index');
 		$this->append('action_hash', 'add', 'add');
 		$this->append('action_hash', 'edit', 'edit');
@@ -56,8 +56,8 @@ class Directive_model extends Crud_model {
 
 		if ($this->actor === 'm')
 		{
-			$this->remove('action_hash', 'decompile');
 			$this->remove('action_hash', 'compile');
+			$this->remove('action_hash', 'decompile');
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
@@ -66,8 +66,8 @@ class Directive_model extends Crud_model {
 
 		if ($this->actor === 'g')
 		{
-			$this->remove('action_hash', 'decompile');
 			$this->remove('action_hash', 'compile');
+			$this->remove('action_hash', 'decompile');
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
