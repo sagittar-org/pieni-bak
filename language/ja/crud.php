@@ -92,6 +92,8 @@ $language['inquiry_subject_admin'] = 'お問い合わせがありました。';
 
 $language['docs']                  = 'ユーザガイド';
 $language['spec']                  = '仕様書';
+$language['matrix']                = 'CRUDマトリクス';
+$language['field']                 = 'フィールド';
 
 $language['crud_search']           = '検索';
 $language['crud_clear']            = '検索条件をクリア';
