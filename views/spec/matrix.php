@@ -17,7 +17,7 @@ foreach (array_keys($vars['model']->action_hash) as $action)
 <tr>
 <th><?php l('field'); ?></th>
 <?php foreach (array_keys($vars['model']->action_hash) as $action): ?>
-<th class="text-center"><?php l("crud_{$action}"); ?></th>
+<th class="text-center" title="<?php h($action); ?>"><?php l("crud_{$action}"); ?></th>
 <?php endforeach; ?>
 </tr>
 <?php $key_list = array_keys($vars['model']->select_hash); ?>
