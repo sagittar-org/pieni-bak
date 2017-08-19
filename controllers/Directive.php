@@ -95,7 +95,6 @@ FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
 FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
 ");
-		ob_start();
 		while (($row = $result->fetch_assoc()))
 		{
 			// エイリアス終了
@@ -123,11 +122,16 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			if (isset($last_row) && $row['directive_table'] !== $last_row['directive_table'])
 			{
 				echo "\t}\n}\n";
+				$ob = ob_get_clean();
+//				echo "<pre>\n".h($ob, TRUE)."</pre>\n";
+				file_put_contents('models/'.ucfirst($table).'_model.php', $ob);
 			}
 
 			// テーブル開始
 			if ( ! isset($last_row) OR $row['directive_table'] !== $last_row['directive_table'])
 			{
+				$table = $row['directive_table'];
+				ob_start();
 				$indent = "\t\t";
 				echo "<?php\nclass ".ucfirst($row['directive_table'])."_model extends Crud_model {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
 			}
@@ -144,7 +148,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			if (( ! isset($last_row) OR $row['directive_action'] !== $last_row['directive_action']) && $row['directive_action'] !== '')
 			{
 //				echo "\n{$indent}// ".l('action', [], TRUE).':'.l($row['directive_action'], [], TRUE);
-				echo "\n{$indent}if (\$this->actor === '{$row['directive_action']}'):\n";
+				echo "\n{$indent}if (\$this->action === '{$row['directive_action']}'):\n";
 				$indent .= "\t";
 			}
 
@@ -226,7 +230,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
 					break;
 				}
-				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', {$value});\n";
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', '{$value}');\n";
 				break;
 			default:
 				show_500("Unknown Method ('{$row['directive_method']}')");
@@ -258,8 +262,8 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 
 		// テーブル終了
 		echo "\t}\n}\n";
-
 		$ob = ob_get_clean();
-		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
+//		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
+		file_put_contents('models/'.ucfirst($table).'_model.php', $ob);
 	}
 }

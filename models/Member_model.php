@@ -27,11 +27,11 @@ class Member_model extends Crud_model {
 		$this->append('limit_list', 10);
 
 		if ($this->actor === 'm'):
+			$this->append('where_list', "`member_id` = '{$this->auth['id']}'");
 			$this->remove('action_hash', 'proxy');
 			$this->remove('action_hash', 'index');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'delete');
-			$this->append('where_list', "`member_id` = '{$this->auth['id']}'");
 		endif;
 
 		if ($this->actor === 'g'):

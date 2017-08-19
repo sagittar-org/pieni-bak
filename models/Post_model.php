@@ -39,8 +39,8 @@ class Post_model extends Crud_model {
 		endif;
 
 		if ($this->actor === 'm'):
-			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 			$this->append('fixed_hash', 'post_member_id', $this->auth['id']);
+			$this->append('where_list', "`post_member_id` = {$this->auth['id']}");
 		endif;
 
 		if ($this->actor === 'g'):
@@ -58,9 +58,9 @@ class Post_model extends Crud_model {
 		endif;
 
 		if ($this->alias === 'member_post'):
+			$this->append('where_list', "`post_member_id` = {$this->parent_id}");
 			$this->remove('select_hash', 'post_member_id');
 			$this->remove('select_hash', 'member_name');
-			$this->append('where_list', "`post_member_id` = {$this->parent_id}");
 		endif;
 	}
 }
