@@ -9,9 +9,65 @@ class Directive extends Crud {
 	// モデルからDBを生成
 	public function decompile()
 	{
-		foreach (config('uri')['table_list'] as $table)
+		$stack = [];
+		$table = 'admin';
+		$actor = '';
+		$action = '';
+		$alias = '';
+		library('db')->query('TRUNCATE `directive`');
+		foreach (explode("\n", trim(shell_exec("cat models/".ucfirst($table)."_model.php | grep \
+-e '\$this->overwrite' \
+-e '\$this->append' \
+-e '\$this->remove' \
+-e 'if (\$this->actor ===' \
+-e 'if (\$this->action ===' \
+-e 'if (\$this->alias ===' \
+-e 'endif;'"), "\n")) as $line)
 		{
-			h($table);
+			$row = NULL;
+			if (preg_match('/^\s*\$this->overwrite\(\'([^\']+)\', (.+)\);/', $line, $matches))
+			{
+				$row = [$table, $actor, $action, $alias, 'overwrite', $matches[1], '', $matches[2]];
+			}
+			else if (preg_match('/^\s*\$this->append\(\'([^\']+_list)\', (.+)\);/', $line, $matches))
+			{
+				$row = [$table, $actor, $action, $alias, 'append_list', $matches[1], '', $matches[2]];
+			}
+			else if (preg_match('/^\s*\$this->append\(\'([^\']+_hash)\', \'([^\']+)\', (.+)\);/', $line, $matches))
+			{
+				$row = [$table, $actor, $action, $alias, 'append_hash', $matches[1], $matches[2], $matches[3]];
+			}
+			elseif (preg_match('/^\s*\$this->remove\(\'([^\']+)\', \'([^\']+)\'\);/', $line, $matches))
+			{
+				$row = [$table, $actor, $action, $alias, 'remove', $matches[1], '', $matches[2]];
+			}
+			else if (preg_match('/^\s*if \(\$this->actor === \'([^\']+)\'/', $line, $matches))
+			{
+				$stack[] = 'actor';
+				$actor = $matches[1];
+			}
+			else if (preg_match('/^\s*if \(\$this->action === \'([^\']+)\'/', $line, $matches))
+			{
+				$stack[] = 'action';
+				$action = $matches[1];
+			}
+			else if (preg_match('/^\s*if \(\$this->alias === \'([^\']+)\'/', $line, $matches))
+			{
+				$stack[] = 'alias';
+				$alias = $matches[1];
+			}
+			else if (preg_match('/^\s*endif;/', $line))
+			{
+				${array_pop($stack)} = '';
+			}
+			else
+			{
+				$row = ['ERROR'];
+			}
+			if ($row !== NULL)
+			{
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('".implode("', '", array_map([library('db')->mysqli, 'real_escape_string'], $row))."')");
+			}
 		}
 	}
 
