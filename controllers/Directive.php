@@ -102,21 +102,21 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			if ((isset($last_row) && $row['directive_alias'] !== $last_row['directive_alias']) && $last_row['directive_alias'] !== '')
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
-				echo "{$indent}}\n";
+				echo "{$indent}endif;\n";
 			}
 
 			// アクション終了
 			if ((isset($last_row) && $row['directive_action'] !== $last_row['directive_action']) && $last_row['directive_action'] !== '')
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
-				echo "{$indent}}\n";
+				echo "{$indent}endif;\n";
 			}
 
 			// アクター終了
 			if ((isset($last_row) && $row['directive_actor'] !== $last_row['directive_actor']) && $last_row['directive_actor'] !== '')
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
-				echo "{$indent}}\n";
+				echo "{$indent}endif;\n";
 			}
 
 			// テーブル終了
@@ -135,24 +135,24 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			// アクター開始
 			if (( ! isset($last_row) OR $row['directive_actor'] !== $last_row['directive_actor']) && $row['directive_actor'] !== '')
 			{
-				echo "\n{$indent}// ".l('actor', [], TRUE).':'.l($row['directive_actor'], [], TRUE);
-				echo "\n{$indent}if (\$this->actor === '{$row['directive_actor']}')\n{$indent}{\n";
+//				echo "\n{$indent}// ".l('actor', [], TRUE).':'.l($row['directive_actor'], [], TRUE);
+				echo "\n{$indent}if (\$this->actor === '{$row['directive_actor']}'):\n";
 				$indent .= "\t";
 			}
 
 			// アクション開始
 			if (( ! isset($last_row) OR $row['directive_action'] !== $last_row['directive_action']) && $row['directive_action'] !== '')
 			{
-				echo "\n{$indent}// ".l('action', [], TRUE).':'.l($row['directive_action'], [], TRUE);
-				echo "\n{$indent}if (\$this->actor === '{$row['directive_action']}')\n{$indent}{\n";
+//				echo "\n{$indent}// ".l('action', [], TRUE).':'.l($row['directive_action'], [], TRUE);
+				echo "\n{$indent}if (\$this->actor === '{$row['directive_action']}'):\n";
 				$indent .= "\t";
 			}
 
 			// エイリアス開始
 			if (( ! isset($last_row) OR $row['directive_alias'] !== $last_row['directive_alias']) && $row['directive_alias'] !== '')
 			{
-				echo "\n{$indent}// ".l('alias', [], TRUE).':'.l($row['directive_alias'], [], TRUE)." (".h($row['directive_alias'], TRUE).")";
-				echo "\n{$indent}if (\$this->alias === '{$row['directive_alias']}')\n{$indent}{\n";
+//				echo "\n{$indent}// ".l('alias', [], TRUE).':'.l($row['directive_alias'], [], TRUE)." (".h($row['directive_alias'], TRUE).")";
+				echo "\n{$indent}if (\$this->alias === '{$row['directive_alias']}'):\n";
 				$indent .= "\t";
 			}
 /*
@@ -239,21 +239,21 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 		if ($last_row['directive_alias'] !== '')
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
-			echo "{$indent}}\n";
+			echo "{$indent}endif;\n";
 		}
 
 		// アクション終了
 		if ($last_row['directive_action'] !== '')
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
-			echo "{$indent}}\n";
+			echo "{$indent}endif;\n";
 		}
 
 		// アクター終了
 		if ($last_row['directive_actor'] !== '')
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
-			echo "{$indent}}\n";
+			echo "{$indent}endif;\n";
 		}
 
 		// テーブル終了
