@@ -6,6 +6,15 @@ class Directive extends Crud {
 		parent::__construct();
 	}
 
+	// モデルを正規化
+	public function regularize()
+	{
+		$this->compile();
+		$this->decompile();
+		flash(l('crud_regularize_succeeded', [], TRUE), 'success');
+		redirect('directive');
+	}
+
 	// モデルからDBを生成
 	public function compile()
 	{

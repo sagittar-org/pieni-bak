@@ -2,6 +2,7 @@
 <?php if ($vars['key'] === 'directive_table'): ?>
 <select name="<?php h($vars['key']); ?>" class="form-control">
 <?php foreach (config('uri')['table_list'] as $key): ?>
+<?php if ($key === 'directive') continue; ?>
 <option value="<?php h($key); ?>"><?php l($key); ?></option>
 <?php endforeach; ?>
 </select>

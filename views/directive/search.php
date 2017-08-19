@@ -10,6 +10,7 @@
 <select name="<?php h("{$alias}_where_hash_{$key}"); ?>" class="form-control" onchange="this.form.submit();">
 <option value=""></option>
 <?php foreach (config('uri')['table_list'] as $value): ?>
+<?php if ($value === 'directive') continue; ?>
 <option value="<?php h($value); ?>"<?php h(isset($where_hash[$key]) && $value === $where_hash[$key] ?  ' selected' : ''); ?>><?php l($value); ?></option>
 <?php endforeach; ?>
 </select>
