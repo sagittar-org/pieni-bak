@@ -15,32 +15,33 @@ class Directive extends Crud {
 		$action_list = "'".implode("', '", array_keys(config('uri')['action_hash']))."'";
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
 		$result = library('db')->query("SELECT * FROM `directive` ORDER BY
-`directive_table` IS NULL DESC, FIELD(`directive_table`, {$table_list}),
-`directive_alias` IS NULL DESC, FIELD(`directive_alias`, {$alias_list}),
-`directive_action` IS NULL DESC, FIELD(`directive_action`, {$action_list}),
-`directive_actor` IS NULL DESC, FIELD(`directive_actor`, {$actor_list}),
-`directive_method` IS NULL DESC, FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+FIELD(`directive_table`, {$table_list}),
+FIELD(`directive_alias`, '', {$alias_list}),
+FIELD(`directive_action`, '', {$action_list}),
+FIELD(`directive_actor`, '', {$actor_list}),
+FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
+FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
 ");
+		ob_start();
 		while (($row = $result->fetch_assoc()))
 		{
 			// エイリアス終了
-			if ((isset($last_row) && $row['directive_alias'] !== $last_row['directive_alias']) && $last_row['directive_alias'] !== NULL)
+			if ((isset($last_row) && $row['directive_alias'] !== $last_row['directive_alias']) && $last_row['directive_alias'] !== '')
+			{
+				$indent = substr($indent, 0, strlen($indent) - 1);
+				echo "{$indent}}\n";
+			}
+
+			// アクション終了
+			if ((isset($last_row) && $row['directive_action'] !== $last_row['directive_action']) && $last_row['directive_action'] !== '')
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
 				echo "{$indent}}\n";
 			}
 
 			// アクター終了
-			if ((isset($last_row) && $row['directive_action'] !== $last_row['directive_action']) && $last_row['directive_action'] !== NULL)
-			{
-				$indent = substr($indent, 0, strlen($indent) - 1);
-				echo "{$indent}}\n";
-			}
-
-			// アクター終了
-			if ((isset($last_row) && $row['directive_actor'] !== $last_row['directive_actor']) && $last_row['directive_actor'] !== NULL)
+			if ((isset($last_row) && $row['directive_actor'] !== $last_row['directive_actor']) && $last_row['directive_actor'] !== '')
 			{
 				$indent = substr($indent, 0, strlen($indent) - 1);
 				echo "{$indent}}\n";
@@ -60,26 +61,35 @@ class Directive extends Crud {
 			}
 
 			// アクター開始
-			if (( ! isset($last_row) OR $row['directive_actor'] !== $last_row['directive_actor']) && $row['directive_actor'] !== NULL)
+			if (( ! isset($last_row) OR $row['directive_actor'] !== $last_row['directive_actor']) && $row['directive_actor'] !== '')
 			{
+				echo "\n{$indent}// ".l('actor', [], TRUE).':'.l($row['directive_actor'], [], TRUE);
 				echo "\n{$indent}if (\$this->actor === '{$row['directive_actor']}')\n{$indent}{\n";
 				$indent .= "\t";
 			}
 
 			// アクション開始
-			if (( ! isset($last_row) OR $row['directive_action'] !== $last_row['directive_action']) && $row['directive_action'] !== NULL)
+			if (( ! isset($last_row) OR $row['directive_action'] !== $last_row['directive_action']) && $row['directive_action'] !== '')
 			{
+				echo "\n{$indent}// ".l('action', [], TRUE).':'.l($row['directive_action'], [], TRUE);
 				echo "\n{$indent}if (\$this->actor === '{$row['directive_action']}')\n{$indent}{\n";
 				$indent .= "\t";
 			}
 
 			// エイリアス開始
-			if (( ! isset($last_row) OR $row['directive_alias'] !== $last_row['directive_alias']) && $row['directive_alias'] !== NULL)
+			if (( ! isset($last_row) OR $row['directive_alias'] !== $last_row['directive_alias']) && $row['directive_alias'] !== '')
 			{
+				echo "\n{$indent}// ".l('alias', [], TRUE).':'.l($row['directive_alias'], [], TRUE)." (".h($row['directive_alias'], TRUE).")";
 				echo "\n{$indent}if (\$this->alias === '{$row['directive_alias']}')\n{$indent}{\n";
 				$indent .= "\t";
 			}
-
+/*
+			// ディレクティブ開始
+			if (( ! isset($last_row) OR $row['directive_directive'] !== $last_row['directive_directive']) && $row['directive_directive'] !== '')
+			{
+				echo "\n{$indent}// ".l($row['directive_directive'], [], TRUE)."\n";
+			}
+*/
 			switch ($row['directive_method'])
 			{
 			case 'overwrite':
@@ -154,21 +164,21 @@ class Directive extends Crud {
 		}
 
 		// エイリアス終了
-		if ($last_row['directive_alias'] !== NULL)
+		if ($last_row['directive_alias'] !== '')
+		{
+			$indent = substr($indent, 0, strlen($indent) - 1);
+			echo "{$indent}}\n";
+		}
+
+		// アクション終了
+		if ($last_row['directive_action'] !== '')
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
 			echo "{$indent}}\n";
 		}
 
 		// アクター終了
-		if ($last_row['directive_action'] !== NULL)
-		{
-			$indent = substr($indent, 0, strlen($indent) - 1);
-			echo "{$indent}}\n";
-		}
-
-		// アクター終了
-		if ($last_row['directive_actor'] !== NULL)
+		if ($last_row['directive_actor'] !== '')
 		{
 			$indent = substr($indent, 0, strlen($indent) - 1);
 			echo "{$indent}}\n";
@@ -176,5 +186,8 @@ class Directive extends Crud {
 
 		// テーブル終了
 		echo "\t}\n}\n";
+
+		$ob = ob_get_clean();
+		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
 	}
 }
