@@ -263,24 +263,6 @@ class Crud_model {
 		return $this->result->fetch_assoc();
 	}
 
-	// 仕様書アクターを設定する
-	public function actor($actor = NULL)
-	{
-		$this->spec_actor = $actor;
-	}
-
-	// 仕様書アクションを設定する
-	public function action($action = NULL)
-	{
-		$this->spec_action = $action;
-	}
-
-	// 仕様書エイリアスを設定する
-	public function alias($alias = NULL)
-	{
-		$this->spec_alias = $alias;
-	}
-
 	// メンバの添字・連想配列から要素を削除する
 	public function remove($key1, $value)
 	{
