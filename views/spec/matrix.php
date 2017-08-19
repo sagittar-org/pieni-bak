@@ -29,41 +29,81 @@ foreach ($action_list as $action)
 <?php $action_model = model("{$vars['model']->alias}_{$action}"); ?>
 <?php if ( ! in_array($action, $vars['model']->action_list)) continue; ?>
 <?php
-if ($action === 'add' && in_array($key, array_keys($action_model->fixed_hash)))
+/*
+                index   view    add     edit    delete
+select_hash     Yes     Yes             Show    Show
+hidden_list     Hidden  Hidden          Hidden  Hidden
+set_list                        Yes     Yes
+fixed_hash                      Fixed
+*/
+$class = 'danger';
+$value = 'No';
+$title = '';
+switch ($action)
 {
-	$class = 'warning';
-	$value = 'Fixed';
-	$title = $action_model->fixed_hash[$key];
-}
-else if (in_array($key, $action_model->hidden_list))
-{
-	$class = 'warning';
-	$value = 'Hidden';
-	$title = '';
-}
-else if (($action === 'add' OR $action === 'edit') && in_array($key, $action_model->set_list))
-{
-	$class = 'success';
-	$value = 'Yes';
-	$title = '';
-}
-else if ( ! in_array($key, array_keys($action_model->select_hash)))
-{
-	$class = 'danger';
-	$value = 'No';
-	$title = '';
-}
-else if ($action === 'delete' OR $action === 'edit' && ! in_array($key, $action_model->set_list))
-{
-	$class = 'info';
-	$value = 'Show';
-	$title = '';
-}
-else
-{
-	$class = 'success';
-	$value = 'Yes';
-	$title = '';
+case 'index':
+case 'view':
+	if (in_array($key, $action_model->hidden_list))
+	{
+		$class = 'warning';
+		$value = 'Hidden';
+		$title = '';
+	}
+	else if (in_array($key, array_keys($action_model->select_hash)))
+	{
+		$class = 'info';
+		$value = 'Show';
+		$title = '';
+	}
+	break;
+case 'add':
+	if (in_array($key, array_keys($action_model->fixed_hash)))
+	{
+		$class = '';
+		$value = 'Fixed';
+		$title = $action_model->fixed_hash[$key];
+	}
+	else if (in_array($key, $action_model->set_list))
+	{
+		$class = 'success';
+		$value = 'Yes';
+		$title = '';
+	}
+	break;
+case 'edit':
+	if (in_array($key, $action_model->hidden_list))
+	{
+		$class = 'warning';
+		$value = 'Hidden';
+		$title = '';
+	}
+	else if (in_array($key, $action_model->set_list))
+	{
+		$class = 'success';
+		$value = 'Yes';
+		$title = '';
+	}
+	else if (in_array($key, array_keys($action_model->select_hash)))
+	{
+		$class = 'info';
+		$value = 'Show';
+		$title = '';
+	}
+	break;
+case 'delete':
+	if (in_array($key, $action_model->hidden_list))
+	{
+		$class = 'warning';
+		$value = 'Hidden';
+		$title = '';
+	}
+	else if (in_array($key, array_keys($action_model->select_hash)))
+	{
+		$class = 'info';
+		$value = 'Show';
+		$title = '';
+	}
+	break;
 }
 ?>
 <td class="text-center bg-<?php h($class); ?>" title="<?php h($title); ?>"><?php h($value); ?></td>
