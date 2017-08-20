@@ -1,0 +1,7 @@
+.navbar-brand {
+  background: url('brand.svg') no-repeat left center;
+  background-size: contain;
+  height: 50px;
+  width: 160px;
+content: '';
+}
