@@ -17,7 +17,7 @@
     <!-- Flatpickr -->
     <link href="<?php direct('flatpickr/flatpickr.min.css'); ?>" rel="stylesheet">
     <script src="<?php direct('flatpickr/flatpickr.min.js'); ?>"></script>
-    <script src="<?php direct('flatpickr.'.uri('language').'.js'); ?>"></script>
+    <script src="<?php direct('flatpickr.js'); ?>"></script>
 
     <!-- pieni2 -->
     <link href="<?php direct('pieni2.css'); ?>" rel="stylesheet">
