@@ -253,20 +253,20 @@ class Crud_model {
 	// メンバの添字・連想配列から要素を削除する
 	public function remove($directive, $value)
 	{
-		if (array_values($this->$directive) === $this->$directive)
+		if (array_values($this->{$directive}) === $this->{$directive})
 		{
-			$this->$directive = array_merge(array_diff($this->$directive, [$value]));
+			$this->{$directive} = array_merge(array_diff($this->{$directive}, [$value]));
 		}
 		else
 		{
-			unset($this->$directive[$value]);
+			unset($this->{$directive}[$value]);
 		}
 	}
 
 	// メンバの値を上書きする
 	public function overwrite($directive, $value)
 	{
-		$this->$directive = $value;
+		$this->{$directive} = $value;
 	}
 
 	// メンバの添字・添字配列へ要素を追加する
@@ -278,7 +278,7 @@ class Crud_model {
 		}
 		else
 		{
-			$this->$directive[$key] = $value;
+			$this->{$directive}[$key] = $value;
 		}
 	}
 }
