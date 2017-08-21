@@ -1,7 +1,7 @@
 {
     "description": "pieni2 - A CodeIgniter-like PHP Framework",
     "name": "sagittar-org/pieni2",
-    "homepage": "http://pieni2.sagittar.org/",
+    "homepage": "http://pieni.sagittar.org/",
     "license": "MIT",
     "support": {
         "source": "https://github.com/sagittar-org/pieni2"
