@@ -3,11 +3,11 @@ class Controller {
 
 	public function __construct()
 	{
-		// 内部遷移ではなく、言語がデフォルト言語なら
+		// 内部遷移ではなく言語がデフォルト言語なら
 		if (( ! isset($_SERVER['HTTP_REFERER']) OR ! preg_match('#^'.site_url().'#', $_SERVER['HTTP_REFERER'])) && uri('language') === config('uri')['language_list'][0])
 		{
 			$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-			// 言語が定義されていれば
+			// 言語がデフォルト言語以外として定義されていればその言語へリダイレクト
 			if (in_array($lang, array_slice(config('uri')['language_list'], 1)))
 			{
 				redirect($lang.'/'.uri('uri_string'), FALSE, FALSE);
