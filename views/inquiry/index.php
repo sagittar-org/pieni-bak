@@ -1,6 +1,6 @@
     <div class="container">
-      <h1><?php l('inquiry'); ?></h1>
-      <form method="post" action="<?php href(uri('uri_string'), FALSE, TRUE); ?>">
+      <form method="post" action="<?php href(uri('uri_string'), FALSE, TRUE); ?>" style="max-width:400px; margin:0 auto;">
+        <h2><?php l('inquiry'); ?></h2>
 <?php if (isset($_SESSION[uri('actor')]['auth']['id'])): ?>
         <div class="form-group">
           <label><?php l('inquiry_email'); ?></label>
@@ -24,8 +24,8 @@
 <?php endif; ?>
         <div class="form-group">
           <label><?php l('inquiry_message'); ?></label>
-          <textarea name="message" class="form-control" rows="15" required></textarea>
+          <textarea name="message" class="form-control" rows="10" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary"><?php l('inquiry_submit'); ?></button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block"><?php l('inquiry_submit'); ?></button>
       </form>
     </div>
