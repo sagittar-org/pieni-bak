@@ -1,8 +1,8 @@
 <?php
 $config['uri'] = [
 	'language_list' => [
-		'ja',
 		'en',
+		'ja',
 	],
 	'actor_hash' => [
 		'g' => 'guest',
