@@ -1,6 +1,6 @@
     <div class="container">
       <h1><?php l('inquiry'); ?></h1>
-      <form method="post" action="<?php href(uri('uri_string')); ?>">
+      <form method="post" action="<?php href(uri('uri_string'), FALSE, TRUE); ?>">
 <?php if (isset($_SESSION[uri('actor')]['auth']['id'])): ?>
         <div class="form-group">
           <label><?php l('inquiry_email'); ?></label>
