@@ -15,17 +15,17 @@
 <?php else: ?>
         <div class="form-group">
           <label><?php l('inquiry_email'); ?></label>
-          <input type="email" name="email" class="form-control">
+          <input type="email" name="email" class="form-control" required>
         </div>
         <div class="form-group">
           <label><?php l('inquiry_name'); ?></label>
-          <input type="text" name="name" class="form-control">
+          <input type="text" name="name" class="form-control" required>
         </div>
 <?php endif; ?>
         <div class="form-group">
           <label><?php l('inquiry_message'); ?></label>
-          <textarea name="message" class="form-control" rows="15"></textarea>
+          <textarea name="message" class="form-control" rows="15" required></textarea>
         </div>
-        <button type="submit" class="btn btn-default" style="display:block; width:100%;"><?php l('inquiry_submit'); ?></button>
+        <button type="submit" class="btn btn-primary"><?php l('inquiry_submit'); ?></button>
       </form>
     </div>
