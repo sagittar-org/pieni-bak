@@ -274,7 +274,7 @@ class Crud_model {
 	{
 		if ($value === '-')
 		{
-			$this->$directive[] = $key;
+			$this->{$directive}[] = $key;
 		}
 		else
 		{
