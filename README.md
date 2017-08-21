@@ -4,7 +4,7 @@
 ---
 # Oh, you need "RAPID" prototyping too?
 
-## Who allowed what? Never write controllers.
+## Who is allowed what? Never write controllers.
 "Admins may edit posts, but guests can only view them." Tell model so, requests are restricted and action buttons are generated on views.
 
 ## Every files are recognized, by fallback.
