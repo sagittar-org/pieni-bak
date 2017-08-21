@@ -13,7 +13,6 @@ $config['uri'] = [
 		'welcome',
 		'inquiry',
 		'auth',
-		'docs',
 		'spec',
 	],
 	'table_list' => [

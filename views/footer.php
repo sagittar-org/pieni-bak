@@ -18,7 +18,6 @@ body {
         <div class="container">
             <ul class="nav navbar-nav">
               <li><a href="<?php href(''); ?>"><?php l('actor_'.uri('actor')); ?></a></li>
-              <li><a href="<?php href('docs'); ?>"><?php l('docs'); ?></a></li>
               <li><a href="<?php href('spec'); ?>"><?php l('spec'); ?></a></li>
             </ul>
           <div id="navbar" class="navbar-collapse collapse">
