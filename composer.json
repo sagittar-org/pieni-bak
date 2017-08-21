@@ -1,10 +1,10 @@
 {
-    "description": "pieni2 - A CodeIgniter-like PHP Framework",
-    "name": "sagittar-org/pieni2",
+    "description": "pieni - A PHP framework for rapid prototyping from Japan",
+    "name": "sagittar-org/pieni",
     "homepage": "http://pieni.sagittar.org/",
     "license": "MIT",
     "support": {
-        "source": "https://github.com/sagittar-org/pieni2"
+        "source": "https://github.com/sagittar-org/pieni"
     },
     "require": {
         "components/jquery": "^3.2",

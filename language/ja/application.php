@@ -1,2 +1,2 @@
 <?php
-$language['project_name'] = 'pieni2';
+$language['project_name'] = 'pieni';

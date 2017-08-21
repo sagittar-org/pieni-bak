@@ -52,14 +52,14 @@ $config['db'] = [
 	'host'     => 'localhost',
 	'username' => 'root',
 	'passwd'   => '',
-	'dbname'   => 'pieni2',
+	'dbname'   => 'pieni',
 ];
 $config['mail'] = [
 	'from'     => 'noreply@localhost',
 	'admin'    => 'root@localhost',
 ];
 $config['session'] = [
-	'name'     => 'pieni2session',
+	'name'     => 'pieni',
 ];
 $config['password'] = [
 	'hash'     => TRUE,

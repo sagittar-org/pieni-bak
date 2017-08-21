@@ -8,7 +8,7 @@
     <title><?php l('project_name'); ?> <?php l('spec'); ?></title>
     <!-- Bootstrap -->
     <link href="<?php direct('bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
-    <link href="<?php direct('pieni2.css'); ?>" rel="stylesheet">
+    <link href="<?php direct('pieni.css'); ?>" rel="stylesheet">
     <link href="<?php direct('application.css'); ?>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

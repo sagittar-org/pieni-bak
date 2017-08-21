@@ -1,8 +1,8 @@
-# pieni2
+# pieni
 CodeIgniterライクなPHPフレームワーク
 
-## pieni2について
-pieni2はLAMP環境で動作するPHPフレームワークです。  
+## pieniについて
+pieniはLAMP環境で動作するPHPフレームワークです。  
 CodeIgniterの影響を大きく受けています。  
 CRUDと認証機能が含まれます。  
 強力なモデルによりコントローラやビューを作成することなくプロトタイピングを行うことができます。  
@@ -10,13 +10,13 @@ CRUDと認証機能が含まれます。
 これはあらゆるファイルをあなたのパッケージに含めることができ、また置換が可能ということを意味します。  
 
 ## インストール
-pieni2はvendor/sagittar-org/pieni2へ展開されます。  
-下記の様にindex.phpと.htaccessをコピーし、データベースpieni2を作成してください。  
+pieniはvendor/sagittar-org/pieniへ展開されます。  
+下記の様にindex.phpと.htaccessをコピーし、データベースpieniを作成してください。  
 サンプルアプリケーションが動作します。  
 ```
-cp ./vendor/sagittar-org/pieni2/index.php .
-cp ./vendor/sagittar-org/pieni2/.htaccess .
-mysql < ./vendor/sagittar-org/pieni2/misc/pieni2.dump
+cp ./vendor/sagittar-org/pieni/index.php .
+cp ./vendor/sagittar-org/pieni/.htaccess .
+mysql < ./vendor/sagittar-org/pieni/misc/pieni.dump
 ```
 
 ## リクエスト
@@ -66,4 +66,4 @@ uri('class')がtable_listに含まれる場合、コントローラCrudも検索
 Ajaxではないリクエストでは、多くの場合クラスメソッドからビューをロードします。  
 ビューからも他のビューをネストしてロードできます。  
 ビューをカスタマイズする場合は、あなたのパッケージバスにビューファイルを設置します。  
-pieni2が提供するビューは最終フォールバック先であり編集も削除も必要ありません。  
+pieniが提供するビューは最終フォールバック先であり編集も削除も必要ありません。  

@@ -2,7 +2,7 @@
 // パッケージを指定
 $config['package_list'] = [
 	getcwd(),
-	getcwd().'/vendor/sagittar-org/pieni2',
+	getcwd().'/vendor/sagittar-org/pieni',
 ];
 
 // 全てのパッケージの設定ファイルを読み込む

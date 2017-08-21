@@ -19,10 +19,10 @@
     <script src="<?php direct('flatpickr/flatpickr.min.js'); ?>"></script>
     <script src="<?php direct('flatpickr.l10ns.js'); ?>"></script>
 
-    <!-- pieni2 -->
-    <link href="<?php direct('pieni2.css'); ?>" rel="stylesheet">
+    <!-- pieni -->
+    <link href="<?php direct('pieni.css'); ?>" rel="stylesheet">
     <link href="<?php direct('application.css'); ?>" rel="stylesheet">
-    <script src="<?php direct('pieni2.js'); ?>"></script>
+    <script src="<?php direct('pieni.js'); ?>"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
