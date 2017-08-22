@@ -12,7 +12,6 @@ $config['uri'] = [
 	'table_list' => [
 	],
 	'action_hash' => [
-		'index'  => 'index',
 	],
 	'alias_list' => [
 	],
