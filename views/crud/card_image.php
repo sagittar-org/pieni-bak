@@ -28,7 +28,6 @@
 <?php if (in_array($key, $vars['model']->hidden_list)) continue; ?>
 <?php if ($key === $vars['model']->display) continue; ?>
 <?php if ($key === "{$table}_image") continue; ?>
-<?php if ($key === "{$table}_text") continue; ?>
           <div><?php load_view('col', ['row' => $row, 'key' => $key], $vars['model']->table); ?></div>
 <?php endforeach; ?>
           </td>
