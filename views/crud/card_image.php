@@ -15,7 +15,9 @@
       <div class="text-right" style="margin-top:-35px">
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if (in_array($row_action, ['row', 'view'])): ?>
+<?php if ($key !== 'view'): ?>
         <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
+<?php endif; ?>
 <?php elseif ($row_action === 'edit'): ?>
         <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
 <?php elseif ($row_action === 'delete'): ?>

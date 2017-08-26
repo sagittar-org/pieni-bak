@@ -139,7 +139,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 				echo "\t}\n}\n";
 				$ob = ob_get_clean();
 //				echo "<pre>\n".h($ob, TRUE)."</pre>\n";
-				file_put_contents(config('package_list')[0].'models/'.ucfirst($table).'_model.php', $ob);
+				file_put_contents(config('package_list')[0].'/models/'.ucfirst($table).'_model.php', $ob);
 			}
 
 			// テーブル開始
@@ -279,7 +279,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 		echo "\t}\n}\n";
 		$ob = ob_get_clean();
 //		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
-		file_put_contents(config('package_list')[0].'models/'.ucfirst($table).'_model.php', $ob);
+		file_put_contents(config('package_list')[0].'/models/'.ucfirst($table).'_model.php', $ob);
 
 		if ($flash === TRUE)
 		{
