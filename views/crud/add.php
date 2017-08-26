@@ -2,6 +2,7 @@
 <?php $alias = $vars['model']->alias; ?>
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if ($row_action !== 'add') continue; ?>
+<?php load_model($table, ['actor' => uri('actor'), 'class' => $table, 'alias' => $alias, 'method' => $key, 'auth' => $_SESSION[uri('actor')]['auth']], "{$alias}_{$key}"); ?>
     <form class="modal fade" id="<?php h($alias); ?>Add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" onsubmit="return false;">
       <input type="hidden" name="dummy" value="dummy">
       <div class="modal-dialog" role="document">
@@ -11,10 +12,16 @@
             <h4 class="modal-title" id="myModalLabel"><?php l('crud_add'); ?> - <?php l($alias); ?></h4>
           </div>
           <div class="modal-body">
-<?php foreach ($vars['model']->set_list as $set): ?>
+<?php foreach (array_unique(array_merge(array_keys(model("{$alias}_{$key}")->select_hash), model("{$alias}_{$key}")->set_list)) as $select_hash_key): ?>
+<?php if (in_array($select_hash_key, model("{$alias}_{$key}")->hidden_list)) continue; ?>
             <div class="form-group">
-              <label><?php l($set); ?></label>
-              <?php load_view('input', ['key' => $set], $table); ?>
+<?php if (in_array($select_hash_key, model("{$alias}_{$key}")->set_list)): ?>
+              <label><?php l($select_hash_key); ?></label>
+              <?php load_view('input', ['key' => $select_hash_key], $table); ?>
+<?php else: ?>
+              <label><?php l($select_hash_key); ?></label>
+              <div name="<?php h($select_hash_key); ?>"></div>
+<?php endif; ?>
             </div>
 <?php endforeach; ?>
           </div>
