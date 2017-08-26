@@ -31,5 +31,4 @@
 <?php load_view('pagination2', $vars, $table); ?>
     </div>
 <?php load_view('add', $vars, $table); ?>
-<?php load_view('edit', $vars, $table); ?>
-<?php load_view('delete', $vars, $table); ?>
+<?php load_view('row_action', $vars, $table); ?>

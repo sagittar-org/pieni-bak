@@ -32,8 +32,7 @@
 <?php endforeach; ?>
       </table>
     </div>
-<?php load_view('edit', $vars, $table); ?>
-<?php load_view('delete', $vars, $table); ?>
+<?php load_view('row_action', $vars, $table); ?>
 <?php foreach ($vars['model']->has_hash as $key => $has): ?>
 <?php if ( ! in_array('index', array_keys($vars['model']->action_hash))) continue; ?>
 <?php load_view('index', $has, $has['model']->table); ?>
