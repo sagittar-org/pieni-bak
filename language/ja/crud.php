@@ -16,7 +16,7 @@ $language['comment_writer']        = 'お名前';
 $language['comment_created']       = 'コメント日時';
 $language['comment_text']          = '本文';
 
-$language['post']                  = '投稿';
+$language['post']                  = 'フォーラム';
 $language['member_post']           = '投稿';
 $language['post_id']               = '投稿ID';
 $language['post_member_id']        = '会員ID';
