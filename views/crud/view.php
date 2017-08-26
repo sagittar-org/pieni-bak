@@ -38,8 +38,3 @@
 <?php if ( ! in_array('index', array_keys($vars['model']->action_hash))) continue; ?>
 <?php load_view('index', $has, $has['model']->table); ?>
 <?php endforeach; ?>
-<?php /* ?>
-    <div class="container">
-      <button type="button" class="btn btn-default" onclick="history.back();" style="width:100%;"><?php l('crud_back'); ?></button>
-    </div>
-<?php */ ?>
