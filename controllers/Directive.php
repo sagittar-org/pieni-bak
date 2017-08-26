@@ -30,7 +30,7 @@ class Directive extends Crud {
 			{
 				continue;
 			}
-			foreach (explode("\n", trim(shell_exec("cat models/".ucfirst($table)."_model.php | grep \
+			foreach (explode("\n", trim(shell_exec('cat '.config('package_list')[0].'/models/'.ucfirst($table)."_model.php | grep \
 -e '\$this->overwrite' \
 -e '\$this->append' \
 -e '\$this->remove' \
@@ -39,6 +39,7 @@ class Directive extends Crud {
 -e 'if (\$this->alias ===' \
 -e 'endif;'"), "\n")) as $line)
 			{
+r($line);
 				$row = NULL;
 				if (preg_match('/^\s*\$this->overwrite\(\'([^\']+)\', (.+)\);/', $line, $matches))
 				{
@@ -138,7 +139,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 				echo "\t}\n}\n";
 				$ob = ob_get_clean();
 //				echo "<pre>\n".h($ob, TRUE)."</pre>\n";
-				file_put_contents('models/'.ucfirst($table).'_model.php', $ob);
+				file_put_contents(config('package_list')[0].'models/'.ucfirst($table).'_model.php', $ob);
 			}
 
 			// テーブル開始
@@ -278,7 +279,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 		echo "\t}\n}\n";
 		$ob = ob_get_clean();
 //		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
-		file_put_contents('models/'.ucfirst($table).'_model.php', $ob);
+		file_put_contents(config('package_list')[0].'models/'.ucfirst($table).'_model.php', $ob);
 
 		if ($flash === TRUE)
 		{
