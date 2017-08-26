@@ -154,7 +154,7 @@ if ( ! function_exists('load_library'))
 if ( ! function_exists('load_view'))
 {
 	// ビューを読み込む
-	function load_view($name, $vars = [], $class = NULL, $return = FALSE)
+	function load_view($name_list, $vars = [], $class = NULL, $return = FALSE)
 	{
 		if ($class === NULL)
 		{
@@ -165,18 +165,26 @@ if ( ! function_exists('load_view'))
 			[uri('actor'), ''],
 			in_array($class, config('uri')['table_list']) ? [$class, 'crud', ''] : [$class, ''],
 		];
-		if (($fallback = fallback("{$name}.php", 'views', $paths)) === NULL)
+		if ( ! is_array($name_list))
 		{
-			show_500("View '{$name}' not found (class='{$class}')");
+			$name_list = [$name_list];
 		}
-		if ($return === TRUE)
+		foreach ($name_list as $name)
 		{
-			ob_start();
-			require $fallback;
-			$buffer = ob_get_clean();
-			return $buffer;
+			if (($fallback = fallback("{$name}.php", 'views', $paths)) !== NULL)
+			{
+				if ($return === TRUE)
+				{
+					ob_start();
+					require $fallback;
+					$buffer = ob_get_clean();
+					return $buffer;
+				}
+				require $fallback;
+				return;
+			}
 		}
-		require $fallback;
+		show_500("View '{$name}' not found (class='{$class}')");
 	}
 }
 
