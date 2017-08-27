@@ -22,9 +22,23 @@ if ( ! function_exists('exec_request'))
 		}
 
 		// 言語ファイルを読み込み
-		load_language('application');
-		load_language('crud');
-		load_language('auth');
+		$GLOBALS['language_hash'] = [];
+		$paths = [
+			[uri('language'), ''],
+			[uri('actor'), ''],
+		];
+		foreach (config('package_list') as $package)
+		{
+			foreach (cartesian($paths) as $array)
+			{
+				$path = implode('/', array_filter($array, 'strlen'));
+				if (file_exists("{$package}/language/{$path}/common.php"))
+				{
+					@include_once "{$package}/language/{$path}/common.php";
+					$GLOBALS['language_hash'] = array_merge($language, $GLOBALS['language_hash']);
+				}
+			}
+		}
 
 		// composer
 		require_once getcwd().'/vendor/autoload.php';

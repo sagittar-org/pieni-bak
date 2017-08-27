@@ -1,2 +1,0 @@
-<?php
-$language['dummy'] = '';
