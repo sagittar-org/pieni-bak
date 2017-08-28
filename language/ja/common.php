@@ -1,5 +1,22 @@
 <?php
-$language['project_name'] = 'pieni';
+$language['project_name']          = 'pieni';
+
+$language['en']                    = '英語';
+$language['ja']                    = '日本語';
+
+$language['g']                     = 'ゲスト';
+$language['m']                     = '会員';
+$language['a']                     = '管理者';
+
+$language['inquiry']               = 'お問い合わせ';
+$language['inquiry_email']         = 'メールアドレス';
+$language['inquiry_name']          = 'お名前';
+$language['inquiry_message']       = 'お問い合わせ内容';
+$language['inquiry_submit']        = '送信';
+$language['inquiry_succeeded']     = 'お問い合わせを受け付けました。';
+$language['inquiry_failed']        = 'お問い合わせを受け付けに失敗しました。';
+$language['inquiry_subject']       = 'お問い合わせありがとうございます。';
+$language['inquiry_subject_admin'] = 'お問い合わせがありました。';
 
 $language['auth_name']             = 'お名前';
 $language['auth_email']            = 'メールアドレス';
@@ -10,41 +27,16 @@ $language['auth_join_succeeded']   = '会員登録しました。';
 $language['auth_login_succeeded']  = 'ログインしました。';
 $language['auth_login_failed']     = 'ログインできませんでした。';
 $language['auth_logout_succeeded'] = 'ログアウトしました。';
+$language['actor_g']               = 'Webサイト';
+$language['actor_m']               = 'マイページ';
+$language['actor_a']               = '管理画面';
+$language['join_m']                = '会員登録';
 
-$language['ja']                    = '日本語';
-$language['en']                    = '英語';
-
-$language['a']                     = '管理者';
-$language['m']                     = '会員';
-$language['g']                     = 'ゲスト';
-
-$language['welcome']               = 'デフォルトクラス';
-
-$language['comment']               = 'コメント';
-$language['post_comment']          = 'コメント';
-$language['comment_id']            = 'コメントID';
-$language['comment_post_id']       = '投稿ID';
-$language['comment_writer']        = 'お名前';
-$language['comment_created']       = 'コメント日時';
-$language['comment_text']          = '本文';
-
-$language['post']                  = 'フォーラム';
-$language['member_post']           = '投稿';
-$language['post_id']               = '投稿ID';
-$language['post_member_id']        = '会員ID';
-$language['post_name']             = '件名';
-$language['post_created']          = '投稿日時';
-$language['post_text']             = '本文';
-$language['post_image']            = '画像';
-$language['count_comment']         = 'コメント数';
-
-$language['news']                  = 'お知らせ';
-$language['news_id']               = 'お知らせID';
-$language['news_admin_id']         = '管理者ID';
-$language['news_name']             = '件名';
-$language['news_created']          = '作成日時';
-$language['news_text']             = '本文';
-$language['news_image']            = '画像';
+$language['spec']                  = '仕様書';
+$language['matrix']                = 'CRUDマトリクス';
+$language['field']                 = 'フィールド';
+$language['scalar']                = 'スカラー';
+$language['array']                 = '配列';
 
 $language['file']                  = 'ファイル';
 $language['file_id']               = 'ファイルID';
@@ -94,29 +86,6 @@ $language['crud_decompile_succeeded']           = 'ディレクティブでモ�
 $language['actor']                              = 'アクター';
 $language['action']                             = 'アクション';
 $language['alias']                              = 'エイリアス';
-
-$language['actor_a']               = '管理画面';
-$language['actor_m']               = 'マイページ';
-$language['actor_g']               = 'Webサイト';
-
-$language['join_m']                = '会員登録';
-
-$language['inquiry']               = 'お問い合わせ';
-$language['inquiry_email']         = 'メールアドレス';
-$language['inquiry_name']          = 'お名前';
-$language['inquiry_message']       = 'お問い合わせ内容';
-$language['inquiry_submit']        = '送信';
-$language['inquiry_succeeded']     = 'お問い合わせを受け付けました。';
-$language['inquiry_failed']        = 'お問い合わせを受け付けに失敗しました。';
-$language['inquiry_subject']       = 'お問い合わせありがとうございます。';
-$language['inquiry_subject_admin'] = 'お問い合わせがありました。';
-
-$language['docs']                  = 'ユーザガイド';
-$language['spec']                  = '仕様書';
-$language['matrix']                = 'CRUDマトリクス';
-$language['field']                 = 'フィールド';
-$language['scalar']                = 'スカラー';
-$language['array']                 = '配列';
 
 $language['crud_search']           = '検索';
 $language['crud_clear']            = '検索条件をクリア';
@@ -194,4 +163,4 @@ $language['where_hash']            = '検索';
 $language['order_by_hash']         = 'ソート';
 $language['limit_list']            = '表示件数';
 
-$language['simple'] = '簡易フリーワード検索';
+$language['simple']                = '簡易フリーワード検索';
