@@ -59,7 +59,7 @@ class Auth extends Controller {
 			unset($row['password']);
 			$_SESSION[$actor] = ['auth' => $row];
 			flash(l('auth_login_succeeded', [], TRUE), 'success');
-			redirect($redirect, TRUE, FALSE);
+			redirect($redirect, FALSE, FALSE);
 		}
 		flash(l('auth_login_failed', [], TRUE), 'danger');
 		redirect("auth/login/{$actor}");
