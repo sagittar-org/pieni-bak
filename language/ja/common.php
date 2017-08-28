@@ -6,6 +6,7 @@ $language['auth_email']            = 'メールアドレス';
 $language['auth_password']         = 'パスワード';
 $language['auth_login']            = 'ログイン';
 $language['auth_logout']           = 'ログアウト';
+$language['auth_join_succeeded']   = '会員登録しました。';
 $language['auth_login_succeeded']  = 'ログインしました。';
 $language['auth_login_failed']     = 'ログインできませんでした。';
 $language['auth_logout_succeeded'] = 'ログアウトしました。';
