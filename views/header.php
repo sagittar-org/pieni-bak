@@ -21,14 +21,6 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-
-<?php /* 言語 */ ?>
-<?php if (count(config('uri')['language_list']) > 1): ?>
-<?php   foreach (config('uri')['language_list'] as $language): ?>
-            <li><a href="<?php href($language === config('uri')['language_list'][0] ? '' : $language, FALSE, TRUE); ?>"><?php l($language); ?></a></li>
-<?php   endforeach; ?>
-<?php endif; ?>
-
 <?php /* 認証 */ ?>
 <?php // ログイン済み ?>
 <?php if (isset($_SESSION[uri('actor')]['auth']['name'])): ?>
@@ -48,6 +40,18 @@
 <?php endif; ?>
 
             <li><a href="<?php href('inquiry'); ?>"><?php l('inquiry'); ?></a></li>
+
+<?php /* 言語 */ ?>
+<?php if (count(config('uri')['language_list']) > 1): ?>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Language <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+<?php   foreach (config('uri')['language_list'] as $language): ?>
+                <li><a href="<?php href($language === config('uri')['language_list'][0] ? '' : $language, FALSE, TRUE); ?>"><?php l($language); ?></a></li>
+<?php   endforeach; ?>
+              </ul>
+            </li>
+<?php endif; ?>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
