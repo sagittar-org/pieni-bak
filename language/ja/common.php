@@ -114,13 +114,13 @@ $language['crud_delete_succeeded']              = '削除しました。';
 $language['crud_delete_failed']                 = '削除できませんでした。';
 $language['crud_proxy_succeeded']               = '代理ログインしました。';
 $language['crud_proxy_failed']                  = '代理ログインできませんでした。';
-$language['crud_pagination']                   = '$1 件中 $2 ページ目';
+$language['crud_pagination']                    = '$1 件中 $2 ページ目';
 $language['crud_order_by']                      = '並び順';
 $language['crud_per_page']                      = '表示件数';
 $language['crud_no_match']                      = '一致する $1 は見つかりませんでした。';
 $language['crud_see_more']                      = '$1をもっと見る';
 $language['crud_public_open']                   = '公開';
-$language['crud_public_closed']                = '非公開';
+$language['crud_public_closed']                 = '非公開';
 
 $language['config']                             = '設定ファイル';
 $language['package_list']                       = 'パッケージ';
