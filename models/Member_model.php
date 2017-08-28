@@ -37,6 +37,8 @@ class Member_model extends Crud_model {
 		// アクター:ゲスト
 		if ($this->actor === 'g'):
 			$this->remove('action_hash', 'proxy');
+			$this->remove('action_hash', 'index');
+			$this->remove('action_hash', 'view');
 			$this->remove('action_hash', 'add');
 			$this->remove('action_hash', 'edit');
 			$this->remove('action_hash', 'delete');
