@@ -1,29 +1,51 @@
 <?php
-$config['uri'] = [
-	'language_list' => [
-		'en',
-	],
-	'actor_hash' => [
-		'g' => 'guest',
-	],
-	'class_list' => [
-		'welcome',
-	],
-	'table_list' => [
-	],
-	'action_hash' => [
-	],
-	'alias_list' => [
-	],
+$config['uri']['language_list'] = [
+	'en',
+	'ja',
 ];
-$config['auth'] = [
+$config['uri']['actor_hash'] = [
+	'g' => 'guest',
+	'm' => 'member',
+	'a' => 'admin',
 ];
-$config['db'] = [
+$config['uri']['class_list'] = [
+	'welcome',
+	'inquiry',
+	'auth',
+	'spec',
 ];
-$config['mail'] = [
+$config['uri']['table_list'] = [
+//	'file',
+	'member',
+	'admin',
+	'directive',
 ];
-$config['session'] = [
-	'name'     => 'pieni',
+$config['uri']['action_hash'] = [
+//	'download' => 'row',
+	'proxy'    => 'row',
+	'index'    => 'index',
+	'view'     => 'view',
+	'add'      => 'add',
+	'edit'     => 'edit',
+	'delete'   => 'delete',
 ];
-$config['password'] = [
+$config['uri']['alias_list'] = [
 ];
+
+$config['auth']['m']['join']  = 'INSERT INTO `member` (`member_name`, `member_email`, `member_password`) values ("$name", "$email", "$password")';
+$config['auth']['m']['login'] = 'SELECT `member_id` AS `id`, `member_name` AS `name`, `member_email` AS `email`, `member_password` AS `password` FROM `member` WHERE `member_email` = "$1"';
+$config['auth']['m']['proxy'] = 'SELECT `member_id` AS `id`, `member_name` AS `name`, `member_email` AS `email` FROM `member` WHERE `member_id` = "$1"';
+$config['auth']['a']['login'] = 'SELECT `admin_id` AS `id`, `admin_name` AS `name`, `admin_email` AS `email`, `admin_password` AS `password` FROM `admin` WHERE `admin_email` = "$1"';
+
+$config['db']['debug'] = FALSE;
+$config['db']['host'] = 'localhost';
+$config['db']['username'] = 'root';
+$config['db']['passwd'] = '';
+$config['db']['dbname'] = 'pieni';
+
+$config['mail']['from'] = 'noreply@localhost';
+$config['mail']['admin'] = 'root@localhost';
+
+$config['session']['name'] = 'pieni';
+
+$config['password']['hash'] = TRUE;
