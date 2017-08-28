@@ -43,11 +43,12 @@
 
 <?php /* 言語 */ ?>
 <?php if (count(config('uri')['language_list']) > 1): ?>
+<?php $uri_string = uri('language') === config('uri')['language_list'][0] ? uri('uri_string') : preg_replace('#^'.uri('language').'/?#', '', uri('uri_string')); ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Language <span class="caret"></span></a>
               <ul class="dropdown-menu">
 <?php   foreach (config('uri')['language_list'] as $language): ?>
-                <li><a href="<?php href($language === config('uri')['language_list'][0] ? '' : $language, FALSE, TRUE); ?>"><?php l($language); ?></a></li>
+                <li><a href="<?php href(($language === config('uri')['language_list'][0] ? '' : "{$language}/").$uri_string, FALSE, TRUE); ?>"><?php l($language); ?></a></li>
 <?php   endforeach; ?>
               </ul>
             </li>
