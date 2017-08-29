@@ -49,3 +49,7 @@ $config['mail']['admin'] = 'root@localhost';
 $config['session']['name'] = 'pieni';
 
 $config['password']['hash'] = TRUE;
+
+$config['spec']['actor_list'] = [
+	'a',
+];

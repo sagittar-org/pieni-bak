@@ -413,7 +413,6 @@ if ( ! function_exists('show_404'))
 	{
 		static $occurred = FALSE;
 		ob_get_clean();
-		header('HTTP', TRUE, 500);
 		if ($occurred === FALSE)
 		{
 			$occurred = TRUE;

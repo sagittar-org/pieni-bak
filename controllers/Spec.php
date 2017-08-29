@@ -4,6 +4,10 @@ class Spec extends Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if ( ! in_array(uri('actor'), config('spec')['actor_list']))
+		{
+			show_404();
+		}
 	}
 
 	// トップページ
