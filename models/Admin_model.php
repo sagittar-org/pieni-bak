@@ -7,7 +7,7 @@ class Admin_model extends Crud_model {
 
 		$this->overwrite('primary_key', 'admin_id');
 		$this->overwrite('display', 'admin_name');
-		$this->overwrite('use_card', TRUE);
+		$this->overwrite('use_card', FALSE);
 		$this->append('action_hash', 'index', 'index');
 		$this->append('action_hash', 'view', 'view');
 		$this->append('action_hash', 'add', 'add');

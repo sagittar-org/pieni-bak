@@ -7,7 +7,7 @@ class Member_model extends Crud_model {
 
 		$this->overwrite('primary_key', 'member_id');
 		$this->overwrite('display', 'member_name');
-		$this->overwrite('use_card', TRUE);
+		$this->overwrite('use_card', FALSE);
 		$this->append('action_hash', 'proxy', 'row');
 		$this->append('action_hash', 'index', 'index');
 		$this->append('action_hash', 'view', 'view');

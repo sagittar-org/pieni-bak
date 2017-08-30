@@ -1,0 +1,20 @@
+digraph graph_name {
+	graph [
+	];
+
+	node [
+		fontname = "Ubuntu",
+	];
+
+	edge [
+		arrowhead = "crow",
+	];
+
+	// node define
+//	file [label="ファイル"];
+	member [label="会員"];
+	admin [label="管理者"];
+	directive [label="ディレクティブ"];
+
+	// edge define
+}
