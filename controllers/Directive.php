@@ -6,6 +6,12 @@ class Directive extends Crud {
 		parent::__construct();
 	}
 
+	// DBスキーマからモデルを生成
+	public function generate()
+	{
+		echo 'asdf';
+	}
+
 	// モデルを正規化
 	public function regularize()
 	{
@@ -39,7 +45,6 @@ class Directive extends Crud {
 -e 'if (\$this->alias ===' \
 -e 'endif;'"), "\n")) as $line)
 			{
-r($line);
 				$row = NULL;
 				if (preg_match('/^\s*\$this->overwrite\(\'([^\']+)\', (.+)\);/', $line, $matches))
 				{
