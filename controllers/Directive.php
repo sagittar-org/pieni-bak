@@ -32,7 +32,6 @@ class Directive extends Crud {
 				['append', 'hidden_list', '', "'{$table}_id'"],
 				['append', 'where_hash', 'simple', "'CONCAT(`{$table}_name`) LIKE \"%\$1%\"'"],
 				['append', 'order_by_hash', "{$table}_id_desc", "'`{$table}_id` DESC'"],
-				['append', 'hidden_list', '', "'{$table}_id'"],
 				['append', 'limit_list', '', '10'],
 				['append', 'limit_list', '', '30'],
 				['append', 'limit_list', '', '100'],
