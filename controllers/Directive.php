@@ -17,6 +17,7 @@ class Directive extends Crud {
 			}
 			if (file_exists('models/'.ucfirst($table).'_model.php'))
 			{
+die($table);
 				continue;
 			}
 			library('db')->query("DELETE FROM `directive` WHERE `directive_table` = '{$table}'");
@@ -55,8 +56,8 @@ class Directive extends Crud {
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'add')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'edit')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'delete')");
+			$this->decompile(FALSE, "`directive_table` = '{$table}'");
 		}
-		$this->decompile(FALSE);
 		flash(l('crud_generate_succeeded', [], TRUE), 'success');
 		redirect('directive');
 	}
@@ -148,14 +149,14 @@ class Directive extends Crud {
 	}
 
 	// DBからモデルを生成
-	public function decompile($flash = TRUE)
+	public function decompile($flash = TRUE, $where = '1')
 	{
 		load_library('db');
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
 		$actor_list = "'".implode("', '", array_reverse(array_keys(config('uri')['actor_hash'])))."'";
 		$action_list = "'".implode("', '", array_keys(config('uri')['action_hash']))."'";
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
-		$result = library('db')->query("SELECT * FROM `directive` ORDER BY
+		$result = library('db')->query("SELECT * FROM `directive` WHERE {$where} ORDER BY
 FIELD(`directive_table`, {$table_list}),
 FIELD(`directive_alias`, '', {$alias_list}),
 FIELD(`directive_action`, '', {$action_list}),
