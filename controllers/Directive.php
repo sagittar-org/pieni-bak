@@ -55,8 +55,8 @@ class Directive extends Crud {
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'add')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'edit')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'delete')");
+			$this->decompile(FALSE, "`directive_table` = '{$table}'");
 		}
-		$this->decompile(FALSE);
 		flash(l('crud_generate_succeeded', [], TRUE), 'success');
 		redirect('directive');
 	}
@@ -148,18 +148,18 @@ class Directive extends Crud {
 	}
 
 	// DBからモデルを生成
-	public function decompile($flash = TRUE)
+	public function decompile($flash = TRUE, $where = '1')
 	{
 		load_library('db');
 		$table_list = "'".implode("', '", config('uri')['table_list'])."'";
 		$actor_list = "'".implode("', '", array_reverse(array_keys(config('uri')['actor_hash'])))."'";
 		$action_list = "'".implode("', '", array_keys(config('uri')['action_hash']))."'";
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
-		$result = library('db')->query("SELECT * FROM `directive` ORDER BY
+		$result = library('db')->query("SELECT * FROM `directive` WHERE {$where} ORDER BY
 FIELD(`directive_table`, {$table_list}),
-FIELD(`directive_alias`, '', {$alias_list}),
-FIELD(`directive_action`, '', {$action_list}),
 FIELD(`directive_actor`, '', {$actor_list}),
+FIELD(`directive_action`, '', {$action_list}),
+FIELD(`directive_alias`, '', {$alias_list}),
 FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
 FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
