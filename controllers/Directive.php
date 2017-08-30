@@ -17,7 +17,6 @@ class Directive extends Crud {
 			}
 			if (file_exists('models/'.ucfirst($table).'_model.php'))
 			{
-die($table);
 				continue;
 			}
 			library('db')->query("DELETE FROM `directive` WHERE `directive_table` = '{$table}'");
