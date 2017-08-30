@@ -157,9 +157,9 @@ class Directive extends Crud {
 		$alias_list = "'".implode("', '", array_merge(config('uri')['table_list'], config('uri')['alias_list']))."'";
 		$result = library('db')->query("SELECT * FROM `directive` WHERE {$where} ORDER BY
 FIELD(`directive_table`, {$table_list}),
-FIELD(`directive_alias`, '', {$alias_list}),
-FIELD(`directive_action`, '', {$action_list}),
 FIELD(`directive_actor`, '', {$actor_list}),
+FIELD(`directive_action`, '', {$action_list}),
+FIELD(`directive_alias`, '', {$alias_list}),
 FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
 FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
