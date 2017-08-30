@@ -47,12 +47,13 @@ class Directive_model extends Crud_model {
 		$this->append('where_hash', 'directive_directive', '`directive_directive` = "$1"');
 		$this->append('where_hash', 'directive_key', '`directive_key` = "$1"');
 		$this->append('where_hash', 'directive_value', '`directive_value` LIKE "%$1%"');
-		$this->append('order_by_hash', 'directive', "`directive_table` IS NULL DESC, FIELD(`directive_table`, {$table_list}),
-`directive_actor` IS NULL DESC, FIELD(`directive_actor`, {$actor_list}),
-`directive_action` IS NULL DESC, FIELD(`directive_action`, {$actor_list}),
-`directive_alias` IS NULL DESC, FIELD(`directive_alias`, {$alias_list}),
-`directive_method` IS NULL DESC, FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-`directive_directive` IS NULL DESC, FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+		$this->append('order_by_hash', 'directive', "
+FIELD(`directive_table`, {$table_list}),
+FIELD(`directive_actor`, '', {$actor_list}),
+FIELD(`directive_action`, '', {$action_list}),
+FIELD(`directive_alias`, '', {$alias_list}),
+FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
+FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC");
 		$this->append('limit_list', 100);
 
