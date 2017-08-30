@@ -9,7 +9,56 @@ class Directive extends Crud {
 	// DBスキーマからモデルを生成
 	public function generate()
 	{
-		echo 'asdf';
+		foreach (config('uri')['table_list'] as $table)
+		{
+			if ($table === 'directive')
+			{
+				continue;
+			}
+			if (file_exists('models/'.ucfirst($table).'_model.php'))
+			{
+				continue;
+			}
+			library('db')->query("DELETE FROM `directive` WHERE `directive_table` = '{$table}'");
+			$line_list = [
+				['overwrite', 'primary_key', '', "'{$table}_id'"],
+				['overwrite', 'display', '', "'{$table}_name'"],
+				['overwrite', 'use_card', '', 'FALSE'],
+				['append', 'action_hash', 'index', "'index'"],
+				['append', 'action_hash', 'view', "'view'"],
+				['append', 'action_hash', 'add', "'add'"],
+				['append', 'action_hash', 'edit', "'edit'"],
+				['append', 'action_hash', 'delete', "'delete'"],
+				['append', 'hidden_list', '', "'{$table}_id'"],
+				['append', 'where_hash', 'simple', "'CONCAT(`{$table}_name`) LIKE \"%\$1%\"'"],
+				['append', 'order_by_hash', "{$table}_id_desc", "'`{$table}_id` DESC'"],
+				['append', 'hidden_list', '', "'{$table}_id'"],
+				['append', 'limit_list', '', '10'],
+				['append', 'limit_list', '', '30'],
+				['append', 'limit_list', '', '100'],
+			];
+			foreach ($line_list as $line)
+			{
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', '".implode("', '", array_map([library('db')->mysqli, 'real_escape_string'], $line))."')");
+			}
+			$result = library('db')->query("SHOW COLUMNS FROM `{$table}`");
+			while (($row = $result->fetch_assoc()))
+			{
+				r($row['Field']);
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'select_hash', '{$row['Field']}', 'NULL')");
+				if ($row['Field'] === "{$table}_id")
+				{
+					continue;
+				}
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'set_list', '', '\'{$row['Field']}\'')");
+			}
+			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'add')");
+			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'edit')");
+			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'delete')");
+		}
+		$this->decompile(FALSE);
+		flash(l('crud_generate_succeeded', [], TRUE), 'success');
+		redirect('directive');
 	}
 
 	// モデルを正規化
@@ -144,6 +193,10 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 				echo "\t}\n}\n";
 				$ob = ob_get_clean();
 //				echo "<pre>\n".h($ob, TRUE)."</pre>\n";
+				if ( ! file_exists(config('package_list')[0].'/models'))
+				{
+					mkdir(config('package_list')[0].'/models');
+				}
 				file_put_contents(config('package_list')[0].'/models/'.ucfirst($table).'_model.php', $ob);
 			}
 
@@ -179,13 +232,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 				echo "\n{$indent}if (\$this->alias === '{$row['directive_alias']}'):\n";
 				$indent .= "\t";
 			}
-/*
-			// ディレクティブ開始
-			if (( ! isset($last_row) OR $row['directive_directive'] !== $last_row['directive_directive']) && $row['directive_directive'] !== '')
-			{
-				echo "\n{$indent}// ".l($row['directive_directive'], [], TRUE)."\n";
-			}
-*/
+
 			switch ($row['directive_method'])
 			{
 			case 'overwrite':
@@ -258,7 +305,6 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			}
 			$last_row = $row;
 		}
-
 		// エイリアス終了
 		if ($last_row['directive_alias'] !== '')
 		{
@@ -284,6 +330,10 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 		echo "\t}\n}\n";
 		$ob = ob_get_clean();
 //		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
+		if ( ! file_exists(config('package_list')[0].'/models'))
+		{
+			mkdir(config('package_list')[0].'/models');
+		}
 		file_put_contents(config('package_list')[0].'/models/'.ucfirst($table).'_model.php', $ob);
 
 		if ($flash === TRUE)
