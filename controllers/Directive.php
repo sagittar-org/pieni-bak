@@ -191,7 +191,6 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 			{
 				echo "\t}\n}\n";
 				$ob = ob_get_clean();
-//				echo "<pre>\n".h($ob, TRUE)."</pre>\n";
 				if ( ! file_exists(config('package_list')[0].'/models'))
 				{
 					mkdir(config('package_list')[0].'/models');
@@ -328,7 +327,6 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 		// テーブル終了
 		echo "\t}\n}\n";
 		$ob = ob_get_clean();
-//		echo "<pre>\n".h($ob, TRUE)."</pre>\n";
 		if ( ! file_exists(config('package_list')[0].'/models'))
 		{
 			mkdir(config('package_list')[0].'/models');
