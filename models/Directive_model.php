@@ -13,6 +13,7 @@ class Directive_model extends Crud_model {
 		$this->overwrite('primary_key', 'directive_id');
 		$this->overwrite('display', 'directive_id');
 		$this->overwrite('use_card', FALSE);
+		$this->append('action_hash', 'generate', 'table');
 		$this->append('action_hash', 'regularize', 'table');
 		$this->append('action_hash', 'compile', 'table');
 		$this->append('action_hash', 'decompile', 'table');
