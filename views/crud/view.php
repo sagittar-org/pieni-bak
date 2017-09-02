@@ -2,6 +2,7 @@
 <?php $alias = $vars['model']->alias; ?>
 <?php $row = $vars['model']->row; ?>
 <?php $id = $row[$vars['model']->primary_key]; ?>
+<?php if (fallback('pre_view.php', "views/{$table}") !== NULL) load_view('pre_view', $vars, $table); ?>
     <div class="container">
       <h1><?php h($row[$vars['model']->display]); ?></h1>
 <?php if (in_array('edit', array_keys($vars['model']->action_hash)) OR in_array('delete', array_keys($vars['model']->action_hash))): ?>
@@ -32,6 +33,7 @@
 <?php endforeach; ?>
       </table>
     </div>
+<?php if (fallback('post_view.php', "views/{$table}") !== NULL) load_view('post_view', $vars, $table); ?>
 <?php load_view('row_action', $vars, $table); ?>
 <?php foreach ($vars['model']->has_hash as $key => $has): ?>
 <?php if ( ! in_array('index', array_keys($vars['model']->action_hash))) continue; ?>
