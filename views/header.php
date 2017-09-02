@@ -15,7 +15,7 @@
 
 <?php /* エンティティ */ ?>
 <?php foreach (config('uri')['table_list'] as $table): ?>
-<?php   if (fallback(ucfirst($table).'_model.php', 'models') !== NULL && ! in_array('index', array_keys(load_model($table, ['actor' => uri('actor'), 'class' => $table, 'alias' => $table, 'auth' => $_SESSION[uri('actor')]['auth'], "header_{$table}"])->action_hash))) continue; ?>
+<?php   if (fallback(ucfirst($table).'_model.php', 'models') !== NULL && ! in_array('index', array_keys(load_model($table, ['actor' => uri('actor'), 'class' => $table, 'alias' => $table, 'auth' => $_SESSION[uri('actor')]['auth']], "header_{$table}")->action_hash))) continue; ?>
             <li<?php if (uri('class') === $table): ?> class="active"<?php endif; ?>><a href="<?php href($table); ?>"><?php l($table); ?></a></li>
 <?php endforeach; ?>
 
@@ -26,6 +26,9 @@
 <?php if (isset($_SESSION[uri('actor')]['auth']['name'])): ?>
             <li><a href="<?php href(config('uri')['actor_hash'][uri('actor')].'/view/'.$_SESSION[uri('actor')]['auth']['id']); ?>"><?php h($_SESSION[uri('actor')]['auth']['name']); ?></a></li>
             <li><a href="<?php href('auth/logout/'.uri('actor'), TRUE, FALSE); ?>"><?php l('auth_logout'); ?></a></li>
+<?php if (model('header_item') !== NULL && in_array('cart', array_keys(model('header_item')->action_hash))): ?>
+            <li><a href="<?php href('cart'); ?>"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><?php l('cart'); ?></a></li>
+<?php endif; ?>
 <?php // 未ログイン ?>
 <?php else: ?>
 <?php   foreach (config('auth') as $key => $auth): ?>
