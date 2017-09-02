@@ -1,12 +1,12 @@
 <?php $table = $vars['model']->table; ?>
 <?php $alias = $vars['model']->alias; ?>
-<?php if (fallback('pre_index.php', "views/{$table}") !== NULL) load_view('pre_index', $vars, $table); ?>
     <div class="container">
 <?php if ($alias === $table): ?>
       <h1><?php l($table); ?></h1>
 <?php else: ?>
       <h2><?php l($alias); ?></h2>
 <?php endif; ?>
+<?php if (fallback('pre_index.php', "views/{$table}") !== NULL) load_view('pre_index', $vars, $table); ?>
 <?php if (in_array('table', array_keys($vars['model']->action_hash)) OR in_array('add', array_keys($vars['model']->action_hash))): ?>
       <div class="text-right" style="margin-top:-46px">
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
@@ -30,7 +30,7 @@
 <?php load_view('result', $vars, $table); ?>
 <?php endif; ?>
 <?php load_view('pagination2', $vars, $table); ?>
-    </div>
 <?php if (fallback('post_index.php', "views/{$table}") !== NULL) load_view('post_index', $vars, $table); ?>
+    </div>
 <?php load_view('add', $vars, $table); ?>
 <?php load_view('row_action', $vars, $table); ?>
