@@ -41,7 +41,7 @@ if ( ! function_exists('exec_request'))
 		}
 
 		// composer
-		require_once getcwd().'/vendor/autoload.php';
+		require_once __DIR__.'/../../../autoload.php';
 
 		// コントローラインスタンスを生成・メソッドを実行
 		fallback_ro('Controller.php', 'controllers');
