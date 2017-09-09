@@ -13,7 +13,7 @@ if ( ! function_exists('exec_request'))
 		$uri['language']   = isset($uri['param_arr'][0]) && in_array($uri['param_arr'][0], array_slice($config['uri']['language_list'], 1)) ? array_shift($uri['param_arr']) : $config['uri']['language_list'][0];
 		$uri['actor']      = isset($uri['param_arr'][0]) && in_array($uri['param_arr'][0], array_slice(array_keys($config['uri']['actor_hash']), 1)) ? array_shift($uri['param_arr']) : array_keys($config['uri']['actor_hash'])[0];
 		$uri['class']      = isset($uri['param_arr'][0]) && in_array($uri['param_arr'][0], array_slice(array_merge($config['uri']['class_list'], $config['uri']['table_list']), 1)) ? array_shift($uri['param_arr']) : $config['uri']['class_list'][0];
-		$uri['method']     = isset($uri['param_arr'][0]) ? array_shift($uri['param_arr']) : 'index';
+		$uri['method']     = isset($uri['param_arr'][0]) && in_array($uri['param_arr'][0], array_slice(array_keys($config['uri']['action']), 1)) ? array_shift($uri['param_arr']) : array_keys($config['uri']['action_hash'])[0];
 		if (in_array($uri['class'], $config['uri']['table_list']))
 		{
 			$uri['id']        = isset($uri['param_arr'][0]) ? array_shift($uri['param_arr']) : NULL;

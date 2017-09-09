@@ -21,9 +21,9 @@ $config['uri']['table_list'] = [
 	'directive',
 ];
 $config['uri']['action_hash'] = [
+	'index'    => 'index',
 //	'download' => 'row',
 	'proxy'    => 'row',
-	'index'    => 'index',
 	'view'     => 'view',
 	'add'      => 'add',
 	'edit'     => 'edit',
