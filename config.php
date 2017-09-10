@@ -28,6 +28,9 @@ $config['uri']['action_hash'] = [
 	'add'      => 'add',
 	'edit'     => 'edit',
 	'delete'   => 'delete',
+	'join'     => 'auth',
+	'login'    => 'auth',
+	'logout'   => 'auth',
 ];
 $config['uri']['alias_list'] = [
 ];
