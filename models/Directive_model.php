@@ -53,7 +53,7 @@ FIELD(`directive_actor`, '', {$actor_list}),
 FIELD(`directive_action`, '', {$action_list}),
 FIELD(`directive_alias`, '', {$alias_list}),
 FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'null_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC");
 		$this->append('limit_list', 100);
 

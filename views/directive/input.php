@@ -41,7 +41,7 @@
 <?php elseif ($vars['key'] === 'directive_directive'): ?>
 <select name="<?php h($vars['key']); ?>" class="form-control">
 <option value=""></option>
-<?php foreach (['primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'] as $key): ?>
+<?php foreach (['primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'null_list', 'null_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'] as $key): ?>
 <option value="<?php h($key); ?>"><?php l($key); ?></option>
 <?php endforeach; ?>
 </select>

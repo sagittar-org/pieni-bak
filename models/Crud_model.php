@@ -23,6 +23,7 @@ class Crud_model {
 		$this->select_hash       = [];
 		$this->hidden_list       = [];
 		$this->set_list          = [];
+		$this->null_list         = [];
 		$this->fixed_hash        = [];
 		$this->success_hash      = [];
 		$this->join_hash         = [];
@@ -110,7 +111,14 @@ class Crud_model {
 					$data[$set] = password_hash($data[$set], PASSWORD_DEFAULT);
 				}
 			}
-			$this->db->set($set, "'".$this->db->mysqli->real_escape_string($data[$set])."'");
+			if (in_array($set, $this->null_list) && $data[$set] === '')
+			{
+				$this->db->set($set, 'NULL');
+			}
+			else
+			{
+				$this->db->set($set, "'".$this->db->mysqli->real_escape_string($data[$set])."'");
+			}
 		}
 		foreach ($this->fixed_hash as $key => $fixed)
 		{
@@ -142,7 +150,14 @@ class Crud_model {
 					$data[$set] = password_hash($data[$set], PASSWORD_DEFAULT);
 				}
 			}
-			$this->db->set($set, "'".$this->db->mysqli->real_escape_string($data[$set])."'");
+			if (in_array($set, $this->null_list) && $data[$set] === '')
+			{
+				$this->db->set($set, 'NULL');
+			}
+			else
+			{
+				$this->db->set($set, "'".$this->db->mysqli->real_escape_string($data[$set])."'");
+			}
 		}
 		$this->db->where("`{$this->primary_key}` = {$id}");
 		foreach ($this->where_list as $where)
