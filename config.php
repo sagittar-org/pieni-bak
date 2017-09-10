@@ -21,16 +21,13 @@ $config['uri']['table_list'] = [
 	'directive',
 ];
 $config['uri']['action_hash'] = [
-	'index'    => 'index',
 //	'download' => 'row',
 	'proxy'    => 'row',
+	'index'    => 'index',
 	'view'     => 'view',
 	'add'      => 'add',
 	'edit'     => 'edit',
 	'delete'   => 'delete',
-	'join'     => 'auth',
-	'login'    => 'auth',
-	'logout'   => 'auth',
 ];
 $config['uri']['alias_list'] = [
 ];
