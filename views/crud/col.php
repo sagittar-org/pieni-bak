@@ -1,6 +1,24 @@
+<?php /* ID */ ?>
+<?php if (preg_match('/_id$/', $vars['key'])): ?>
+<div style="width:100%; text-align:right;">
+<?php echo ($vars['row'][$vars['key']] === NULL ? '' : number_format($vars['row'][$vars['key']])); ?>
+</div>
+<?php /* 量 */ ?>
+<?php elseif (preg_match('/_amount$/', $vars['key'])): ?>
+<div style="width:100%; text-align:right;">
+<?php echo ($vars['row'][$vars['key']] === NULL ? '' : number_format($vars['row'][$vars['key']])); ?>
+</div>
+<?php /* 通貨 */ ?>
+<?php elseif (preg_match('/_price$/', $vars['key']) OR preg_match('/_total$/', $vars['key'])): ?>
+<div style="width:100%; text-align:right;">
+<?php echo ($vars['row'][$vars['key']] === NULL ? '' : '&yen;'.number_format($vars['row'][$vars['key']])); ?>
+</div>
 <?php /* 日付 */ ?>
-<?php if (preg_match('/_created$/', $vars['key']) OR preg_match('/_datetime$/', $vars['key'])): ?>
-<?php h(date('Y年m月d日 H:i', strtotime($vars['row'][$vars['key']]))); ?>
+<?php elseif (preg_match('/_date$/', $vars['key'])): ?>
+<?php h($vars['row'][$vars['key']] === NULL ? '' : date('Y年n月j日', strtotime($vars['row'][$vars['key']]))); ?>
+<?php /* 日時 */ ?>
+<?php elseif (preg_match('/_created$/', $vars['key']) OR preg_match('/_datetime$/', $vars['key'])): ?>
+<?php h(date('Y年n月j日 H:i', strtotime($vars['row'][$vars['key']]))); ?>
 <?php /* テキスト */ ?>
 <?php elseif (preg_match('/_text$/', $vars['key'])): ?>
 <?php echo nl2br(preg_replace('/(http\S+)/', '<a href="$1">$1</a>', str_replace('SITE_URL/', site_url('', FALSE, FALSE), $vars['row'][$vars['key']]))); ?>
