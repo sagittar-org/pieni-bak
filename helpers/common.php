@@ -371,7 +371,7 @@ if ( ! function_exists('site_url'))
 		}
 		$uri = "{$prefix}{$uri}";
 		$site_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-		$site_url .= isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
+		$site_url .= isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
 		$site_url .= preg_replace('#/index\.php$#', "/{$uri}", $_SERVER['SCRIPT_NAME']);
 		return $site_url;
 	}
