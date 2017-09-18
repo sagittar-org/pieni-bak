@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?php h(uri('language')); ?>">
   <head>
+<?php if (uri('actor') === array_keys(config('uri')['actor_hash'])[0] && fallback('analyticstracking.php', 'views') !== NULL) load_view('analyticstracking', $vars); ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
