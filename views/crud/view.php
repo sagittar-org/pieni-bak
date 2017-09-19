@@ -36,6 +36,6 @@
     </div>
 <?php load_view('row_action', $vars, $table); ?>
 <?php foreach ($vars['model']->has_hash as $key => $has): ?>
-<?php if ( ! in_array('index', array_keys($vars['model']->action_hash))) continue; ?>
+<?php if ( ! in_array('index', array_keys($has['model']->action_hash))) continue; ?>
 <?php load_view('index', $has, $has['model']->table); ?>
 <?php endforeach; ?>
