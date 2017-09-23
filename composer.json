@@ -9,7 +9,7 @@
     "require": {
         "components/jquery": "^3.2",
         "twitter/bootstrap": "^3.3",
-        "composer require fortawesome/font-awesome": "^4.7",
+        "fortawesome/font-awesome": "^4.7",
         "phpmailer/phpmailer": "^5.2",
         "etdsolutions/flatpickr": "^2.6",
         "phpoffice/phpexcel": "^1.8"
