@@ -41,7 +41,11 @@ function <?php h($alias); ?>Pre<?php h(ucfirst($vars['key'])); ?>(id)
 			$('#<?php h($alias); ?><?php h(ucfirst($vars['key'])); ?>').attr('affectId', id);
 <?php foreach (array_keys(model("{$alias}_{$vars['key']}")->select_hash) as $select_hash_key): ?>
 <?php if (in_array($select_hash_key, model("{$alias}_{$vars['key']}")->set_list)): ?>
+<?php if (preg_match('/_html$/', $select_hash_key)): ?>
+			$('#<?php h($alias); ?><?php h(ucfirst($vars['key'])); ?> [name=<?php h($select_hash_key); ?>]').summernote('code', json.<?php h($select_hash_key); ?>);
+<?php else: ?>
 			$('#<?php h($alias); ?><?php h(ucfirst($vars['key'])); ?> [name=<?php h($select_hash_key); ?>]').val(json.<?php h($select_hash_key); ?>).change();
+<?php endif; ?>
 <?php else: ?>
 			$('#<?php h($alias); ?><?php h(ucfirst($vars['key'])); ?> [name=<?php h($select_hash_key); ?>]').html(json.<?php h($select_hash_key); ?>);
 <?php endif; ?>

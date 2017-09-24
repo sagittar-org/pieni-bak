@@ -22,6 +22,9 @@
 <?php /* テキスト */ ?>
 <?php elseif (preg_match('/_text$/', $vars['key'])): ?>
 <?php echo nl2br(preg_replace('/(http\S+)/', '<a href="$1">$1</a>', str_replace('SITE_URL/', site_url('', FALSE, FALSE), $vars['row'][$vars['key']]))); ?>
+<?php /* HTML */ ?>
+<?php elseif (preg_match('/_html$/', $vars['key'])): ?>
+<?php echo $vars['row'][$vars['key']]; ?>
 <?php /* 画像 */ ?>
 <?php elseif (preg_match('/_image$/', $vars['key'])): ?>
 <img src="<?php h($vars['row'][$vars['key']] !== '' ? $vars['row'][$vars['key']] : direct('no-image.svg', TRUE)); ?>" class="img-thumbnail" style="<?php h(isset($vars['style']) ? $vars['style'] : 'width:100px;height:100px;object-fit:cover;'); ?>">

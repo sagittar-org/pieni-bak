@@ -13,6 +13,29 @@
 <?php /* テキスト */ ?>
 <?php elseif (preg_match('/_text$/', $vars['key'])): ?>
 <textarea type="text" class="form-control" name="<?php h($vars['key']); ?>" rows="20"></textarea>
+<?php /* HTML */ ?>
+<?php elseif (preg_match('/_html$/', $vars['key'])): ?>
+<textarea class="form-control summernote" name="<?php h($vars['key']); ?>"></textarea>
+<link rel="stylesheet" href="<?php direct('summernote/summernote.css'); ?>">
+<script type="text/javascript" src="<?php direct('summernote/summernote.js'); ?>"></script>
+<script type="text/javascript" src="<?php direct('summernote/summernote-ja-JP.js'); ?>"></script>
+<script type="text/javascript">
+$(function() {
+  $('.summernote').summernote({
+    styleTags: ['p', 'h1', 'h2', 'h3'],
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['table', ['table']],
+      ['insert', ['link', 'picture', 'video']],
+    ],
+    height: 300,
+    tabsize: 2,
+    lang: 'ja-JP'
+  });
+});
+</script>
 <?php /* 画像 */ ?>
 <?php elseif (preg_match('/_image$/', $vars['key'])): ?>
 <input type="hidden" name="<?php h($vars['key']); ?>"><input type="file" onchange="(function(t){
