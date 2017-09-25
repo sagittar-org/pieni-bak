@@ -38,13 +38,31 @@ $(function() {
 </script>
 <?php /* 画像 */ ?>
 <?php elseif (preg_match('/_image$/', $vars['key'])): ?>
-<input type="hidden" name="<?php h($vars['key']); ?>"><input type="file" onchange="(function(t){
+<canvas id="<?php h($vars['key']); ?>_canvas" width="800" height="600" style="display:none"></canvas>
+<input name="<?php h($vars['key']); ?>" style="display:none2">
+<img id="<?php h($vars['key']); ?>_preview" style="width:200px;"><br>
+<input type="file" accept="image/*" capture id="<?php h($vars['key']); ?>_file">
+<script>
+document.querySelector('#<?php h($vars['key']); ?>_file').addEventListener('change', function(){
 	var reader = new FileReader();
-	reader.onload = function(e) {
-		t.previousSibling.value = e.target.result;
+	reader.readAsDataURL(this.files[0]);
+	reader.onloadend = function() {
+		var image = new Image();
+		var canvas = document.querySelector('#<?php h($vars['key']); ?>_canvas');
+		image.src = reader.result;
+		image.onload = function() {
+			var landscape = image.width / image.height >= canvas.width / canvas.height;
+			sw = landscape ? image.height * canvas.width / canvas.height : image.width;
+			sh = landscape ? image.height : image.width * canvas.height / canvas.width;
+			sx = landscape ? (image.width - sw) / 2 : 0;
+			sy = landscape ? 0 : (image.height - sh) / 2;
+			canvas.getContext('2d').drawImage(image, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+			$('#<?php h($vars['key']); ?>_preview').attr('src', canvas.toDataURL());
+			$('[name=<?php h($vars['key']); ?>]').val(canvas.toDataURL());
+		};
 	};
-	reader.readAsDataURL(t.files[0]);
-})(this);">
+});
+</script>
 <?php /* ファイル */ ?>
 <?php elseif (preg_match('/_file$/', $vars['key'])): ?>
 <input type="hidden" name="<?php h($vars['key']); ?>"><input type="file" onchange="(function(t){

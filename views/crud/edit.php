@@ -15,7 +15,7 @@
             <div class="form-group">
 <?php if (in_array($select_hash_key, model("{$alias}_{$vars['key']}")->set_list)): ?>
               <label><?php l($select_hash_key); ?></label>
-              <?php load_view('input', ['key' => $select_hash_key], $table); ?>
+              <?php load_view('input', ['key' => $select_hash_key, 'form_id' => $alias.ucfirst($vars['key'])], $table); ?>
 <?php else: ?>
               <label><?php l($select_hash_key); ?></label>
               <div name="<?php h($select_hash_key); ?>"></div>
