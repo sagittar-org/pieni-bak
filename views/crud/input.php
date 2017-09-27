@@ -57,8 +57,8 @@ $('#<?php h($vars['form_id']); ?>').find('.<?php h($vars['key']); ?>_file').on('
 			sx = landscape ? (image.width - sw) / 2 : 0;
 			sy = landscape ? 0 : (image.height - sh) / 2;
 			canvas.getContext('2d').drawImage(image, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
-			$('#<?php h($vars['form_id']); ?>').find('.<?php h($vars['key']); ?>_preview').attr('src', canvas.toDataURL());
-			$('#<?php h($vars['form_id']); ?>').find('[name=<?php h($vars['key']); ?>]').val(canvas.toDataURL());
+			$('#<?php h($vars['form_id']); ?>').find('.<?php h($vars['key']); ?>_preview').attr('src', canvas.toDataURL('image/jpeg'));
+			$('#<?php h($vars['form_id']); ?>').find('[name=<?php h($vars['key']); ?>]').val(canvas.toDataURL('image/jpeg'));
 		};
 	};
 });
