@@ -1,6 +1,8 @@
 <?php $table = $vars['model']->table; ?>
 <?php $alias = $vars['model']->alias; ?>
+<?php if ( ! isset($vars['parent_row'])): ?>
     <div class="container">
+<?php endif; ?>
 <?php if ($alias === $table): ?>
       <h1><?php l($table); ?></h1>
 <?php else: ?>
@@ -31,6 +33,8 @@
 <?php endif; ?>
 <?php load_view('pagination2', $vars, $table); ?>
 <?php if (fallback('post_index.php', "views/{$table}") !== NULL) load_view('post_index', $vars, $table); ?>
+<?php if ( ! isset($vars['parent_row'])): ?>
     </div>
+<?php endif; ?>
 <?php load_view('add', $vars, $table); ?>
 <?php load_view('row_action', $vars, $table); ?>

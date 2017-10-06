@@ -35,7 +35,35 @@
 <?php if (fallback('post_view.php', "views/{$table}") !== NULL) load_view('post_view', $vars, $table); ?>
     </div>
 <?php load_view('row_action', $vars, $table); ?>
+
+
+<div class="container">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+<?php $active = TRUE; ?>
 <?php foreach ($vars['model']->has_hash as $key => $has): ?>
 <?php if ( ! in_array('index', array_keys($has['model']->action_hash))) continue; ?>
-<?php load_view('index', $has, $has['model']->table); ?>
+    <li role="presentation"<?php if ($active === TRUE): ?> class="active"<?php endif; ?>><a href="#<?php h($key); ?>" role="tab" data-toggle="tab"><?php l($key); ?></a></li>
+<?php $active = FALSE; ?>
 <?php endforeach; ?>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+<?php $active = TRUE; ?>
+<?php foreach ($vars['model']->has_hash as $key => $has): ?>
+<?php if ( ! in_array('index', array_keys($has['model']->action_hash))) continue; ?>
+    <div role="tabpanel" class="tab-pane<?php if ($active === TRUE): ?> active<?php endif; ?>" id="<?php h($key); ?>">
+<?php load_view('index', $has, $has['model']->table); ?>
+    </div>
+<?php $active = FALSE; ?>
+<?php endforeach; ?>
+  </div>
+
+</div>
+
+<?php //foreach ($vars['model']->has_hash as $key => $has): ?>
+<?php //if ( ! in_array('index', array_keys($has['model']->action_hash))) continue; ?>
+<?php //load_view('index', $has, $has['model']->table); ?>
+<?php //endforeach; ?>
