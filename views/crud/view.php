@@ -5,11 +5,9 @@
     <div class="container">
       <h1><?php h($row[$vars['model']->display]); ?></h1>
 <?php if (fallback('pre_view.php', "views/{$table}") !== NULL) load_view('pre_view', $vars, $table); ?>
-<?php if (in_array('edit', array_keys($vars['model']->action_hash)) OR in_array('delete', array_keys($vars['model']->action_hash))): ?>
       <div class="text-right" style="margin-top:-46px">
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
-<?php if ($key === 'view') continue; ?>
-<?php if ($row_action !== 'view') continue; ?>
+<?php if ($row_action !== 'row') continue; ?>
             <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
 <?php endforeach; ?>
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
@@ -21,7 +19,6 @@
             <button type="button" class="btn btn-default" data-toggle="modal" id="<?php h($alias); ?><?php h(ucfirst($key)); ?>Show<?php h($id); ?>" data-target="#<?php h($alias); ?><?php h(ucfirst($key)); ?>" onclick="<?php h($alias); ?>Pre<?php h(ucfirst($key)); ?>('<?php h($id); ?>');"><?php l("crud_{$key}"); ?></button>
 <?php endforeach; ?>
       </div>
-<?php endif; ?>
       <table class="table">
 <?php foreach ($vars['model']->select_hash as $key => $select): ?>
 <?php if (in_array($key, $vars['model']->hidden_list)) continue; ?>
