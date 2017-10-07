@@ -6,6 +6,7 @@
       <h1><?php h($row[$vars['model']->display]); ?></h1>
 <?php if (fallback('pre_view.php', "views/{$table}") !== NULL) load_view('pre_view', $vars, $table); ?>
       <div class="text-right" style="margin-top:-46px">
+            <button type="button" class="btn" style="visibility:hidden;">&nbsp;</button>
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if ($row_action !== 'row') continue; ?>
             <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
@@ -32,10 +33,7 @@
 <?php if (fallback('post_view.php', "views/{$table}") !== NULL) load_view('post_view', $vars, $table); ?>
     </div>
 <?php load_view('row_action', $vars, $table); ?>
-
-
 <div class="container">
-
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
 <?php $active = TRUE; ?>
@@ -45,7 +43,6 @@
 <?php $active = FALSE; ?>
 <?php endforeach; ?>
   </ul>
-
   <!-- Tab panes -->
   <div class="tab-content">
 <?php $active = TRUE; ?>
@@ -57,10 +54,4 @@
 <?php $active = FALSE; ?>
 <?php endforeach; ?>
   </div>
-
 </div>
-
-<?php //foreach ($vars['model']->has_hash as $key => $has): ?>
-<?php //if ( ! in_array('index', array_keys($has['model']->action_hash))) continue; ?>
-<?php //load_view('index', $has, $has['model']->table); ?>
-<?php //endforeach; ?>
