@@ -20,6 +20,23 @@ class Directive extends Crud {
 				continue;
 			}
 			library('db')->query("DELETE FROM `directive` WHERE `directive_table` = '{$table}'");
+
+			$result = library('db')->query("SHOW COLUMNS FROM `{$table}`");
+			while (($row = $result->fetch_assoc()))
+			{
+				r($row['Field']);
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'select_hash', '{$row['Field']}', 'NULL')");
+				if ($row['Field'] === "{$table}_id")
+				{
+					continue;
+				}
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'set_list', '', '\'{$row['Field']}\'')");
+				if ($row['Null'] === 'YES')
+				{
+					library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'null_list', '', '\'{$row['Field']}\'')");
+				}
+			}
+
 			$line_list = [
 				['overwrite', 'primary_key', '', "'{$table}_id'"],
 				['overwrite', 'display', '', "'{$table}_name'"],
@@ -39,21 +56,6 @@ class Directive extends Crud {
 			foreach ($line_list as $line)
 			{
 				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', '".implode("', '", array_map([library('db')->mysqli, 'real_escape_string'], $line))."')");
-			}
-			$result = library('db')->query("SHOW COLUMNS FROM `{$table}`");
-			while (($row = $result->fetch_assoc()))
-			{
-				r($row['Field']);
-				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'select_hash', '{$row['Field']}', 'NULL')");
-				if ($row['Field'] === "{$table}_id")
-				{
-					continue;
-				}
-				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'set_list', '', '\'{$row['Field']}\'')");
-				if ($row['Null'] === 'YES')
-				{
-					library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'null_list', '', '\'{$row['Field']}\'')");
-				}
 			}
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'add')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'edit')");
@@ -163,8 +165,7 @@ FIELD(`directive_table`, {$table_list}),
 FIELD(`directive_actor`, '', {$actor_list}),
 FIELD(`directive_action`, '', {$action_list}),
 FIELD(`directive_alias`, '', {$alias_list}),
-FIELD(`directive_method`, 'overwrite', 'append', 'remove'),
-FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'select_hash', 'hidden_list', 'set_list', 'null_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+FIELD(`directive_directive`, 'select_hash', 'set_list', 'null_list', 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'hidden_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
 `directive_id` ASC
 ");
 		while (($row = $result->fetch_assoc()))
