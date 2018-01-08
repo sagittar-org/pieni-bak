@@ -19,8 +19,9 @@ class Directive extends Crud {
 			{
 				continue;
 			}
-			library('db')->query("DELETE FROM `directive` WHERE `directive_table` = '{$table}'");
+			library('db')->query("DELETE FROM `directive` WHERE `directive_table` = '{$table}' AND `directive_directive` NOT IN ('select_hash', 'set_list', 'null_list')");
 
+/*
 			$result = library('db')->query("SHOW COLUMNS FROM `{$table}`");
 			while (($row = $result->fetch_assoc()))
 			{
@@ -36,6 +37,7 @@ class Directive extends Crud {
 					library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'null_list', '', '\'{$row['Field']}\'')");
 				}
 			}
+*/
 
 			$line_list = [
 				['overwrite', 'primary_key', '', "'{$table}_id'"],
