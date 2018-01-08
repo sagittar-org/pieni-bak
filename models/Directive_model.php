@@ -15,8 +15,8 @@ class Directive_model extends Crud_model {
 		$this->overwrite('use_card', FALSE);
 		$this->append('action_hash', 'generate', 'table');
 		$this->append('action_hash', 'regularize', 'table');
-		$this->append('action_hash', 'compile', 'table');
-		$this->append('action_hash', 'decompile', 'table');
+		// $this->append('action_hash', 'compile', 'table');
+		// $this->append('action_hash', 'decompile', 'table');
 		$this->append('action_hash', 'index', 'index');
 		$this->append('action_hash', 'add', 'add');
 		$this->append('action_hash', 'edit', 'edit');
