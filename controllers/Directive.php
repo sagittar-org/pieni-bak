@@ -31,6 +31,7 @@ class Directive extends Crud {
 					library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'null_list', '', '\'{$row['Field']}\'')");
 				}
 			}
+			$this->schema(FALSE, "`directive_table` = '{$table}' AND `directive_directive` IN ('select_hash', 'set_list', 'null_list')");
 		}
 		foreach (config('uri')['table_list'] as $table)
 		{
@@ -66,7 +67,7 @@ class Directive extends Crud {
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'add')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'edit')");
 			library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '".array_keys(config('uri')['actor_hash'])[0]."', '', '', 'remove', 'action_hash', '', 'delete')");
-			$this->decompile(FALSE, "`directive_table` = '{$table}'");
+			$this->decompile(FALSE, "`directive_table` = '{$table}' AND `directive_directive` NOT IN ('select_hash', 'set_list', 'null_list')");
 		}
 		flash(l('crud_generate_succeeded', [], TRUE), 'success');
 		redirect('directive');
@@ -158,6 +159,116 @@ class Directive extends Crud {
 		}
 	}
 
+	// DBからスキーマモデルを生成
+	public function schema($flash = TRUE, $where = '1')
+	{
+		load_library('db');
+		$result = library('db')->query("SELECT * FROM `directive` WHERE {$where} ORDER BY
+FIELD(`directive_directive`, 'select_hash', 'set_list', 'null_list', 'primary_key', 'display', 'use_card', 'has_hash', 'action_hash', 'hidden_list', 'fixed_hash', 'success_hash', 'join_hash', 'where_list', 'where_hash', 'order_by_hash', 'limit_list'),
+`directive_id` ASC
+");
+		while (($row = $result->fetch_assoc()))
+		{
+			// テーブル開始
+			if ( ! isset($last_row) OR $row['directive_table'] !== $last_row['directive_table'])
+			{
+				$table = $row['directive_table'];
+				ob_start();
+				$indent = "\t\t";
+				echo "<?php\nclass ".ucfirst($row['directive_table'])."_schema extends Crud_model {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
+			}
+
+			switch ($row['directive_method'])
+			{
+			case 'overwrite':
+				switch ($row['directive_directive'])
+				{
+				case 'primary_key':
+				case 'display':
+				case 'use_card':
+					$value = $row['directive_value'];
+					break;
+				default:
+					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
+					break;
+				}
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', {$value});\n";
+				break;
+			case 'append':
+				switch ($row['directive_directive'])
+				{
+				case 'hidden_list':
+				case 'set_list':
+				case 'null_list':
+				case 'where_list':
+				case 'limit_list':
+					$value = $row['directive_value'];
+					break;
+				case 'has_hash':
+				case 'action_hash':
+				case 'select_hash':
+				case 'fixed_hash':
+				case 'success_hash':
+				case 'join_hash':
+				case 'where_hash':
+				case 'order_by_hash':
+					$value = "'{$row['directive_key']}', {$row['directive_value']}";
+					break;
+				default:
+					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
+					break;
+				}
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', {$value});\n";
+				break;
+			case 'remove':
+				switch ($row['directive_directive'])
+				{
+				case 'hidden_list':
+				case 'set_list':
+				case 'null_list':
+				case 'where_list':
+				case 'limit_list':
+					$value = $row['directive_value'];
+					break;
+				case 'has_hash':
+				case 'action_hash':
+				case 'select_hash':
+				case 'fixed_hash':
+				case 'success_hash':
+				case 'join_hash':
+				case 'where_hash':
+				case 'order_by_hash':
+					$value = $row['directive_value'];
+					break;
+				default:
+					show_500("Illigal key for method '{$row['directive_method']}' ('{$row['directive_directive']}')");
+					break;
+				}
+				echo "{$indent}\$this->{$row['directive_method']}('{$row['directive_directive']}', '{$value}');\n";
+				break;
+			default:
+				show_500("Unknown Method ('{$row['directive_method']}')");
+				break;
+			}
+			$last_row = $row;
+		}
+
+		// テーブル終了
+		echo "\t}\n}\n";
+		$ob = ob_get_clean();
+		if ( ! file_exists(config('package_list')[0].'/models'))
+		{
+			mkdir(config('package_list')[0].'/models');
+		}
+		file_put_contents(config('package_list')[0].'/models/'.ucfirst($table).'_schema.php', $ob);
+
+		if ($flash === TRUE)
+		{
+			flash(l('crud_schema_succeeded', [], TRUE), 'success');
+			redirect('directive');
+		}
+	}
+
 	// DBからモデルを生成
 	public function decompile($flash = TRUE, $where = '1')
 	{
@@ -215,7 +326,7 @@ FIELD(`directive_directive`, 'select_hash', 'set_list', 'null_list', 'primary_ke
 				$table = $row['directive_table'];
 				ob_start();
 				$indent = "\t\t";
-				echo "<?php\nclass ".ucfirst($row['directive_table'])."_model extends Crud_model {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
+				echo "<?php\nrequire_once '".ucfirst($row['directive_table'])."_schema.php';\n\nclass ".ucfirst($row['directive_table'])."_model extends ".ucfirst($row['directive_table'])."_schema {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
 			}
 
 			// アクター開始
