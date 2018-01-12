@@ -6,9 +6,40 @@ class Directive extends Crud {
 		parent::__construct();
 	}
 
+	private function load_schema() {
+		$book = PHPExcel_IOFactory::load(config('package_list')[0].'/models/schema.xlsx');
+
+		for ($i = 0; $i < $book->getSheetCount(); $i++) {
+		    $book->setActiveSheetIndex($i);
+		    $sheet = $book->getActiveSheet();
+		    $hash = [];
+		    for ($r = 2; $r < 1000; $r++) {
+		        if ($sheet->getCell('A'.$r)->getValue() === null) {
+		            break;
+		        }
+		        $row = [
+		            'name' => $sheet->getCell('A'.$r)->getValue(),
+		            'type' => $sheet->getCell('B'.$r)->getValue(),
+		            'null' => $sheet->getCell('C'.$r)->getValue(),
+		            'extra' => $sheet->getCell('D'.$r)->getValue(),
+		            'ja' => $sheet->getCell('F'.$r)->getValue(),
+		        ];
+		        $hash[] = $row;
+		    }
+
+		    $fields = [];
+		    foreach ($hash as $row) {
+		        $fields[] = "`{$row['name']}` {$row['type']} ".($row['null'] === null ? 'NOT NULL' : 'DEFAULT NULL')." {$row['extra']} comment '{$row['ja']}'";
+		    }
+		    $result = library('db')->query("DROP TABLE IF EXISTS `".$sheet->getTitle()."`");
+		    $result = library('db')->query("CREATE TABLE `".$sheet->getTitle()."` (\n\t".implode(",\n\t", $fields)."\n)");
+		}
+	}
+
 	// DBスキーマからモデルを生成
 	public function generate()
 	{
+		$this->load_schema();
 		foreach (config('uri')['table_list'] as $table)
 		{
 			if ($table === 'directive')
