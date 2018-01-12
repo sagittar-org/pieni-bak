@@ -21,6 +21,9 @@ if ( ! function_exists('exec_request'))
 			$uri['parent_id'] = isset($uri['param_arr'][0]) ? array_shift($uri['param_arr']) : NULL;
 		}
 
+		// composer
+		require_once __DIR__.'/../../../autoload.php';
+
 		// 言語ファイルを読み込み
 		$GLOBALS['language_hash'] = [];
 		$paths = [
@@ -32,16 +35,30 @@ if ( ! function_exists('exec_request'))
 			foreach (cartesian($paths) as $array)
 			{
 				$path = implode('/', array_filter($array, 'strlen'));
-				if (file_exists("{$package}/language/{$path}/common.php"))
+				if (file_exists("{$package}/language/{$path}/common.xlsx"))
 				{
-					@include_once "{$package}/language/{$path}/common.php";
-					$GLOBALS['language_hash'] = array_merge($language, $GLOBALS['language_hash']);
+					$book = PHPExcel_IOFactory::load("{$package}/language/{$path}/common.xlsx");
+					$book->setActiveSheetIndex(0);
+					$sheet = $book->getActiveSheet();
+					for ($c = 1; ($language = $sheet->getCellByColumnAndRow($c, 1)->getValue()) !== null; $c++) {
+						$language_list[] = $language;
+					}
+					for ($s = 0; $s < $book->getSheetCount(); $s++) {
+						$book->setActiveSheetIndex($s);
+						$sheet = $book->getActiveSheet();
+						for ($r = 2; $sheet->getCell('A'.$r)->getValue() !== null; $r++) {
+							$row = [];
+							foreach ($language_list as $i => $language) {
+								for ($c = $i + 1; ($value = $sheet->getCellByColumnAndRow($c, $r)->getValue()) === NULL; $c--) ;
+								$row[$language] = $value;
+							}
+							$language_hash[$sheet->getCellByColumnAndRow(0, $r)->getValue()] = $row;
+						}
+					}
+					$GLOBALS['language_hash'] = array_merge($language_hash, $GLOBALS['language_hash']);
 				}
 			}
 		}
-
-		// composer
-		require_once __DIR__.'/../../../autoload.php';
 
 		// コントローラインスタンスを生成・メソッドを実行
 		fallback_ro('Controller.php', 'controllers');
@@ -258,6 +275,7 @@ if ( ! function_exists('load_language'))
 	// 言語ファイルを読み込む
 	function load_language($name)
 	{
+die();
 		if ( ! isset($GLOBALS['language_hash']))
 		{
 			$GLOBALS['language_hash'] = [];
@@ -342,7 +360,7 @@ if ( ! function_exists('l'))
 	// 言語エントリーを出力
 	function l($key, $params = [], $return = FALSE)
 	{
-		$value = isset($GLOBALS['language_hash'][$key]) ? $GLOBALS['language_hash'][$key] : $key;
+		$value = isset($GLOBALS['language_hash'][$key][uri('language')]) ? $GLOBALS['language_hash'][$key][uri('language')] : $key;
 		foreach ($params as $i => $param)
 		{
 			$value = str_replace('$'.($i + 1), $param, $value);
