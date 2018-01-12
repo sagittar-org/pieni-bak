@@ -1,4 +1,35 @@
 <?php
+if ( ! function_exists('load_language'))
+{
+	// 言語ファイルを読み込む
+	function load_language($path)
+	{
+		if (file_exists($path))
+		{
+			$book = PHPExcel_IOFactory::load($path);
+			$book->setActiveSheetIndex(0);
+			$sheet = $book->getActiveSheet();
+			for ($c = 1; ($language = $sheet->getCellByColumnAndRow($c, 1)->getValue()) !== null; $c++) {
+				$language_list[] = $language;
+			}
+			for ($s = 0; $s < $book->getSheetCount(); $s++) {
+				$book->setActiveSheetIndex($s);
+				$sheet = $book->getActiveSheet();
+				for ($r = 2; $sheet->getCell('A'.$r)->getValue() !== null; $r++) {
+					$row = [];
+					foreach ($language_list as $i => $language) {
+						for ($c = $i + 1; ($value = $sheet->getCellByColumnAndRow($c, $r)->getValue()) === NULL; $c--) ;
+						if ( ! in_array($language, config('uri')['language_list'])) continue;
+						$row[$language] = $value;
+					}
+					$language_hash[$sheet->getCellByColumnAndRow(0, $r)->getValue()] = $row;
+				}
+			}
+			$GLOBALS['language_hash'] = array_merge($language_hash, $GLOBALS['language_hash']);
+		}
+	}
+}
+
 if ( ! function_exists('exec_request'))
 {
 	// リクエストを実行
@@ -34,31 +65,12 @@ if ( ! function_exists('exec_request'))
 		{
 			foreach (cartesian($paths) as $array)
 			{
-				$path = implode('/', array_filter($array, 'strlen'));
-				if (file_exists("{$package}/language/{$path}/common.xlsx"))
-				{
-					$book = PHPExcel_IOFactory::load("{$package}/language/{$path}/common.xlsx");
-					$book->setActiveSheetIndex(0);
-					$sheet = $book->getActiveSheet();
-					for ($c = 1; ($language = $sheet->getCellByColumnAndRow($c, 1)->getValue()) !== null; $c++) {
-						$language_list[] = $language;
-					}
-					for ($s = 0; $s < $book->getSheetCount(); $s++) {
-						$book->setActiveSheetIndex($s);
-						$sheet = $book->getActiveSheet();
-						for ($r = 2; $sheet->getCell('A'.$r)->getValue() !== null; $r++) {
-							$row = [];
-							foreach ($language_list as $i => $language) {
-								for ($c = $i + 1; ($value = $sheet->getCellByColumnAndRow($c, $r)->getValue()) === NULL; $c--) ;
-								$row[$language] = $value;
-							}
-							$language_hash[$sheet->getCellByColumnAndRow(0, $r)->getValue()] = $row;
-						}
-					}
-					$GLOBALS['language_hash'] = array_merge($language_hash, $GLOBALS['language_hash']);
-				}
+				$path = "{$package}/language/".implode('/', array_filter($array, 'strlen'))."/common.xlsx";
+				load_language($path);
 			}
 		}
+		$path = config('package_list')[0].'/models/schema.xlsx';
+		load_language($path);
 
 		// コントローラインスタンスを生成・メソッドを実行
 		fallback_ro('Controller.php', 'controllers');
@@ -267,29 +279,6 @@ if ( ! function_exists('load_view'))
 			}
 		}
 		show_500("View '{$name}' not found (class='{$class}')");
-	}
-}
-
-if ( ! function_exists('load_language'))
-{
-	// 言語ファイルを読み込む
-	function load_language($name)
-	{
-die();
-		if ( ! isset($GLOBALS['language_hash']))
-		{
-			$GLOBALS['language_hash'] = [];
-		}
-		$paths = [
-			[uri('language'), ''],
-			[uri('actor'), ''],
-		];
-		if (($fallback = fallback("{$name}.php", 'language', $paths)) === NULL)
-		{
-			show_500("'language/{$name}.php' not found");
-		}
-		require_once $fallback;
-		$GLOBALS['language_hash'] = array_merge($language, $GLOBALS['language_hash']);
 	}
 }
 
