@@ -36,10 +36,59 @@ class Directive extends Crud {
 		}
 	}
 
+	public function load_data()
+	{
+		$book = PHPExcel_IOFactory::load(config('package_list')[0].'/models/data.xlsx');
+
+		$sheetsCount = $book->getSheetCount();
+		for ($i = 0; $i < $sheetsCount; $i++) {
+		    $book->setActiveSheetIndex($i);
+		    $sheet = $book->getActiveSheet();
+		    $title = $sheet->getTitle();
+		    $hash_s = [];
+
+		    $row_max = $sheet->getHighestRow();
+		    for ($c = 0; $c < 1000; $c++) {
+		        if ($sheet->getCellByColumnAndRow($c, 1)->getValue() === null) {
+		            break;
+		        }
+		    }
+		    $col_max = $c - 1;
+
+		    for ($n = 2; $n <= $row_max; $n++) {
+		        if ($sheet->getCell('A'.$n)->getValue() === null) {
+		            break;
+		        }
+		        $row = [];
+		        for ($c = 0; $c <= $col_max; $c++) {
+		            $row[$sheet->getCellByColumnAndRow($c, 1)->getValue()] = $sheet->getCellByColumnAndRow($c, $n)->getValue();
+		        }
+		        $hash_s[] = $row;
+		    }
+		    $fields = [];
+		    $column = [];
+		    $column_s = [];
+		    foreach ($hash_s[0] as $key => $col) {
+		            $fields[] = $key;
+		    }
+		    foreach ($hash_s as $hash) {
+		        foreach ($hash as $key => $col) {
+		            $column[] = ($col === null ? 'NULL' : '"'.$col.'"');
+		        }
+			$column_s[] = "(".implode(",", $column).")";
+			$column = [];
+		    }
+		    library('db')->query("TRUNCATE `{$title}`");
+		    $sql = "INSERT INTO `".$title."` (".implode(",", $fields).") VALUES ".implode(",", $column_s);
+		    library('db')->query($sql);
+		}
+	}
+
 	// DBスキーマからモデルを生成
 	public function generate()
 	{
 		$this->load_schema();
+		$this->load_data();
 		foreach (config('uri')['table_list'] as $table)
 		{
 			if ($table === 'directive')
