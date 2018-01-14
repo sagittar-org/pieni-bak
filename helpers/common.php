@@ -17,11 +17,15 @@ if ( ! function_exists('load_language'))
 				$sheet = $book->getActiveSheet();
 				for ($r = 2; $sheet->getCell('A'.$r)->getValue() !== null; $r++) {
 					$row = [];
-					foreach ($language_list as $i => $language) {
-						for ($c = $i + 1; ($value = $sheet->getCellByColumnAndRow($c, $r)->getValue()) === NULL; $c--) ;
-						if ( ! in_array($language, config('uri')['language_list'])) continue;
-						if ($value instanceof PHPExcel_RichText) $value = $value->getPlainText();
-						$row[$language] = $value;
+					foreach (config('uri')['language_list'] as $language) {
+						foreach ($language_list as $i => $key) {
+							if ( ! in_array($key, config('uri')['language_list'])) continue;
+							$value = $sheet->getCellByColumnAndRow($i + 1, $r)->getValue();
+							if ($value !== NULL) {
+								$row[$language] = $value;
+							}
+							if ($key === $language) break;
+						}
 					}
 					$language_hash[$sheet->getCellByColumnAndRow(0, $r)->getValue()] = $row;
 				}
