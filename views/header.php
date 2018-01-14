@@ -51,7 +51,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Language <span class="caret"></span></a>
               <ul class="dropdown-menu">
 <?php   foreach (config('uri')['language_list'] as $language): ?>
-                <li><a href="<?php href(($language === config('uri')['language_list'][0] ? '' : "{$language}/").$uri_string, FALSE, TRUE); ?>"><?php l($language); ?></a></li>
+                <li><a href="<?php href(($language === config('uri')['language_list'][0] ? '' : "{$language}/").$uri_string, FALSE, FALSE); ?>"><?php l($language); ?></a></li>
 <?php   endforeach; ?>
               </ul>
             </li>
