@@ -31,12 +31,13 @@ class Super_auth extends Controller {
 		$result = $this->db->query($sql);
 		if ($result === TRUE)
 		{
-			if ($this->post_join() !== TRUE) {
+			$insert_id = $this->db->insert_id;
+			if ($this->post_join($insert_id) !== TRUE) {
 				flash(l('auth_join_failed', [], TRUE), 'warning');
 				redirect("auth/join/{$actor}", TRUE, FALSE);
 			}
 			flash(l('auth_join_succeeded', [], TRUE), 'success');
-			$row = $this->db->query(str_replace('$1', $this->db->insert_id, config('auth')[$actor]['proxy']))->fetch_assoc();
+			$row = $this->db->query(str_replace('$1', $insert_id, config('auth')[$actor]['proxy']))->fetch_assoc();
 			$_SESSION[$actor] = ['auth' => $row];
 			redirect($actor, TRUE, FALSE);
 		}
