@@ -33,7 +33,7 @@ if ( ! function_exists('load_language'))
 					$language_hash[$sheet->getCellByColumnAndRow(0, $r)->getValue()] = $row;
 				}
 			}
-			$GLOBALS['language_hash'] = array_merge($language_hash, $GLOBALS['language_hash']);
+			$GLOBALS['language_hash'] = array_merge($GLOBALS['language_hash'], $language_hash);
 		}
 	}
 }
