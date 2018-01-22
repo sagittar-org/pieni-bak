@@ -10,29 +10,29 @@ class Directive extends Crud {
 		$book = PHPExcel_IOFactory::load(config('package_list')[0].'/models/schema.xlsx');
 
 		for ($i = 0; $i < $book->getSheetCount(); $i++) {
-		    $book->setActiveSheetIndex($i);
-		    $sheet = $book->getActiveSheet();
-		    $hash = [];
-		    for ($r = 2; $r < 1000; $r++) {
-		        if ($sheet->getCell('A'.$r)->getValue() === null) {
-		            break;
-		        }
-		        $row = [
-		            'name' => $sheet->getCell('A'.$r)->getValue(),
-		            'type' => $sheet->getCell('B'.$r)->getValue(),
-		            'null' => $sheet->getCell('C'.$r)->getValue(),
-		            'extra' => $sheet->getCell('D'.$r)->getValue(),
-		            'ja' => $sheet->getCell('F'.$r)->getValue(),
-		        ];
-		        $hash[] = $row;
-		    }
+			$book->setActiveSheetIndex($i);
+			$sheet = $book->getActiveSheet();
+			$hash = [];
+			for ($r = 2; $r < 1000; $r++) {
+				if ($sheet->getCell('A'.$r)->getValue() === null) {
+					break;
+				}
+				$row = [
+					'name' => $sheet->getCell('A'.$r)->getValue(),
+					'type' => $sheet->getCell('B'.$r)->getValue(),
+					'null' => $sheet->getCell('C'.$r)->getValue(),
+					'extra' => $sheet->getCell('D'.$r)->getValue(),
+					'ja' => $sheet->getCell('F'.$r)->getValue(),
+				];
+				$hash[] = $row;
+			}
 
-		    $fields = [];
-		    foreach ($hash as $row) {
-		        $fields[] = "`{$row['name']}` {$row['type']} ".($row['null'] === null ? 'NOT NULL' : 'DEFAULT NULL')." {$row['extra']} comment '{$row['ja']}'";
-		    }
-		    $result = library('db')->query("DROP TABLE IF EXISTS `".$sheet->getTitle()."`");
-		    $result = library('db')->query("CREATE TABLE `".$sheet->getTitle()."` (\n\t".implode(",\n\t", $fields)."\n)");
+			$fields = [];
+			foreach ($hash as $row) {
+				$fields[] = "`{$row['name']}` {$row['type']} ".($row['null'] === null ? 'NOT NULL' : 'DEFAULT NULL')." {$row['extra']} comment '{$row['ja']}'";
+			}
+			$result = library('db')->query("DROP TABLE IF EXISTS `".$sheet->getTitle()."`");
+			$result = library('db')->query("CREATE TABLE `".$sheet->getTitle()."` (\n\t".implode(",\n\t", $fields)."\n)");
 		}
 	}
 
@@ -42,45 +42,46 @@ class Directive extends Crud {
 
 		$sheetsCount = $book->getSheetCount();
 		for ($i = 0; $i < $sheetsCount; $i++) {
-		    $book->setActiveSheetIndex($i);
-		    $sheet = $book->getActiveSheet();
-		    $title = $sheet->getTitle();
-		    $hash_s = [];
+			$book->setActiveSheetIndex($i);
+			$sheet = $book->getActiveSheet();
+			$title = $sheet->getTitle();
+			$hash_s = [];
+			$row_max = $sheet->getHighestRow();
+			library('db')->query("TRUNCATE `{$title}`");
+			if ($row_max < 2) continue;
 
-		    $row_max = $sheet->getHighestRow();
-		    for ($c = 0; $c < 1000; $c++) {
-		        if ($sheet->getCellByColumnAndRow($c, 1)->getValue() === null) {
-		            break;
-		        }
-		    }
-		    $col_max = $c - 1;
+			for ($c = 0; $c < 1000; $c++) {
+				if ($sheet->getCellByColumnAndRow($c, 1)->getValue() === null) {
+					break;
+				}
+			}
+			$col_max = $c - 1;
 
-		    for ($n = 2; $n <= $row_max; $n++) {
-		        if ($sheet->getCell('A'.$n)->getValue() === null) {
-		            break;
-		        }
-		        $row = [];
-		        for ($c = 0; $c <= $col_max; $c++) {
-		            $row[$sheet->getCellByColumnAndRow($c, 1)->getValue()] = $sheet->getCellByColumnAndRow($c, $n)->getValue();
-		        }
-		        $hash_s[] = $row;
-		    }
-		    $fields = [];
-		    $column = [];
-		    $column_s = [];
-		    foreach ($hash_s[0] as $key => $col) {
-		            $fields[] = $key;
-		    }
-		    foreach ($hash_s as $hash) {
-		        foreach ($hash as $key => $col) {
-		            $column[] = ($col === null ? 'NULL' : '"'.$col.'"');
-		        }
-			$column_s[] = "(".implode(",", $column).")";
+			for ($n = 2; $n <= $row_max; $n++) {
+				if ($sheet->getCell('A'.$n)->getValue() === null) {
+					break;
+				}
+				$row = [];
+				for ($c = 0; $c <= $col_max; $c++) {
+					$row[$sheet->getCellByColumnAndRow($c, 1)->getValue()] = $sheet->getCellByColumnAndRow($c, $n)->getValue();
+				}
+				$hash_s[] = $row;
+			}
+			$fields = [];
 			$column = [];
-		    }
-		    library('db')->query("TRUNCATE `{$title}`");
-		    $sql = "INSERT INTO `".$title."` (".implode(",", $fields).") VALUES ".implode(",", $column_s);
-		    library('db')->query($sql);
+			$column_s = [];
+			foreach ($hash_s[0] as $key => $col) {
+					$fields[] = $key;
+			}
+			foreach ($hash_s as $hash) {
+				foreach ($hash as $key => $col) {
+					$column[] = ($col === null ? 'NULL' : '"'.$col.'"');
+				}
+				$column_s[] = "(".implode(",", $column).")";
+				$column = [];
+			}
+			$sql = "INSERT INTO `".$title."` (".implode(",", $fields).") VALUES ".implode(",", $column_s);
+			library('db')->query($sql);
 		}
 	}
 
