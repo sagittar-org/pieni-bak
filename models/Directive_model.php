@@ -57,19 +57,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 `directive_id` ASC");
 		$this->append('limit_list', 100);
 
-		if ($this->actor === 'm')
-		{
-			$this->remove('action_hash', 'genarate');
-			$this->remove('action_hash', 'regularize');
-			$this->remove('action_hash', 'compile');
-			$this->remove('action_hash', 'decompile');
-			$this->remove('action_hash', 'index');
-			$this->remove('action_hash', 'add');
-			$this->remove('action_hash', 'edit');
-			$this->remove('action_hash', 'delete');
-		}
-
-		if ($this->actor === 'g')
+		if ($this->actor !== 'a')
 		{
 			$this->remove('action_hash', 'genarate');
 			$this->remove('action_hash', 'regularize');
