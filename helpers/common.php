@@ -33,7 +33,7 @@ if ( ! function_exists('load_language'))
 					$language_hash[$sheet->getCellByColumnAndRow(0, $r)->getValue()] = $row;
 				}
 			}
-			$GLOBALS['language_hash'] = array_merge($GLOBALS['language_hash'], $language_hash);
+			$GLOBALS['language_hash'] = array_merge($language_hash, $GLOBALS['language_hash']);
 		}
 	}
 }
@@ -65,6 +65,8 @@ if ( ! function_exists('exec_request'))
 
 		// 言語ファイルを読み込み
 		$GLOBALS['language_hash'] = [];
+		$path = config('package_list')[0].'/models/schema.xlsx';
+		load_language($path);
 		$paths = [
 			[uri('language'), ''],
 			[uri('actor'), ''],
@@ -77,8 +79,6 @@ if ( ! function_exists('exec_request'))
 				load_language($path);
 			}
 		}
-		$path = config('package_list')[0].'/models/schema.xlsx';
-		load_language($path);
 
 		// コントローラインスタンスを生成・メソッドを実行
 		fallback_ro('Controller.php', 'controllers');
