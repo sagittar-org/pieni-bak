@@ -21,6 +21,9 @@ if ( ! function_exists('load_language'))
 						foreach ($language_list as $i => $key) {
 							if ( ! in_array($key, config('uri')['language_list'])) continue;
 							$value = $sheet->getCellByColumnAndRow($i + 1, $r)->getValue();
+							if ($value instanceof PHPExcel_RichText) {
+								$value = $value->getPlainText();
+							}
 							if ($value !== NULL) {
 								$row[$language] = $value;
 							}
