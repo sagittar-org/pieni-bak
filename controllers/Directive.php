@@ -264,6 +264,7 @@ FIELD(`directive_directive`, 'select_hash', 'set_list', 'null_list', 'primary_ke
 			case 'overwrite':
 				switch ($row['directive_directive'])
 				{
+				case 'table':
 				case 'primary_key':
 				case 'display':
 				case 'use_card':
