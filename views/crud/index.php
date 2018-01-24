@@ -19,7 +19,7 @@
 <?php endforeach; ?>
       </div>
 <?php endif; ?>
-<?php if (fallback('pre_index.php', "views/{$table}") !== NULL) load_view('pre_index', $vars, $table); ?>
+<?php load_view('pre_index', $vars, $table, FALSE, FALSE); ?>
 <?php load_view('search', $vars, $table); ?>
 <?php load_view('pagination1', $vars, $table); ?>
 <?php if ($vars['model']->use_card === TRUE): ?>

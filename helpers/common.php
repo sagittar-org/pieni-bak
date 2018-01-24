@@ -260,7 +260,7 @@ if ( ! function_exists('load_library'))
 if ( ! function_exists('load_view'))
 {
 	// ビューを読み込む
-	function load_view($name_list, $vars = [], $class = NULL, $return = FALSE)
+	function load_view($name_list, $vars = [], $class = NULL, $return = FALSE, $error = TRUE)
 	{
 		if ($class === NULL)
 		{
@@ -290,7 +290,9 @@ if ( ! function_exists('load_view'))
 				return;
 			}
 		}
-		show_500("View '{$name}' not found (class='{$class}')");
+		if ($error) {
+			show_500("View '{$name}' not found (class='{$class}')");
+		}
 	}
 }
 
