@@ -441,8 +441,9 @@ if ( ! function_exists('redirect'))
 if ( ! function_exists('flash'))
 {
 	// フラッシュメッセージを追加
-	function flash($message, $class = 'info')
+	function flash($message, $class = 'info', $params = [])
 	{
+		$message = l($message, $params, TRUE);
 		if ( ! isset($_SESSION['flash']))
 		{
 			$_SESSION['flash'] = [];
