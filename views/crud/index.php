@@ -8,7 +8,7 @@
 <?php else: ?>
       <h2><?php l($alias); ?></h2>
 <?php endif; ?>
-<?php if (in_array('table', array_keys($vars['model']->action_hash)) OR in_array('add', array_keys($vars['model']->action_hash))): ?>
+<?php if (in_array('table', $vars['model']->action_hash) OR in_array('add', array_keys($vars['model']->action_hash))): ?>
       <div class="text-right" style="margin-top:-46px">
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if ($row_action === 'table'): ?>
