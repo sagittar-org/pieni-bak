@@ -3,6 +3,9 @@
 <div style="width:100%; text-align:right;">
 <?php echo ($vars['row'][$vars['key']] === NULL ? '' : number_format($vars['row'][$vars['key']])); ?>
 </div>
+<?php /* 言語 */ ?>
+<?php elseif (preg_match('/_l$/', $vars['key'])): ?>
+<?php l($vars['row'][$vars['key']]); ?>
 <?php /* 量 */ ?>
 <?php elseif (preg_match('/_amount$/', $vars['key'])): ?>
 <div style="width:100%; text-align:right;">
