@@ -22,14 +22,14 @@ class Directive extends Crud {
 					'type' => $sheet->getCell('B'.$r)->getValue(),
 					'null' => $sheet->getCell('C'.$r)->getValue(),
 					'extra' => $sheet->getCell('D'.$r)->getValue(),
-					'ja' => $sheet->getCell('F'.$r)->getValue(),
+					'comment' => $sheet->getCell('E'.$r)->getValue(),
 				];
 				$hash[] = $row;
 			}
 
 			$fields = [];
 			foreach ($hash as $row) {
-				$fields[] = "`{$row['name']}` {$row['type']} ".($row['null'] === null ? 'NOT NULL' : 'DEFAULT NULL')." {$row['extra']} comment '{$row['ja']}'";
+				$fields[] = "`{$row['name']}` {$row['type']} ".($row['null'] === null ? 'NOT NULL' : 'DEFAULT NULL')." {$row['extra']} comment '{$row['comment']}'";
 			}
 			$result = library('db')->query("DROP TABLE IF EXISTS `".$sheet->getTitle()."`");
 			$result = library('db')->query("CREATE TABLE `".$sheet->getTitle()."` (\n\t".implode(",\n\t", $fields)."\n)");

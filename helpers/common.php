@@ -98,7 +98,11 @@ if ( ! function_exists('exec_request'))
 		{
 			show_404();
 		}
-		call_user_func_array([$controller, $uri['method']], $uri['param_arr']);
+		if (in_array($uri['class'], $config['uri']['table_list'])) {
+			call_user_func_array([$controller, $uri['method']], array_merge([$uri['id']], [$uri['alias']], [$uri['parent_id']], $uri['param_arr']));
+		} else {
+			call_user_func_array([$controller, $uri['method']], $uri['param_arr']);
+		}
 	}
 }
 
