@@ -70,7 +70,7 @@ CREATE TABLE `directive` (
   `directive_method` varchar(255) NOT NULL,
   `directive_directive` varchar(255) NOT NULL,
   `directive_key` varchar(255) NOT NULL,
-  `directive_value` varchar(255) NOT NULL,
+  `directive_value` TEXT NOT NULL,
   PRIMARY KEY (`directive_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
