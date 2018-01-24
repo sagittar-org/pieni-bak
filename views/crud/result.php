@@ -4,7 +4,7 @@
         <tr>
 <?php foreach ($vars['model']->select_hash as $key => $select): ?>
 <?php if (in_array($key, $vars['model']->hidden_list)) continue; ?>
-          <th style="white-space:nowrap;<?php if (preg_match('/_id$/', $key) OR preg_match('/_price$/', $key) OR preg_match('/_amount$/', $key) OR preg_match('/_total$/', $key)): ?> text-align:right;<?php endif; ?>"><?php l($key); ?></th>
+          <th style="white-space:nowrap;<?php if (preg_match('/_id$/', $key) OR preg_match('/_price$/', $key) OR preg_match('/_amount$/', $key) OR preg_match('/_total$/', $key) OR preg_match('/_percentage$/', $key) OR preg_match('/_jpy$/', $key)): ?> text-align:right;<?php endif; ?>"><?php l($key); ?></th>
 <?php endforeach; ?>
           <th style="white-space:nowrap; width:0; text-align:center;"><?php l('crud_actions'); ?></th>
         </tr>
