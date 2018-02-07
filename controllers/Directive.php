@@ -100,14 +100,14 @@ class Directive extends Crud {
 			$result = library('db')->query("SHOW COLUMNS FROM `{$table}`");
 			while (($row = $result->fetch_assoc()))
 			{
-				r($row['Field']);
+				$info = library('db')->query("SELECT * FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA` = '{$GLOBALS['config']['db']['dbname']}' AND `TABLE_NAME` = '{$table}' AND `COLUMN_NAME` = '{$row['Field']}'")->fetch_assoc();
 				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'select_hash', '{$row['Field']}', 'NULL')");
 				if ($row['Field'] === "{$table}_id")
 				{
 					continue;
 				}
 				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'set_list', '', '\'{$row['Field']}\'')");
-				if ($row['Null'] === 'YES')
+				if ($info['IS_NULLABLE'] === 'YES')
 				{
 					library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'null_list', '', '\'{$row['Field']}\'')");
 				}
