@@ -100,7 +100,7 @@ class Directive extends Crud {
 			while (($row = $result->fetch_assoc()))
 			{
 				$info = library('db')->query("SELECT * FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA` = '{$GLOBALS['config']['db']['dbname']}' AND `TABLE_NAME` = '{$table}' AND `COLUMN_NAME` = '{$row['Field']}'")->fetch_assoc();
-				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'select_hash', '{$row['Field']}', 'NULL')");
+				library('db')->query("INSERT INTO `directive` (`directive_table`, `directive_actor`, `directive_action`, `directive_alias`, `directive_method`, `directive_directive`, `directive_key`, `directive_value`) VALUES ('{$table}', '', '', '', 'append', 'select_hash', '{$row['Field']}', '\'`{$table}`.`{$row['Field']}`\'')");
 				if ($row['Field'] === "{$table}_id")
 				{
 					continue;
