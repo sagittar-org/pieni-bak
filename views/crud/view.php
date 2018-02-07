@@ -8,6 +8,10 @@
       <div class="text-right" style="margin-top:-46px">
             <button type="button" class="btn" style="visibility:hidden;">&nbsp;</button>
 <?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
+<?php if ($row_action !== 'ajax') continue; ?>
+            <button onclick="$.ajax({url: '<?php href("{$table}/{$key}/{$id}"); ?>', success: function(){<?php if (isset($vars['model']->success_hash[$key])) echo $vars['model']->success_hash[$key]; ?>},});" class="btn btn-default"><?php l("crud_{$key}"); ?></button>
+<?php endforeach; ?>
+<?php foreach ($vars['model']->action_hash as $key => $row_action): ?>
 <?php if ($row_action !== 'row') continue; ?>
             <a href="<?php href("{$table}/{$key}/{$id}"); ?>" class="btn btn-default"><?php l("crud_{$key}"); ?></a>
 <?php endforeach; ?>
