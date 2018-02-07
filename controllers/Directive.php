@@ -28,6 +28,10 @@ class Directive extends Crud {
 
 			$fields = [];
 			foreach ($hash as $row) {
+				if ($row['name'] === 'Extra') {
+					$fields[] = $row['extra'];
+					continue;
+				}
 				$fields[] = "`{$row['name']}` {$row['type']} {$row['extra']} comment '{$row['comment']}'";
 			}
 			$result = library('db')->query("DROP TABLE IF EXISTS `".$sheet->getTitle()."`");
