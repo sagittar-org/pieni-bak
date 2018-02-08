@@ -1,5 +1,14 @@
+<?php /* enum */ ?>
+<?php if (preg_match('/_e$/', $vars['key'])): ?>
+<?php $info = library('db')->query("SELECT * FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA` = '{$GLOBALS['config']['db']['dbname']}' AND `COLUMN_NAME` = '{$vars['key']}'")->fetch_assoc(); ?>
+<?php $keys = explode("','", preg_replace('/^enum\(\'(.*)\'\)$/', '$1', $info['COLUMN_TYPE'])); ?>
+<select class="form-control" name="<?php h($vars['key']); ?>">
+<?php foreach ($keys as $key): ?>
+<option value="<?php h($key); ?>"><?php l($key); ?></option>
+<?php endforeach; ?>
+</select>
 <?php /* 日時 */ ?>
-<?php if (preg_match('/_created$/', $vars['key']) OR preg_match('/_datetime$/', $vars['key'])): ?>
+<?php elseif (preg_match('/_created$/', $vars['key']) OR preg_match('/_datetime$/', $vars['key'])): ?>
 <input type="text" class="form-control datetime" name="<?php h($vars['key']); ?>">
 <?php /* 日付 */ ?>
 <?php elseif (preg_match('/_date$/', $vars['key'])): ?>

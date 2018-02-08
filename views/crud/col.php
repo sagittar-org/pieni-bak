@@ -11,6 +11,9 @@
 <?php /* 言語 */ ?>
 <?php elseif (preg_match('/_l$/', $vars['key'])): ?>
 <?php l($vars['row'][$vars['key']]); ?>
+<?php /* enum */ ?>
+<?php elseif (preg_match('/_e$/', $vars['key'])): ?>
+<?php l($vars['row'][$vars['key']]); ?>
 <?php /* 量 */ ?>
 <?php elseif (preg_match('/_amount$/', $vars['key'])): ?>
 <div style="width:100%; text-align:right;">
