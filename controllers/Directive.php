@@ -411,7 +411,7 @@ FIELD(`directive_directive`, 'select_hash', 'set_list', 'null_list', 'primary_ke
 				$table = $row['directive_table'];
 				ob_start();
 				$indent = "\t\t";
-				echo "<?php\nrequire_once '".ucfirst($row['directive_table'])."_schema.php';\n\nclass ".ucfirst($row['directive_table'])."_model extends ../schemas/".ucfirst($row['directive_table'])."_schema {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
+				echo "<?php\nrequire_once __DIR__.'/../schemas/".ucfirst($row['directive_table'])."_schema.php';\n\nclass ".ucfirst($row['directive_table'])."_model extends ../schemas/".ucfirst($row['directive_table'])."_schema {\n\n\tpublic function __construct(\$params)\n\t{\n\t\tparent::__construct(\$params);\n\n";
 			}
 
 			// アクター開始
