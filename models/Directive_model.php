@@ -59,7 +59,7 @@ FIELD(`directive_directive`, 'primary_key', 'display', 'use_card', 'has_hash', '
 
 		if ($this->actor !== 'a')
 		{
-			$this->remove('action_hash', 'genarate');
+			$this->remove('action_hash', 'generate');
 			$this->remove('action_hash', 'regularize');
 			$this->remove('action_hash', 'compile');
 			$this->remove('action_hash', 'decompile');
