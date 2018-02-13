@@ -48,6 +48,9 @@ if ( ! function_exists('exec_request'))
 
 		// URI連想配列を取得
 		$uri['uri_string'] = trim(isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '/', '/');
+		if (isset($_SERVER['argv'])) {
+			$uri['uri_string'] = trim(isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '/', '/');
+		}
 		$uri['param_arr']  = $uri['uri_string'] !== '' ? explode('/', $uri['uri_string']) : [];
 		$uri['language']   = isset($uri['param_arr'][0]) && in_array($uri['param_arr'][0], array_slice($config['uri']['language_list'], 1)) ? array_shift($uri['param_arr']) : $config['uri']['language_list'][0];
 		$uri['actor']      = isset($uri['param_arr'][0]) && in_array($uri['param_arr'][0], array_slice(array_keys($config['uri']['actor_hash']), 1)) ? array_shift($uri['param_arr']) : array_keys($config['uri']['actor_hash'])[0];
@@ -111,7 +114,7 @@ if ( ! function_exists('prepare_request'))
 	function prepare_request()
 	{
 		// 内部遷移ではなく言語がデフォルト言語なら
-		if (( ! isset($_SERVER['HTTP_REFERER']) OR ! preg_match('#^'.site_url('', FALSE, FALSE).'#', $_SERVER['HTTP_REFERER'])) && uri('language') === config('uri')['language_list'][0])
+		if ( ! isset($_SERVER['argv']) && ( ! isset($_SERVER['HTTP_REFERER']) OR ! preg_match('#^'.site_url('', FALSE, FALSE).'#', $_SERVER['HTTP_REFERER'])) && uri('language') === config('uri')['language_list'][0])
 		{
 			$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 			// 言語がデフォルト言語以外として定義されていればその言語へリダイレクト
@@ -139,7 +142,7 @@ if ( ! function_exists('prepare_request'))
 		}
 
 		// 認証制御
-		if ( ! isset($_SESSION[uri('actor')]['auth']['id']) && isset(config('auth')[uri('actor')]['login']) && uri('class') !== 'auth')
+		if ( ! isset($_SERVER['argv']) && ! isset($_SESSION[uri('actor')]['auth']['id']) && isset(config('auth')[uri('actor')]['login']) && uri('class') !== 'auth')
 		{
 			$redirect = uri('uri_string');
 			if ($_GET !== [])
