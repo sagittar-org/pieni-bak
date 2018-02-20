@@ -1,5 +1,5 @@
 <?php
-define('ENVIRONMENT', 'development');
+$config['environment'] = 'development';
 
 $config['uri']['language_list'] = [
 	'en',
