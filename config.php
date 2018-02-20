@@ -1,4 +1,6 @@
 <?php
+define('ENVIRONMENT', 'development');
+
 $config['uri']['language_list'] = [
 	'en',
 	'ja',
