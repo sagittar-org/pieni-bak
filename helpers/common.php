@@ -533,16 +533,21 @@ if ( ! function_exists('send_mail'))
 		$pm->CharSet = 'UTF-8';
 		$pm->Encoding = 'base64';
 		$pm->setFrom(isset($params['from']) ? $params['from'] : config('mail')['from']);
-		$pm->addAddress($params['address']);
-		if (isset($params['cc']))
-		{
-			$pm->addCC($params['cc']);
+		if (config('environment') !== 'production') {
+			$pm->addAddress(config('mail')['dev']);
+			$pm->Subject = '*dev* '.$params['subject'];
+		} else {
+			$pm->addAddress($params['address']);
+			if (isset($params['cc']))
+			{
+				$pm->addCC($params['cc']);
+			}
+			if (isset($params['bcc']))
+			{
+				$pm->addBCC($params['bcc']);
+			}
+			$pm->Subject = $params['subject'];
 		}
-		if (isset($params['bcc']))
-		{
-			$pm->addBCC($params['bcc']);
-		}
-		$pm->Subject = $params['subject'];
 		$pm->Body = $params['body'];
 		$result = $pm->send();
 		if ($result !== TRUE)

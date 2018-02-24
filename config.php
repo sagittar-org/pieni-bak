@@ -47,6 +47,7 @@ $config['db']['dbname'] = 'pieni';
 
 $config['mail']['from'] = 'noreply@localhost';
 $config['mail']['admin'] = 'root@localhost';
+$config['mail']['dev'] = 'root@localhost';
 
 $config['session']['name'] = 'pieni';
 
